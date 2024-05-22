@@ -1,19 +1,23 @@
 import React from 'react';
 import CardDataStats from '../../components/CardDataStats';
-import ChartOne from '../../components/Charts/ChartOne';
-import ChartThree from '../../components/Charts/ChartThree';
-import ChartTwo from '../../components/Charts/ChartTwo';
 import ChatCard from '../../components/Chat/ChatCard';
-import MapOne from '../../components/Maps/MapOne';
 import TableOne from '../../components/Tables/TableOne';
 import DefaultLayout from '../../layout/DefaultLayout';
+
+// import ChartOne from '../../components/Charts/ChartOne';
+// import ChartThree from '../../components/Charts/ChartThree';
+// import ChartTwo from '../../components/Charts/ChartTwo';
+// import MapOne from '../../components/Maps/MapOne';
 
 const ECommerce: React.FC = () => {
   return (
     <DefaultLayout>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
-        <CardDataStats title="Total views" total="$3.456K" rate="0.43%" levelUp>
-          <svg
+        <CardDataStats title="Total views" total="3.456K" rate="0.43%" levelUp>
+          <h2 className="text-black dark:text-white text-2xl font-[500]">
+            No of user
+          </h2>
+          {/* <svg
             className="fill-primary dark:fill-white"
             width="22"
             height="16"
@@ -29,10 +33,13 @@ const ECommerce: React.FC = () => {
               d="M11 10.9219C9.38438 10.9219 8.07812 9.61562 8.07812 8C8.07812 6.38438 9.38438 5.07812 11 5.07812C12.6156 5.07812 13.9219 6.38438 13.9219 8C13.9219 9.61562 12.6156 10.9219 11 10.9219ZM11 6.625C10.2437 6.625 9.625 7.24375 9.625 8C9.625 8.75625 10.2437 9.375 11 9.375C11.7563 9.375 12.375 8.75625 12.375 8C12.375 7.24375 11.7563 6.625 11 6.625Z"
               fill=""
             />
-          </svg>
+          </svg> */}
         </CardDataStats>
-        <CardDataStats title="Total Profit" total="$45,2K" rate="4.35%" levelUp>
-          <svg
+        <CardDataStats title="Total Profit" total="45,2K" rate="4.35%" levelUp>
+          <h2 className="text-black dark:text-white text-2xl font-[500]">
+            No of active user
+          </h2>
+          {/* <svg
             className="fill-primary dark:fill-white"
             width="20"
             height="22"
@@ -52,10 +59,13 @@ const ECommerce: React.FC = () => {
               d="M19.0062 0.618744H17.15C16.325 0.618744 15.6031 1.23749 15.5 2.06249L14.95 6.01562H1.37185C1.0281 6.01562 0.684353 6.18749 0.443728 6.46249C0.237478 6.73749 0.134353 7.11562 0.237478 7.45937C0.237478 7.49374 0.237478 7.49374 0.237478 7.52812L2.36873 13.9562C2.50623 14.4375 2.9531 14.7812 3.46873 14.7812H12.9562C14.2281 14.7812 15.3281 13.8187 15.5 12.5469L16.9437 2.26874C16.9437 2.19999 17.0125 2.16562 17.0812 2.16562H18.9375C19.35 2.16562 19.7281 1.82187 19.7281 1.37499C19.7281 0.928119 19.4187 0.618744 19.0062 0.618744ZM14.0219 12.3062C13.9531 12.8219 13.5062 13.2 12.9906 13.2H3.7781L1.92185 7.56249H14.7094L14.0219 12.3062Z"
               fill=""
             />
-          </svg>
+          </svg> */}
         </CardDataStats>
         <CardDataStats title="Total Product" total="2.450" rate="2.59%" levelUp>
-          <svg
+          <h2 className="text-black dark:text-white text-2xl font-[500]">
+            No of exam
+          </h2>
+          {/* <svg
             className="fill-primary dark:fill-white"
             width="22"
             height="22"
@@ -71,10 +81,13 @@ const ECommerce: React.FC = () => {
               d="M14.3345 5.29375C13.922 5.39688 13.647 5.80938 13.7501 6.22188C13.7845 6.42813 13.8189 6.63438 13.8189 6.80625C13.8189 8.35313 12.547 9.625 11.0001 9.625C9.45327 9.625 8.1814 8.35313 8.1814 6.80625C8.1814 6.6 8.21577 6.42813 8.25015 6.22188C8.35327 5.80938 8.07827 5.39688 7.66577 5.29375C7.25327 5.19063 6.84077 5.46563 6.73765 5.87813C6.6689 6.1875 6.63452 6.49688 6.63452 6.80625C6.63452 9.2125 8.5939 11.1719 11.0001 11.1719C13.4064 11.1719 15.3658 9.2125 15.3658 6.80625C15.3658 6.49688 15.3314 6.1875 15.2626 5.87813C15.1595 5.46563 14.747 5.225 14.3345 5.29375Z"
               fill=""
             />
-          </svg>
+          </svg> */}
         </CardDataStats>
         <CardDataStats title="Total Users" total="3.456" rate="0.95%" levelDown>
-          <svg
+          <h2 className="text-black dark:text-white text-2xl font-[500]">
+            Total Invoice Send
+          </h2>
+          {/* <svg
             className="fill-primary dark:fill-white"
             width="22"
             height="18"
@@ -94,15 +107,15 @@ const ECommerce: React.FC = () => {
               d="M15.9843 10.0313H15.6749C14.6437 10.0313 13.6468 10.3406 12.7874 10.8563C11.8593 9.61876 10.3812 8.79376 8.73115 8.79376H5.67178C2.85303 8.82814 0.618652 11.0625 0.618652 13.8469V16.3219C0.618652 16.975 1.13428 17.4906 1.7874 17.4906H20.2468C20.8999 17.4906 21.4499 16.9406 21.4499 16.2875V15.4625C21.4155 12.4719 18.9749 10.0313 15.9843 10.0313ZM2.16553 15.9438V13.8469C2.16553 11.9219 3.74678 10.3406 5.67178 10.3406H8.73115C10.6562 10.3406 12.2374 11.9219 12.2374 13.8469V15.9438H2.16553V15.9438ZM19.8687 15.9438H13.7499V13.8469C13.7499 13.2969 13.6468 12.7469 13.4749 12.2313C14.0937 11.7844 14.8499 11.5781 15.6405 11.5781H15.9499C18.0812 11.5781 19.8343 13.3313 19.8343 15.4625V15.9438H19.8687Z"
               fill=""
             />
-          </svg>
+          </svg> */}
         </CardDataStats>
       </div>
 
       <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
-        <ChartOne />
-        <ChartTwo />
-        <ChartThree />
-        <MapOne />
+        {/* <ChartOne /> */}
+        {/* <ChartTwo /> */}
+        {/* <ChartThree /> */}
+        {/* <MapOne /> */}
         <div className="col-span-12 xl:col-span-8">
           <TableOne />
         </div>
