@@ -18,6 +18,8 @@ import Buttons from './pages/UiElements/Buttons';
 import UserManagement from './pages/user-management';
 import McqTemplateEditor from './pages/McqTemplateEditor';
 import QuizeTemplateEditor from './pages/QuizeTemplateEditor';
+import GalleryManagement from './pages/GalleryManagement';
+import ProductManagement from './pages/ProductManagement';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -69,6 +71,24 @@ function App() {
             <>
               <PageTitle title="Quzie Template Editor | Innovative" />
               <QuizeTemplateEditor />
+            </>
+          }
+        />
+         <Route
+          path="/gallery-management"
+          element={
+            <>
+              <PageTitle title="Gallery Management | Innovative" />
+              <GalleryManagement />
+            </>
+          }
+        />
+         <Route
+          path="/product-management"
+          element={
+            <>
+              <PageTitle title="Product Management | Innovative" />
+              <ProductManagement />
             </>
           }
         />

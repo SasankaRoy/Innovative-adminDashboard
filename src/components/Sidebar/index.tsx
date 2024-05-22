@@ -220,6 +220,29 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                               Quiz Template Editor
                             </NavLink>
                           </li>
+
+                          <li>
+                            <NavLink
+                              to="/gallery-management"
+                              className={({ isActive }) =>
+                                'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
+                                (isActive && '!text-white')
+                              }
+                            >
+                              Gallery Management
+                            </NavLink>
+                          </li>
+                          <li>
+                            <NavLink
+                              to="/product-management"
+                              className={({ isActive }) =>
+                                'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
+                                (isActive && '!text-white')
+                              }
+                            >
+                              Product Management
+                            </NavLink>
+                          </li>
                         </ul>
                       </div>
                       {/* <!-- Dropdown Menu End --> */}
