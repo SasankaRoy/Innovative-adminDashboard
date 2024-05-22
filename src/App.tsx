@@ -17,6 +17,7 @@ import Alerts from './pages/UiElements/Alerts';
 import Buttons from './pages/UiElements/Buttons';
 import UserManagement from './pages/user-management';
 import McqTemplateEditor from './pages/McqTemplateEditor';
+import QuizeTemplateEditor from './pages/QuizeTemplateEditor';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -59,6 +60,15 @@ function App() {
             <>
               <PageTitle title="MCQ Template Editor | Innovative" />
               <McqTemplateEditor />
+            </>
+          }
+        />
+         <Route
+          path="/quiz-template-editor"
+          element={
+            <>
+              <PageTitle title="Quzie Template Editor | Innovative" />
+              <QuizeTemplateEditor />
             </>
           }
         />

@@ -8,7 +8,7 @@ const McqTemplateEditor = () => {
       <Breadcrumb pageName="MCQs Template Editor" />
 
       <div className="flex flex-col gap-10">
-        <TableThree />
+        <TableThree pagetitle='MCQs Template' />
       </div>
     </DefaultLayout>
   );
