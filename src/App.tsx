@@ -24,6 +24,7 @@ import { CategoryManagement } from './pages/CategoryManagement';
 import { TrainingModuleManagement } from './pages/TrainingModuleManagement';
 import { ChooseUs } from './pages/ChooseUs';
 import { PartnersManagement } from './pages/PartnersManagement';
+import { ServiceManagement } from './pages/ServiceManagement';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -129,6 +130,15 @@ function App() {
             <>
               <PageTitle title="Partners Management | Innovative" />
               <PartnersManagement />
+            </>
+          }
+        />
+         <Route
+          path="/service-management"
+          element={
+            <>
+              <PageTitle title="Service Management | Innovative" />
+              <ServiceManagement />
             </>
           }
         />

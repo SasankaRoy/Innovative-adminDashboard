@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 import { Package } from '../../types/package';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
-import { CreateModel } from '../../common/CreateModel/CreateModel';
-import { CreateGalleryModel } from '../../common/CreateModel/CreateGalleryModel';
-import { CreateProductModel } from '../../common/CreateModel/CreateProductModel';
-import { CreateCategoryModel } from '../../common/CreateModel/CreateCategoryModel';
-import { CreateTrainingModel } from '../../common/CreateModel/CreateTrainingModel';
-import { CreateChooseUsModel } from '../../common/CreateModel/CreateChooseUsModel';
-import { CreatePartnerModel } from '../../common/CreateModel/CreatePartnerModel';
+import { UpdateModel } from '../../common/UpdateModel/UpdateModel';
+import { UpdateGalleryModel } from '../../common/UpdateModel/UpdateGalleryModel';
+import { UpdateProductModel } from '../../common/UpdateModel/UpdateProductModel';
+import { UpdateCategoryModel } from '../../common/UpdateModel/UpdateCategoryModel';
+import { UpdateTrainingModel } from '../../common/UpdateModel/UpdateTrainingModel';
+import { UpdateChooseUsModel } from '../../common/UpdateModel/UpdateChooseUsModel';
+import { UpdatePartnerModel } from '../../common/UpdateModel/UpdatePartnerModel';
 
 const packageData: Package[] = [
   {
@@ -185,52 +185,52 @@ const TableThree = ({ pagetitle }: any) => {
         </div>
       </div>
       {isCreateModel && pagetitle === 'Gallery' && (
-        <CreateGalleryModel
+        <UpdateGalleryModel
           setIsCreateModel={setIsCreateModel}
           pagetitle={pagetitle}
         />
       )}
       {isCreateModel &&
-      (pagetitle.split(' ')[0] === 'MCQs' ||
-        pagetitle.split(' ')[0] === 'Quzie') ? (
-        <CreateModel
-          setIsCreateModel={setIsCreateModel}
-          pagetitle={pagetitle}
-        />
-      ) : (
-        ''
-      )}
+        (pagetitle.split(' ')[0] === 'MCQs' ||
+          pagetitle.split(' ')[0] === 'Quzie') && (
+          <UpdateModel
+            setIsCreateModel={setIsCreateModel}
+            pagetitle={pagetitle}
+          />
+        )}
       {isCreateModel && pagetitle.split(' ')[0] === 'Product' && (
-        <CreateProductModel
+        <UpdateProductModel
           setIsCreateModel={setIsCreateModel}
           pagetitle={pagetitle}
         />
       )}
 
       {isCreateModel && pagetitle.split(' ')[0] === 'Category' && (
-        <CreateCategoryModel
+        <UpdateCategoryModel
           setIsCreateModel={setIsCreateModel}
           pagetitle={pagetitle}
         />
       )}
       {isCreateModel && pagetitle.split(' ')[0] === 'Training' && (
-        <CreateTrainingModel
+        <UpdateTrainingModel
           setIsCreateModel={setIsCreateModel}
           pagetitle={pagetitle}
         />
       )}
       {isCreateModel && pagetitle.split(' ')[0] === 'Choose' && (
-        <CreateChooseUsModel
+        <UpdateChooseUsModel
           setIsCreateModel={setIsCreateModel}
           pagetitle={pagetitle}
         />
       )}
-      {isCreateModel && pagetitle.split(' ')[0] === 'Partner' && (
-        <CreatePartnerModel
-          setIsCreateModel={setIsCreateModel}
-          pagetitle={pagetitle}
-        />
-      )}
+      {isCreateModel &&
+        (pagetitle.split(' ')[0] === 'Partner' ||
+          pagetitle.split(' ')[0] === 'Service') && (
+          <UpdatePartnerModel
+            setIsCreateModel={setIsCreateModel}
+            pagetitle={pagetitle}
+          />
+        )}
     </>
   );
 };

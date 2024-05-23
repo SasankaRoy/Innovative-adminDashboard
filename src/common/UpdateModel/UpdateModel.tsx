@@ -4,7 +4,7 @@ import CameraEnhanceRoundedIcon from '@mui/icons-material/CameraEnhanceRounded';
 import { useRef, useState } from 'react';
 import AddIcon from '../../images/AddIcon2.jpg';
 
-export const CreateModel = ({ setIsCreateModel, pagetitle }: any) => {
+export const UpdateModel = ({ setIsCreateModel, pagetitle }: any) => {
   const [isAddMCQ, setIsAddMCQ] = useState(false);
   const [optionType, setOptionType] = useState('text');
   const [selectedFiles, setSelectedFiles] = useState({

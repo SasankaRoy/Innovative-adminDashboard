@@ -2,7 +2,7 @@ import AddIcon from '../../images/AddIcon.jpg';
 import AddIcon2 from '../../images/AddIcon2.jpg';
 import CameraEnhanceRoundedIcon from '@mui/icons-material/CameraEnhanceRounded';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
-export const CreateGalleryModel = ({ setIsCreateModel, pagetitle }: any) => {
+export const UpdateGalleryModel = ({ setIsCreateModel, pagetitle }: any) => {
   return (
     <div className="fixed top-0 left-0 EditModelZindex flex justify-center items-center w-full h-full backdrop-blur-md">
       <div className="shadow-md p-4 w-[50%] rounded-md dark:border-strokedark dark:bg-boxdark border-stroke bg-white overflow-y-auto max-h-full">
