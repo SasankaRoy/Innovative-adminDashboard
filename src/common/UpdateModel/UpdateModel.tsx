@@ -1,8 +1,8 @@
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import CameraEnhanceRoundedIcon from '@mui/icons-material/CameraEnhanceRounded';
-import { useRef, useState } from 'react';
 import AddIcon from '../../images/AddIcon2.jpg';
+import { useRef, useState } from 'react';
 
 export const UpdateModel = ({ setIsCreateModel, pagetitle }: any) => {
   const [isAddMCQ, setIsAddMCQ] = useState(false);
