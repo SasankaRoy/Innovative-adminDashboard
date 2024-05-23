@@ -20,6 +20,7 @@ import McqTemplateEditor from './pages/McqTemplateEditor';
 import QuizeTemplateEditor from './pages/QuizeTemplateEditor';
 import GalleryManagement from './pages/GalleryManagement';
 import ProductManagement from './pages/ProductManagement';
+import { CategoryManagement } from './pages/CategoryManagement';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -89,6 +90,15 @@ function App() {
             <>
               <PageTitle title="Product Management | Innovative" />
               <ProductManagement />
+            </>
+          }
+        />
+         <Route
+          path="/category-management"
+          element={
+            <>
+              <PageTitle title="Category Management | Innovative" />
+              <CategoryManagement />
             </>
           }
         />

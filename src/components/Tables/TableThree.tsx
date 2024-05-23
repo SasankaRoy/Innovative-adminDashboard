@@ -6,6 +6,7 @@ import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import { CreateModel } from '../../common/CreateModel/CreateModel';
 import { CreateGalleryModel } from '../../common/CreateModel/CreateGalleryModel';
 import { CreateProductModel } from '../../common/CreateModel/CreateProductModel';
+import { CreateCategoryModel } from '../../common/CreateModel/CreateCategoryModel';
 
 const packageData: Package[] = [
   {
@@ -196,14 +197,19 @@ const TableThree = ({ pagetitle }: any) => {
       ) : (
         ''
       )}
-      {
-        isCreateModel && (pagetitle.split(' ')[0] === 'Product') &&(
-          <CreateProductModel
-            setIsCreateModel={setIsCreateModel}
-            pagetitle={pagetitle}
-          />
-        )
-      }
+      {isCreateModel && pagetitle.split(' ')[0] === 'Product' && (
+        <CreateProductModel
+          setIsCreateModel={setIsCreateModel}
+          pagetitle={pagetitle}
+        />
+      )}
+
+      {isCreateModel && pagetitle.split(' ')[0] === 'Category' && (
+        <CreateCategoryModel
+          setIsCreateModel={setIsCreateModel}
+          pagetitle={pagetitle}
+        />
+      )}
     </>
   );
 };
