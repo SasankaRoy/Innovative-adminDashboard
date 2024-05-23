@@ -22,6 +22,8 @@ import GalleryManagement from './pages/GalleryManagement';
 import ProductManagement from './pages/ProductManagement';
 import { CategoryManagement } from './pages/CategoryManagement';
 import { TrainingModuleManagement } from './pages/TrainingModuleManagement';
+import { ChooseUs } from './pages/ChooseUs';
+import { PartnersManagement } from './pages/PartnersManagement';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -109,6 +111,24 @@ function App() {
             <>
               <PageTitle title="Training Module Management | Innovative" />
               <TrainingModuleManagement />
+            </>
+          }
+        />
+         <Route
+          path="/choose-us"
+          element={
+            <>
+              <PageTitle title="Choose Us Management | Innovative" />
+              <ChooseUs />
+            </>
+          }
+        />
+         <Route
+          path="/partner-management"
+          element={
+            <>
+              <PageTitle title="Partners Management | Innovative" />
+              <PartnersManagement />
             </>
           }
         />

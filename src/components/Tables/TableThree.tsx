@@ -8,6 +8,8 @@ import { CreateGalleryModel } from '../../common/CreateModel/CreateGalleryModel'
 import { CreateProductModel } from '../../common/CreateModel/CreateProductModel';
 import { CreateCategoryModel } from '../../common/CreateModel/CreateCategoryModel';
 import { CreateTrainingModel } from '../../common/CreateModel/CreateTrainingModel';
+import { CreateChooseUsModel } from '../../common/CreateModel/CreateChooseUsModel';
+import { CreatePartnerModel } from '../../common/CreateModel/CreatePartnerModel';
 
 const packageData: Package[] = [
   {
@@ -213,6 +215,18 @@ const TableThree = ({ pagetitle }: any) => {
       )}
       {isCreateModel && pagetitle.split(' ')[0] === 'Training' && (
         <CreateTrainingModel
+          setIsCreateModel={setIsCreateModel}
+          pagetitle={pagetitle}
+        />
+      )}
+      {isCreateModel && pagetitle.split(' ')[0] === 'Choose' && (
+        <CreateChooseUsModel
+          setIsCreateModel={setIsCreateModel}
+          pagetitle={pagetitle}
+        />
+      )}
+      {isCreateModel && pagetitle.split(' ')[0] === 'Partner' && (
+        <CreatePartnerModel
           setIsCreateModel={setIsCreateModel}
           pagetitle={pagetitle}
         />
