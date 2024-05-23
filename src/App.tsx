@@ -21,6 +21,7 @@ import QuizeTemplateEditor from './pages/QuizeTemplateEditor';
 import GalleryManagement from './pages/GalleryManagement';
 import ProductManagement from './pages/ProductManagement';
 import { CategoryManagement } from './pages/CategoryManagement';
+import { TrainingModuleManagement } from './pages/TrainingModuleManagement';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -99,6 +100,15 @@ function App() {
             <>
               <PageTitle title="Category Management | Innovative" />
               <CategoryManagement />
+            </>
+          }
+        />
+         <Route
+          path="/training-module-management"
+          element={
+            <>
+              <PageTitle title="Training Module Management | Innovative" />
+              <TrainingModuleManagement />
             </>
           }
         />
