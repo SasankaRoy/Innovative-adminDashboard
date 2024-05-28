@@ -1,7 +1,7 @@
 import React from 'react'
 import DefaultLayout from '../layout/DefaultLayout'
 import Breadcrumb from '../components/Breadcrumbs/Breadcrumb'
-import TableThree from '../components/Tables/TableThree'
+import TableThree from '../components/Tables/McqTable'
 
 export const PartnersManagement = () => {
   return (

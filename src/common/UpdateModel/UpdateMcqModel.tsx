@@ -2,59 +2,17 @@ import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import CameraEnhanceRoundedIcon from '@mui/icons-material/CameraEnhanceRounded';
 import AddIcon from '../../images/AddIcon2.jpg';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export const UpdateModel = ({ setIsCreateModel, pagetitle }: any) => {
-  const [isAddMCQ, setIsAddMCQ] = useState(false);
-  const [optionType, setOptionType] = useState('text');
-  const [selectedFiles, setSelectedFiles] = useState({
-    OptionA: '',
-    OptionB: '',
-    OptionC: '',
-    OptionD: '',
-    AnswerOption: '',
-  });
 
-  // for image option preview and upload....
-  const optionARef = useRef(null);
-  const optionBRef = useRef(null);
-  const optionCRef = useRef(null);
-  const optionDRef = useRef(null);
-  const answeroptionRef = useRef(null);
-
-  /**
-   * The function `handleOptionChooseChange` sets the `optionType` state based on the checked value of an
-   * input element.
-   * @param e - The parameter `e` is an object that has a `target` property. The `target` property is
-   * also an object that has `checked` and `value` properties.
-   */
-  const handleOptionChooseChange = (e: {
-    target: { checked: any; value: any };
-  }) => {
-    const { checked, value } = e.target;
-    if (checked) {
-      setOptionType(value);
-    }
-  };
-
-  const handleOptionFileChange = (e: any) => {
-    const { name, files } = e.target;
-
-    const rawFileData = new FileReader();
-
-    rawFileData.readAsDataURL(files[0]);
-
-    rawFileData.onload = (readed) => {
-      setSelectedFiles({
-        ...selectedFiles,
-        [name]: readed.target?.result,
-      });
-    };
-  };
+  useEffect(()=>{
+    console.log("mmmm",setIsCreateModel)
+  },[])
 
   return (
     <>
-      <div className="fixed top-0 left-0 EditModelZindex flex justify-center items-center w-full h-full backdrop-blur-md">
+      {/* <div className="fixed top-0 left-0 EditModelZindex flex justify-center items-center w-full h-full backdrop-blur-md">
         <div className="shadow-md p-4 w-[50%] rounded-md dark:border-strokedark dark:bg-boxdark border-stroke bg-white overflow-y-auto max-h-full">
           <div className="flex justify-between items-center">
             <h2 className="text-[800] text-3xl ">{pagetitle} update</h2>
@@ -440,7 +398,7 @@ export const UpdateModel = ({ setIsCreateModel, pagetitle }: any) => {
             </button>
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 };

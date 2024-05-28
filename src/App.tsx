@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Router,Route, Routes, useLocation } from 'react-router-dom';
 
 import Loader from './common/Loader';
 import PageTitle from './components/PageTitle';
@@ -25,6 +25,8 @@ import { TrainingModuleManagement } from './pages/TrainingModuleManagement';
 import { ChooseUs } from './pages/ChooseUs';
 import { PartnersManagement } from './pages/PartnersManagement';
 import { ServiceManagement } from './pages/ServiceManagement';
+import Login from './pages/Authentication/login';
+import ViewMcqTemplate from './components/viewMcqTemplate/viewMcqTemplate';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -43,8 +45,17 @@ function App() {
   ) : (
     <>
       <Routes>
-        <Route
+      <Route
           index
+          element={
+            <>
+              {/* <PageTitle title="login" /> */}
+              <Login />
+            </>
+          }
+        />
+        <Route
+            path="/dashboard"
           element={
             <>
               <PageTitle title="eCommerce Dashboard | TailAdmin - Tailwind CSS Admin Dashboard Template" />
@@ -67,6 +78,15 @@ function App() {
             <>
               <PageTitle title="MCQ Template Editor | Innovative" />
               <McqTemplateEditor />
+            </>
+          }
+        />
+         <Route
+          path="/view-mcq-template"
+          element={
+            <>
+              <PageTitle title="View Mcq Template" />
+              <ViewMcqTemplate />
             </>
           }
         />

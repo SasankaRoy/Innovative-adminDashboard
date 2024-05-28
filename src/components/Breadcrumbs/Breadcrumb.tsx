@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
 import { useState } from 'react';
 // import { CreateModel } from '../../common/CreateModel/CreateModel';
-import { UpdateModel } from '../../common/UpdateModel/UpdateModel';
+import { UpdateModel } from '../../common/UpdateModel/UpdateMcqModel';
 interface BreadcrumbProps {
   pageName: string;
 }
@@ -34,6 +34,11 @@ const Breadcrumb = ({ pageName }: BreadcrumbProps) => {
 
       {
         isCreateModel && pageName.split(' ')[0] === 'User' &&(
+          <UpdateModel setIsCreateModel={setIsCreateModel} pagetitle={pageName.split(' ')[0]} />
+        )
+      }
+       {
+        isCreateModel && pageName.split(' ')[0] === 'Mcq' &&(
           <UpdateModel setIsCreateModel={setIsCreateModel} pagetitle={pageName.split(' ')[0]} />
         )
       }

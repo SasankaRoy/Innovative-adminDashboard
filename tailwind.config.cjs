@@ -5,6 +5,11 @@ module.exports = {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   darkMode: 'class',
   theme: {
+    extend: {
+      margin: {
+        '6rem': '6rem',
+      }
+    },
     fontFamily: {
       satoshi: ['Satoshi', 'sans-serif'],
     },
