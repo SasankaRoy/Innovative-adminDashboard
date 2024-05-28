@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import CardDataStats from '../../components/CardDataStats';
 import ChatCard from '../../components/Chat/ChatCard';
 import TableOne from '../../components/Tables/TableOne';
 import DefaultLayout from '../../layout/DefaultLayout';
+import { useNavigate } from 'react-router-dom';
+import { fetchInvoices, fetchMcqTemplates, fetchPurchaseOrders, fetchQuizTemplates, fetchUsers } from '../../api-calls/apicalls';
 
 // import ChartOne from '../../components/Charts/ChartOne';
 // import ChartThree from '../../components/Charts/ChartThree';
@@ -10,10 +12,77 @@ import DefaultLayout from '../../layout/DefaultLayout';
 // import MapOne from '../../components/Maps/MapOne';
 
 const ECommerce: React.FC = () => {
+  const [mcqTemplates, setMcqTemplates] = useState<any[]|undefined>(undefined);
+  const [invoices, setInvoices] = useState<any[]|undefined>(undefined);
+  const [quizTemplates, setQuizTemplates] = useState<any[]|undefined>(undefined);
+  const [users, setUsers] = useState<any[]|undefined>(undefined);
+  const [activeUsers, setActiveUsers] = useState<any[]|undefined>(undefined);
+ const navigate=useNavigate();
+
+  useEffect(() => {
+    // setWindowWidth(window.innerWidth);
+    // window.addEventListener("resize", updateWindowWidth);
+
+    const fetcher = async () => {
+      let mcqTemplatesData : any = await fetchMcqTemplates();
+      if (mcqTemplatesData?.message === "jwt expired"||mcqTemplatesData?.message ==="jwt is not present") {
+        return navigate("/");
+      } else {
+        // console.log("kool",mcqTemplatesData)
+       
+      setMcqTemplates([...mcqTemplatesData]);
+    }
+    let quizTemplatesData : any = await fetchQuizTemplates();
+    if (quizTemplatesData?.message === "jwt expired"||quizTemplatesData?.message ==="jwt is not present") {
+      return navigate("/");
+    } else {
+      // console.log("kool",mcqTemplatesData)
+     
+    setQuizTemplates([...quizTemplatesData]);
+  }
+
+  let invoicesData : any = await fetchInvoices();
+  if (invoicesData?.message === "jwt expired"||invoicesData?.message ==="jwt is not present") {
+    return navigate("/");
+  } else {
+    // console.log("kool",mcqTemplatesData)
+   
+  setInvoices([...invoicesData]);
+}
+
+
+let usersData : any = await fetchUsers();
+if (usersData?.message === "jwt expired"||usersData?.message ==="jwt is not present") {
+  return navigate("/");
+} else {
+  // console.log("kool",mcqTemplatesData)
+ 
+setUsers([...usersData]);
+}
+
+let purchaseOrdersData : any = await fetchPurchaseOrders();
+if (purchaseOrdersData?.message === "jwt expired"||purchaseOrdersData?.message ==="jwt is not present") {
+  return navigate("/");
+} else {
+  // console.log("kool",mcqTemplatesData)
+ 
+setActiveUsers([...purchaseOrdersData]);
+}
+
+      
+    }
+
+    
+    fetcher();
+
+    // return () => {
+    //   window.removeEventListener("resize", updateWindowWidth);
+    // };
+  }, []);
   return (
     <DefaultLayout>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
-        <CardDataStats title="Total views" total="3.456K" rate="0.43%" levelUp>
+        <CardDataStats title="Total views" total={users?.length} rate="0.43%" levelUp>
           <h2 className="text-black dark:text-white text-2xl font-[500]">
             No of user
           </h2>
@@ -35,7 +104,7 @@ const ECommerce: React.FC = () => {
             />
           </svg> */}
         </CardDataStats>
-        <CardDataStats title="Total Profit" total="45,2K" rate="4.35%" levelUp>
+        <CardDataStats title="Total Profit" total={activeUsers?.length} rate="4.35%" levelUp>
           <h2 className="text-black dark:text-white text-2xl font-[500]">
             No of active user
           </h2>
@@ -61,7 +130,7 @@ const ECommerce: React.FC = () => {
             />
           </svg> */}
         </CardDataStats>
-        <CardDataStats title="Total Product" total="2.450" rate="2.59%" levelUp>
+        <CardDataStats title="Total Product" total={`${mcqTemplates?.length+quizTemplates?.length}`} rate="2.59%" levelUp>
           <h2 className="text-black dark:text-white text-2xl font-[500]">
             No of exam
           </h2>
@@ -83,7 +152,7 @@ const ECommerce: React.FC = () => {
             />
           </svg> */}
         </CardDataStats>
-        <CardDataStats title="Total Users" total="3.456" rate="0.95%" levelDown>
+        <CardDataStats title="Total Users" total={`${invoices?.length}`} rate="0.95%" levelDown>
           <h2 className="text-black dark:text-white text-2xl font-[500]">
             Total Invoice Send
           </h2>

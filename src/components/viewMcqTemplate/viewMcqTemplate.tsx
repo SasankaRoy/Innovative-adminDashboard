@@ -305,7 +305,7 @@ function ViewMcqTemplate() {
       
       <div className="row">
         
-        <div className="p-4"
+        <div className="p-5"
           style={{
             // height: "500px",
             overflowY: "hidden"

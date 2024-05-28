@@ -257,25 +257,30 @@ export const deleteMcqTemplates = async (deleteData:any) => {
 //   }
 // };
 
-// export const fetchInvoices = async () => {
-//   let invoicesData = [];
-//   try {
-//     const response = await axios({
-//       method: "get",
-//       url: `${process.env.REACT_APP_BASE_URL}/api/invoice`,
-//       headers: {
-//         authorization: `Bearer ${token}`,
-//       },
-//     });
-//     invoicesData = response.data.fetchedData;
-//     // console.log(templatesData)
-//   } catch (error) {
-//     // console.log("err", error);
-//     invoicesData=error?.response?.data;
-//   } finally {
-//     return invoicesData;
-//   }
-// };
+export const fetchInvoices = async () => {
+  let invoicesData = [];
+  const token = localStorage.getItem("token");
+
+  if(token)
+  {try {
+    const response = await axios({
+      method: "get",
+      url: `${API_URL}/api/invoice`,
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+    invoicesData = response.data.fetchedData;
+    // console.log(templatesData)
+  } catch (error:any) {
+    // console.log("err", error);
+    invoicesData=error?.response?.data;
+  } finally {
+    return invoicesData;
+  }}else{
+    return {message:"jwt is not present"}
+  }
+};
 
 // export const updateInvoices = async (updateData) => {
 //   let invoicesData = [];
@@ -320,24 +325,29 @@ export const deleteMcqTemplates = async (deleteData:any) => {
 //   }
 // };
 
-// export const fetchUsers = async () => {
-//   let usersData = [];
-//   try {
-//     const response = await axios({
-//       method: "get",
-//       url: `${process.env.REACT_APP_BASE_URL}/api/user`,
-//       headers: {
-//         authorization: `Bearer ${token}`,
-//       },
-//     });
-//     usersData = response.data.allUserData;
-//   } catch (error) {
-//     // console.log("err", error);
-//     usersData=error?.response?.data;
-//   } finally {
-//     return usersData;
-//   }
-// };
+export const fetchUsers = async () => {
+  const token = localStorage.getItem("token");
+  let usersData = [];
+
+  if(token){
+  try {
+    const response = await axios({
+      method: "get",
+      url: `${API_URL}/api/user`,
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+    usersData = response.data.allUserData;
+  } catch (error:any) {
+    // console.log("err", error);
+    usersData=error?.response?.data;
+  } finally {
+    return usersData;
+  }}else{
+    return {message:"jwt is not present"}
+  }
+};
 
 // export const createUsers = async (userData) => {
 //   let tempUsers = [];
@@ -432,24 +442,29 @@ export const deleteMcqTemplates = async (deleteData:any) => {
 //   }
 // };
 
-// export const fetchPurchaseOrders = async () => {
-//   let tempPurchaseOrders = [];
-//   try {
-//     const response = await axios({
-//       method: "get",
-//       url: `${process.env.REACT_APP_BASE_URL}/api/purchase-order`,
-//       headers: {
-//         authorization: `Bearer ${token}`,
-//       },
-//     });
-//     tempPurchaseOrders = response.data.fetchedData;
-//   } catch (error) {
-//     // console.log("err", error);
-//     tempPurchaseOrders=error?.response?.data;
-//   } finally {
-//     return tempPurchaseOrders;
-//   }
-// };
+export const fetchPurchaseOrders = async () => {
+  let tempPurchaseOrders = [];
+  const token=localStorage.getItem("token")
+
+  if(token){
+  try {
+    const response = await axios({
+      method: "get",
+      url: `${API_URL}/api/purchase-order`,
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+    tempPurchaseOrders = response.data.fetchedData;
+  } catch (error:any) {
+    // console.log("err", error);
+    tempPurchaseOrders=error?.response?.data;
+  } finally {
+    return tempPurchaseOrders;
+  }}else{
+    return {message:"jwt is not present"}
+  }
+};
 
 // export const updatePurchaseOrders = async (updateData) => {
 //   let poData = [];
@@ -561,26 +576,31 @@ export const deleteMcqTemplates = async (deleteData:any) => {
 //   }
 // };
 
-// export const fetchQuizTemplates = async () => {
-//   let templatesData = [];
-//   try {
-//     const response = await axios({
-//       method: "get",
-//       url: `${process.env.REACT_APP_BASE_URL}/api/quiz-template`,
-//       headers: {
-//         authorization: `Bearer ${token}`,
-//       },
-//     });
+export const fetchQuizTemplates = async () => {
+  let templatesData = [];
+  const token=localStorage.getItem("token")
 
-//     templatesData = response.data.allQuizTemplates;
-//     // console.log(templatesData)
-//   } catch (error) {
-//     // console.log("err", error);
-//     templatesData=error?.response?.data;
-//   } finally {
-//     return templatesData;
-//   }
-// };
+  if(token)
+ { try {
+    const response = await axios({
+      method: "get",
+      url: `${API_URL}/api/quiz-template`,
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+
+    templatesData = response.data.allQuizTemplates;
+    // console.log(templatesData)
+  } catch (error:any) {
+    // console.log("err", error);
+    templatesData=error?.response?.data;
+  } finally {
+    return templatesData;
+  }}else{
+    return {message:"jwt is not present"}
+  }
+};
 
 // export const createFaqs = async (faqData) => {
 //   let tempFaq = [];
