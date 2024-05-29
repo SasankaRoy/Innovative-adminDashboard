@@ -50,7 +50,7 @@ function Login() {
   if (showNotFound === true) {
     return (
       <div className='flex justify-center'>
-        You are already logged in, go to&nbsp;<a href="/dashboard">dashboard</a>
+        You are already logged in, go to&nbsp;<a className="underlined" href="/dashboard">dashboard</a>
       </div>
     );
   } else if (showNotFound === false) {
