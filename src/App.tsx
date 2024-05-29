@@ -25,7 +25,7 @@ import { TrainingModuleManagement } from './pages/TrainingModuleManagement';
 import { ChooseUs } from './pages/ChooseUs';
 import { PartnersManagement } from './pages/PartnersManagement';
 import { ServiceManagement } from './pages/ServiceManagement';
-import Login from './pages/Authentication/login';
+import Login from './pages/Authentication/Login';
 import ViewMcqTemplate from './components/viewMcqTemplate/viewMcqTemplate';
 
 function App() {
