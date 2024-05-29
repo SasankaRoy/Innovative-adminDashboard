@@ -1,6 +1,6 @@
 import  { useState } from 'react'
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
-export const UpdateUserModel = ({setIsEditShow}) => {
+export const UpdateUserModel = ({setIsEditShow}:any) => {
     const [selectedOption, setSelectedOption] = useState<string>('');
     const [isOptionSelected, setIsOptionSelected] = useState<boolean>(false);
     
