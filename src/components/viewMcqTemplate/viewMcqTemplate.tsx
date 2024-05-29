@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
+// import "bootstrap/dist/css/bootstrap.min.css";
 // import Nav from "../navbar/navbar";
 // import Sidebar from "../sidebar/sidebar";
 import "./viewMcqTemplate.css";
@@ -34,9 +34,9 @@ function ViewMcqTemplate() {
 
   const handleSaveAndNext = async () => {
 
-    let tempSign:any= sign
-    let tempAns:any= ans
-    let tempPageNo:any = pageNumber;
+    let tempSign: any = sign
+    let tempAns: any = ans
+    let tempPageNo: any = pageNumber;
 
     // console.log("temppp",tempPageNo)
 
@@ -48,8 +48,8 @@ function ViewMcqTemplate() {
       setAnswered(false)
     }
 
-    let dbAns :any[]= []
-    tempAns.forEach((t:any) => {
+    let dbAns: any[] = []
+    tempAns.forEach((t: any) => {
       if (t !== "unattempted") {
         dbAns.push(t.toString())
       } else {
@@ -74,7 +74,7 @@ function ViewMcqTemplate() {
 
 
 
-    templateData.mcqs[pageNumber - 1].options.forEach((_:any, opInd:any) => {
+    templateData.mcqs[pageNumber - 1].options.forEach((_: any, opInd: any) => {
       if (ans[pageNumber - 1] === "unattempted") {
         tempSign[pageNumber - 1] = "unsigned"
         setSign([...tempSign])
@@ -92,11 +92,11 @@ function ViewMcqTemplate() {
     setPageNumber(tempPageNo + 1);
   };
 
-  const handleClickedOption = (type:any, ind:any) => {
+  const handleClickedOption = (type: any, ind: any) => {
     // console.log("click",ind)
     templateData &&
       templateData?.mcqs?.length !== 0 &&
-      templateData.mcqs[pageNumber - 1].options.forEach((op:any, opInd:any) => {
+      templateData.mcqs[pageNumber - 1].options.forEach((op: any, opInd: any) => {
         if (opInd === ind) {
           if (op === templateData.mcqs[pageNumber - 1].answer) {
             // console.log("{correct}",opInd+"---"+ind)
@@ -112,7 +112,7 @@ function ViewMcqTemplate() {
 
             document.getElementById(`main-div-${type}-option-${ind}`).style.border = "6px solid #D4FFD6";
 
-            templateData.mcqs[pageNumber - 1].options.forEach((_:any, opInd:any) => {
+            templateData.mcqs[pageNumber - 1].options.forEach((_: any, opInd: any) => {
               document.getElementById(`main-div-${type}-option-${opInd}`).addEventListener("click", function (event) {
                 event.stopPropagation();
               });
@@ -134,13 +134,13 @@ function ViewMcqTemplate() {
 
             document.getElementById(`main-div-${type}-option-${ind}`).style.border = "6px solid #FFD4D4";
 
-            templateData.mcqs[pageNumber - 1].options.forEach((op:any, opInd:any) => {
+            templateData.mcqs[pageNumber - 1].options.forEach((op: any, opInd: any) => {
               if (op === templateData.mcqs[pageNumber - 1].answer) {
                 document.getElementById(`main-div-${type}-option-${opInd}`).style.border = "6px solid #D4FFD6";
               }
             })
 
-            templateData.mcqs[pageNumber - 1].options.forEach((_:any, opInd:any) => {
+            templateData.mcqs[pageNumber - 1].options.forEach((_: any, opInd: any) => {
               document.getElementById(`${type}-option-${opInd}`).addEventListener("click", function (event) {
                 event.stopPropagation();
               });
@@ -170,7 +170,7 @@ function ViewMcqTemplate() {
       templateData &&
       Array.isArray(templateData?.attempted) &&
       templateData?.attempted?.length !== 0 ?
-      templateData?.attempted.forEach((tat:any, _:any) => {
+      templateData?.attempted.forEach((tat: any, _: any) => {
         if (tat?.user_email === ADMIN_EMAIL) {
           let tempAns = []
 
@@ -238,7 +238,7 @@ function ViewMcqTemplate() {
 
         }
 
-      }) : templateData?.mcqs.forEach((tat:any, _:any) => {
+      }) : templateData?.mcqs.forEach((tat: any, _: any) => {
 
         //  console.log("283")
 
@@ -302,138 +302,138 @@ function ViewMcqTemplate() {
 
   return (
     <>
-      
-      <div className="row">
-        
-        <div className="p-5"
-          style={{
-            // height: "500px",
-            overflowY: "hidden"
-          }}
-        >
-          {showAns ?
-            <>
-              {templateData.mcqs.map((mcq:any, index:any) => (
-                <div className="d-flex justify-content-start View_mcq_template_mcq mt-3    flex-column                     ">
-                  <div className="d-flex">
-                    <h5 className="ms-3 mt-3" style={{ whiteSpace: "nowrap" }}>{mcq?.question}</h5>
-                    {ansSigns[index] === "correct" ? <img src={correct} className="mt-3 ms-3" alt="correct" style={{ height: "2%", width: "2%" }} /> : <img className="mt-3 ms-3" style={{ height: "2%", width: "2%" }} src={incorrect} alt="incorrect" />}
-                  </div>
 
-                  {ans[index] === "unattempted" ? <p className="View_mcq_template_not_attemted">Not Attempted</p> :
-                    (
-                      <div className="container">
-                        <div className="View_mcq_template_options_super_main row gap-3 ms-3 mb-3 " >
-                          {mcq.options.map((op:any, ind:any) => (
+      <div className="p-5"
+        style={{
+          overflowY: "hidden"
+        }}
+      >
+        {showAns ?
+          <>
+            {templateData.mcqs.map((mcq: any, index: any) => (
+              <div className="flex justify-start View_mcq_template_mcq mt-3 flex-column">
+                <div className="flex">
+                  <h5 className="ms-3 mt-3" style={{ whiteSpace: "nowrap" }}>{mcq?.question}</h5>
+                  {ansSigns[index] === "correct" ? <img src={correct} className="mt-3 ms-3" alt="correct" style={{ height: "2%", width: "2%" }} /> : <img className="mt-3 ms-3" style={{ height: "2%", width: "2%" }} src={incorrect} alt="incorrect" />}
+                </div>
 
-                            <div className="View_mcq_template_options_main border border-secondary p-0">
-                              {mcq?.options_type === "image" ? (
-                                <>
-                                  <p>{`${ALPHABET[ind]}.`}</p>
-                                  <img
-                                    className="View_mcq_template_options_img"
-                                    id={`img-option-${ind}`}
-                                    src={op}
-                                    alt="op-img"
-                                    style={{
-                                      cursor: "pointer",
-                                    }}
-                                  />
-                                  {mcq.answer === op ? <p className="View_mcq_template_correct_answer">correct answer</p> : ""}
-                                  {ans[index] === ind && mcq.answer != op ? <p className="View_mcq_template_incorrect_answer">incorrect answer</p> : ""}
-                                </>
-                              ) : (
-                                <>
-                                  <p>{`${ALPHABET[ind]}.`}</p>
-                                  <div
-                                    className="View_mcq_template_options_text"
-                                    id={`text-option-${ind}`}
-                                    style={{
-                                      cursor: "pointer"
-                                    }}
-                                  >
-                                    {op}
-                                  </div>
-                                  {mcq.answer === op ? <p className="View_mcq_template_correct_answer">correct answer</p> : ""}
-                                  {ans[index] === ind && mcq.answer != op ? <p className="View_mcq_template_incorrect_answer">incorrect answer</p> : ""}
-                                </>
-                              )}
-                            </div>
-                          ))}
-                        </div>
+                {ans[index] === "unattempted" ? <p className="View_mcq_template_not_attemted">Not Attempted</p> :
+                  (
+                    <div className="flex justify-center">
+                      <div className="View_mcq_template_options_super_main grid grid-cols-2 gap-5  mb-3 " >
+                        {mcq.options.map((op: any, ind: any) => (
+
+                          <div className="View_mcq_template_options_main border border-secondary p-0">
+                            {mcq?.options_type === "image" ? (
+                              <>
+                                <p>{`${ALPHABET[ind]}.`}</p>
+                                <img
+                                  className="View_mcq_template_options_img"
+                                  id={`img-option-${ind}`}
+                                  src={op}
+                                  alt="op-img"
+                                  style={{
+                                    cursor: "pointer",
+                                  }}
+                                />
+                                {mcq.answer === op ? <p className="View_mcq_template_correct_answer">correct answer</p> : ""}
+                                {ans[index] === ind && mcq.answer != op ? <p className="View_mcq_template_incorrect_answer">incorrect answer</p> : ""}
+                              </>
+                            ) : (
+                              <>
+                                <p>{`${ALPHABET[ind]}.`}</p>
+                                <div
+                                  className="View_mcq_template_options_text"
+                                  id={`text-option-${ind}`}
+                                  style={{
+                                    cursor: "pointer"
+                                  }}
+                                >
+                                  {op}
+                                </div>
+                                {mcq.answer === op ? <p className="View_mcq_template_correct_answer">correct answer</p> : ""}
+                                {ans[index] === ind && mcq.answer != op ? <p className="View_mcq_template_incorrect_answer">incorrect answer</p> : ""}
+                              </>
+                            )}
+                          </div>
+                        ))}
                       </div>
-                    )}
-                </div>
-              ))}
-            </> :
-            <>
-              {templateData &&
+                    </div>
+                  )}
+              </div>
+            ))}
+          </> :
+          <>
+            {templateData &&
 
-                (
+              (
 
+                <>
+                  <h1>{templateData?.paper_name}</h1>
+                  <img className="w-100" alt="banner" src={templateData?.banner} />
+                </>
+              )
+
+
+            }
+
+            {templateData && templateData?.mcqs?.length !== 0 && (
+              <div className="flex View_mcq_template_pagination_mainWrapper mt-3">
+                {templateData?.mcqs?.map((_: any, ind: any) => (
                   <>
-                    <h1>{templateData?.paper_name}</h1>
-                    <img className="w-100" alt="banner" src={templateData?.banner} />
+                    {sign[ind] === "right" &&
+                      <img className={"View_mcq_template_right mt-2 mb-2 " +
+                        (ind === 0 ? "ms-3" : "")
+                      } id={`right-${ind}`} src={rightPng} alt="right" />}
+                    {sign[ind] === "wrong" &&
+                      <img className={"View_mcq_template_right mt-2 mb-2 " +
+                        (ind === 0 ? "ms-3" : "")
+                      } id={`wrong-${ind}`} src={wrongPng} alt="wrong" />}
+                    {sign[ind] === "unsigned" &&
+                      <p
+                        className={
+                          "View_mcq_template_page_no mt-2 mb-2 " +
+                          (ind === 0 ? "ms-3" : "")
+                        }
+                        id={`page-no-${ind}`}
+                      >
+                        {ind + 1}
+                      </p>}
+                    <img
+                      id={`dotted-${ind}`}
+                      alt="dotted"
+                      src={dotted}
+                      className="h-50 ms-2 me-2 mt-4"
+                    />
+                    <img
+                      id={`line-${ind}`}
+                      alt="line"
+                      src={line}
+                      className="h-50 ms-2 me-2 mt-4"
+                    />
                   </>
-                )
+                ))}
+              </div>
+            )}
+            <h3 className="mt-5 mb-3">
+              Qustion {pageNumber} of {templateData.mcqs.length}
+            </h3>
 
-
-              }
-
-              {templateData && templateData?.mcqs?.length !== 0 && (
-                <div className="d-flex View_mcq_template_pagination_mainWrapper mt-3">
-                  {templateData?.mcqs?.map((_:any, ind:any) => (
-                    <>
-                      {sign[ind] === "right" &&
-                        <img className={"View_mcq_template_right mt-2 mb-2 " +
-                          (ind === 0 ? "ms-3" : "")
-                        } id={`right-${ind}`} src={rightPng} alt="right" />}
-                      {sign[ind] === "wrong" &&
-                        <img className={"View_mcq_template_right mt-2 mb-2 " +
-                          (ind === 0 ? "ms-3" : "")
-                        } id={`wrong-${ind}`} src={wrongPng} alt="wrong" />}
-                      {sign[ind] === "unsigned" &&
-                        <p
-                          className={
-                            "View_mcq_template_page_no mt-2 mb-2 " +
-                            (ind === 0 ? "ms-3" : "")
-                          }
-                          id={`page-no-${ind}`}
-                        >
-                          {ind + 1}
-                        </p>}
-                      <img
-                        id={`dotted-${ind}`}
-                        alt="dotted"
-                        src={dotted}
-                        className="h-50 ms-2 me-2 mt-4"
-                      />
-                      <img
-                        id={`line-${ind}`}
-                        alt="line"
-                        src={line}
-                        className="h-50 ms-2 me-2 mt-4"
-                      />
-                    </>
-                  ))}
-                </div>
-              )}
-              <h3 className="mt-5 mb-3">
-                Qustion {pageNumber} of {templateData.mcqs.length}
-              </h3>
-
-              <div className="d-flex justify-content-start View_mcq_template_mcq">
-                {templateData &&
-                  templateData?.mcqs?.length !== 0 &&
-                  templateData.mcqs.map((mcq:any, mcqInd:any) => (
-                    <>
-                      {mcqInd + 1 === pageNumber && (
-                        <div className="d-inline-flex flex-column mt-3 px-4 mb-3">
+            <div className="flex justify-start View_mcq_template_mcq mt-3 flex-column">
+              {templateData &&
+                templateData?.mcqs?.length !== 0 &&
+                templateData.mcqs.map((mcq: any, mcqInd: any) => (
+                  <>
+                    {mcqInd + 1 === pageNumber && (
+                      <>
+                        <div className="flex">
                           <h5 className="ms-3 mt-1" style={{ whiteSpace: "nowrap" }}>
                             {mcqInd + 1 === pageNumber ? mcq?.question : ""}
                           </h5>
-                          <div className="row gap-3 mt-5 ms-3 mb-3" >
-                            {mcq.options.map((op:any, ind:any) => (
+                        </div>
+                        <div className="flex justify-center mt-5 ms-3 mb-3" >
+                          <div className="grid grid-cols-2 gap-5 " >
+                            {mcq.options.map((op: any, ind: any) => (
                               <div className=" View_mcq_template_options_main border border-secondary p-0">
                                 {mcq?.options_type === "image" ? (
                                   <div id={`main-div-img-option-${ind}`} className="w-100">
@@ -473,32 +473,33 @@ function ViewMcqTemplate() {
                             ))}
                           </div>
                         </div>
-                      )}
-                    </>
-                  ))}
+                      </>
+                    )}
+                  </>
+                ))}
+            </div>
+            {explaination && (
+              <div
+                className="flex justify-center mt-3"
+                style={{ color: `${explainationColor}` }}
+              >
+                {explaination}
               </div>
-              {explaination && (
-                <div
-                  className="d-flex justify-content-center mt-3"
-                  style={{ color: `${explainationColor}` }}
-                >
-                  {explaination}
-                </div>
-              )}
-              <div className="d-flex justify-content-center mt-5">
-                <button
-                  id="save_next"
-                  className="btn btn-primary rounded"
-                  onClick={() => {
-                    handleSaveAndNext();
-                  }}
-                >
-                  save and next
-                </button>
-              </div>
-            </>}
-        </div>
+            )}
+            <div className="flex justify-center mt-5">
+              <button
+                id="save_next"
+                className="btn btn-primary rounded"
+                onClick={() => {
+                  handleSaveAndNext();
+                }}
+              >
+                save and next
+              </button>
+            </div>
+          </>}
       </div>
+
     </>
   );
 }

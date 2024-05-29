@@ -1,26 +1,29 @@
-import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React from "react";
+import { useEffect, useState } from "react";
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap/dist/js/bootstrap.min.js";
+import { Link } from "react-router-dom";
+// import CreateIcon from "@mui/icons-material/Create";
+// import DeleteIcon from "@mui/icons-material/Delete";
+// import AddIcon from "@mui/icons-material/Add";
+import {
+  createQuizTemplates,
+  deleteQuizTemplates,
+  updateQuizTemplates
+} from "../../api-calls/apicalls";
+import { useNavigate } from "react-router-dom";
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
-import {
-  createMcqTemplates,
-  fetchMcqTemplates,
-  updateMcqTemplates,
-  deleteMcqTemplates
-} from "../../api-calls/apicalls";
 import AddIcon from '@mui/icons-material/Add';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
-import CameraEnhanceRoundedIcon from '@mui/icons-material/CameraEnhanceRounded';
-import OptionAddIcon from '../../images/AddIcon2.jpg';
 
-
-const McqTable = ({ mcqAllData }: any) => {
-  const [mcqTemplates, setMcqTemplates] = useState<any[]>(mcqAllData);
-  const [update, setUpdate] = useState<boolean>(false)
-  const [paperName, setPaperName] = useState("");
+function QuizTable({ quizAllData }: any) {
+  const [quizTemplates, setQuizTemplates] = useState<any[]>(quizAllData);
+  const [paperName, setPaperName] = useState<string>("");
+  const [update, setUpdate] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [mcqsCnt, setMcqsCnt] = useState<any[]>([]);
+  const [quizzesCnt, setQuizzesCnt] = useState<any[]>([]);
   const [optionsType, setOptionsType] = useState<any[]>([]);
   const [templateOptImages, setTemplateOptImages] = useState<any[]>([]);
   const [dbTemplateOptImages, setDbTemplateOptImages] = useState<any[]>([]);
@@ -28,34 +31,32 @@ const McqTable = ({ mcqAllData }: any) => {
   const [dbTemplateOptTexts, setDbTemplateOptTexts] = useState<any[]>([]);
   const [answerImages, setAnswerImages] = useState<any[]>([]);
   const [explainations, setExplainations] = useState<any[]>([])
+  const [banner, setBanner] = useState<string>("")
+  const [dbBanner, setDbBanner] = useState<string>("")
   // const [marks, setMarks] = useState([])
-  const [dbMcqs, setDbMcqs] = useState<any[]>([])
+  const [dbQuizzes, setDbQuizzes] = useState<any[]>([])
   const [dbOptionsType, setDbOptionsType] = useState<any[]>([]);
-  const [editMcqDocId, setEditMcqDocId] = useState<string>("")
+  const [editQuizDocId, setEditQuizDocId] = useState<string>("")
   // const [dbMarks, setDbMarks] = useState([])
   const [dbAnswerImages, setDbAnswerImages] = useState<any[]>([]);
   const [dbExplainations, setDbExplainations] = useState<any[]>([])
   const [dbTextAnswers, setDbTextAnswers] = useState<any[]>([])
   const [dbQuestions, setDbQuestions] = useState<any[]>([])
-  const [banner, setBanner] = useState<string>("")
-  const [dbBanner, setDbBanner] = useState<string>("")
   const [alphabates, setAlphabates] = useState<string[]>(["A", "B", "C", "D"])
   const [checked, setChecked] = useState<string>("");
 
   const navigate = useNavigate();
 
-
   const handleClose = () => {
     setUpdate(false)
-    setDbMcqs([])
+    setDbQuizzes([])
     setShowModal(false);
-    window.location.reload()
   };
 
-  const handleMcqsInputCnt = () => {
-    const tempMcqs = mcqsCnt;
-    tempMcqs.push(mcqsCnt.length + 1);
-    setMcqsCnt([...tempMcqs]);
+  const handleQuizzesInputCnt = () => {
+    const tempQuizzes = quizzesCnt;
+    tempQuizzes.push(quizzesCnt.length + 1);
+    setQuizzesCnt([...tempQuizzes]);
   };
 
   const handleSubBtns = (id: any, index: any) => {
@@ -136,16 +137,12 @@ const McqTable = ({ mcqAllData }: any) => {
       tempTemplateTexts[cntInd]?.length !== 0
     ) {
       tempTemplateTexts[cntInd][optInd] = selectedText;
-      if (update) {
-        document.getElementById(`db-opt-text-${cntInd}-${optInd}`).value = selectedText
-      }
+      if (update) { document.getElementById(`db-opt-text-${cntInd}-${optInd}`).value = selectedText }
       operation === "add" ? setTemplateOptTexts([...tempTemplateTexts]) : setDbTemplateOptTexts([...tempTemplateTexts]);
     } else {
       tempTemplateTexts[cntInd] = [];
       tempTemplateTexts[cntInd][optInd] = selectedText;
-      if (update) {
-        document.getElementById(`db-opt-text-${cntInd}-${optInd}`).value = selectedText
-      }
+      if (update) { document.getElementById(`db-opt-text-${cntInd}-${optInd}`).value = selectedText }
       operation === "add" ? setTemplateOptTexts([...tempTemplateTexts]) : setDbTemplateOptTexts([...tempTemplateTexts]);
     }
   };
@@ -167,38 +164,19 @@ const McqTable = ({ mcqAllData }: any) => {
     operation === "add" ? setAnswerImages([...tempAnswerImages]) : setDbAnswerImages([...tempAnswerImages]);
   };
 
-  const handleExplainations = async (e: any, operation: any, ind: any) => {
-    let tempExplainations:any[] = operation === "add" ? explainations : dbExplainations
-    tempExplainations[ind] = e.target.value
-    operation === "add" ? setExplainations([...tempExplainations]) : setDbExplainations([...tempExplainations])
-  }
-
-  const handleDbQuestions = async (e: any, ind: any) => {
-    let tempQuestions = dbQuestions
-    tempQuestions[ind] = e.target.value
-    setDbQuestions([...tempQuestions])
-  }
-
-  const handleDbTextAnswers = (e: any, ind: any) => {
-    let tempDbTextAnswers = dbTextAnswers
-
-    tempDbTextAnswers[ind] = e.target.value
-  }
-
   const handleCreate = async () => {
     let addData = new FormData();
 
     addData.append("paper_name", paperName);
     addData.append("banner", banner)
-
     optionsType.forEach((ot) => {
       addData.append("options_type", ot);
     });
     templateOptImages &&
       templateOptImages.length !== 0 &&
-      templateOptImages.forEach((temp: any) => {
+      templateOptImages.forEach((temp) => {
         if (temp) {
-          temp.forEach((tTemp: any) => {
+          temp.forEach((tTemp) => {
             addData.append("options", tTemp);
           });
         }
@@ -213,16 +191,16 @@ const McqTable = ({ mcqAllData }: any) => {
 
     templateOptTexts &&
       templateOptTexts.length !== 0 &&
-      templateOptTexts.forEach((temp: any) => {
+      templateOptTexts.forEach((temp) => {
         if (temp) {
-          temp.forEach((tTemp: any) => {
+          temp.forEach((tTemp) => {
             addData.append("text_options", tTemp);
           });
         }
       });
 
-    let tempAnswerText: any[] = [];
-    mcqsCnt.forEach((mc, ind) => {
+    let tempAnswerText = [];
+    quizzesCnt.forEach((mc, ind) => {
       addData.append(
         "question",
         document.getElementById(`add-question-${ind}`).value
@@ -247,38 +225,74 @@ const McqTable = ({ mcqAllData }: any) => {
     //   addData.append("mark", mark)
     // })
 
-    let createdData: any = await createMcqTemplates(addData);
+    let createdData = await createQuizTemplates(addData);
     // let tempCreatedData = [];
     // tempCreatedData.push(createdData);
-    // setMcqTemplates([...mcqTemplates, ...tempCreatedData]);
+    // setQuizTemplates([...quizTemplates, ...tempCreatedData]);
     // handleClose();
     // window.location.reload();
-
     if (
-      createdData?.success == "no" &&
+      createdData?.success === "no" &&
       createdData?.message === "jwt expired"
     ) {
       return navigate("/");
-    } else if (createdData?.success == "no") {
+    } else if (createdData?.success === "no") {
       alert("system error try again leter");
-    } else if (createdData?.success == "yes") {
-      alert("mcq template created successfully")
+    } else if (createdData?.success === "yes") {
+      alert("quiz created successfully")
       handleClose()
       window.location.reload();
     }
   };
 
+  // const handleMarks = async (e, operation, ind) => {
+  //   let tempMarks = operation === "add" ? marks : dbMarks
+  //   tempMarks[ind] = e.target.value
+  //   operation === "add" ? setMarks([...tempMarks]) : setDbMarks([...tempMarks])
+  // }
+
+  // const handleDbQuestions = async (e, ind) => {
+  //   let tempQuestions = dbQuestions
+  //   tempQuestions[ind] = e.target.value
+  //   setDbQuestions([...tempQuestions])
+  // }
+
+  const handleDelete = async (id: any) => {
+    const deleteData = { quizDocId: id }
+    const deletedData = await deleteQuizTemplates(deleteData)
+    if (
+      deletedData?.success === "no" &&
+      deletedData?.message === "jwt expired"
+    ) {
+      return navigate("/");
+    } else if (deletedData?.success === "no") {
+      alert("system error try again leter");
+    } else if (deletedData?.success === "yes") {
+      alert("quiz template deleted successfully")
+      handleClose()
+      window.location.reload();
+    }
+  }
+
+  const handleExplainations = async (e: any, operation: any, ind: any) => {
+    let tempExplainations = operation === "add" ? explainations : dbExplainations
+    tempExplainations[ind] = e.target.value
+    operation === "add" ? setExplainations([...tempExplainations]) : setDbExplainations([...tempExplainations])
+  }
+
   const handleUpdate = async () => {
 
     let updateData = new FormData()
 
-    updateData.append("mcqDocId", editMcqDocId)
+
+
+    updateData.append("quizDocId", editQuizDocId)
     updateData.append("paper_name", paperName)
     { banner && updateData.append("banner", banner) }
 
     let updatedDataToBackend: any[] = []
 
-    dbTemplateOptImages && dbTemplateOptImages.length !== 0 && dbTemplateOptImages.forEach((di, ind) => {
+    dbTemplateOptImages && dbTemplateOptImages.length !== 0 && dbTemplateOptImages.forEach((di: any, ind: any) => {
       if (di) {
         di.forEach((ele: any, eleInd: any) => {
           if (ele !== undefined) {
@@ -295,7 +309,7 @@ const McqTable = ({ mcqAllData }: any) => {
       }
     })
 
-    dbTemplateOptTexts && dbTemplateOptTexts.length !== 0 && dbTemplateOptTexts.forEach((di, ind) => {
+    dbTemplateOptTexts && dbTemplateOptTexts.length !== 0 && dbTemplateOptTexts.forEach((di: any, ind: number) => {
       if (di) {
         di.forEach((ele: any, eleInd: any) => {
           if (ele !== undefined) {
@@ -312,7 +326,7 @@ const McqTable = ({ mcqAllData }: any) => {
       }
     })
 
-    dbAnswerImages && dbAnswerImages.length !== 0 && dbAnswerImages.forEach((di, ind) => {
+    dbAnswerImages && dbAnswerImages.length !== 0 && dbAnswerImages.forEach((di: any, ind: number) => {
       if (di) {
         // console.log("294",dbAnswerImages)
 
@@ -323,7 +337,6 @@ const McqTable = ({ mcqAllData }: any) => {
             "db_image_answer_replacable_option_type": "image",
 
 
-
           })
           updateData.append(`db_answers`, di)
         }
@@ -331,7 +344,7 @@ const McqTable = ({ mcqAllData }: any) => {
       }
     })
 
-    dbTextAnswers && dbTextAnswers.length !== 0 && dbTextAnswers.forEach((dta, ind) => {
+    dbTextAnswers && dbTextAnswers.length !== 0 && dbTextAnswers.forEach((dta: any, ind: number) => {
       if (dta) {
 
 
@@ -347,7 +360,7 @@ const McqTable = ({ mcqAllData }: any) => {
 
     })
 
-    dbExplainations && dbExplainations.length !== 0 && dbExplainations.forEach((dta, ind) => {
+    dbExplainations && dbExplainations.length !== 0 && dbExplainations.forEach((dta: any, ind: any) => {
       if (dta) {
 
 
@@ -379,7 +392,7 @@ const McqTable = ({ mcqAllData }: any) => {
 
     // })
 
-    dbQuestions && dbQuestions.length !== 0 && dbQuestions.forEach((dta, ind) => {
+    dbQuestions && dbQuestions.length !== 0 && dbQuestions.forEach((dta: any, ind: any) => {
       if (dta) {
 
 
@@ -396,21 +409,19 @@ const McqTable = ({ mcqAllData }: any) => {
     })
 
 
-    optionsType.forEach((ot) => {
+    optionsType.forEach((ot: any) => {
       updateData.append("options_type", ot);
     });
 
     templateOptImages &&
       templateOptImages.length !== 0 &&
-      templateOptImages.forEach((temp) => {
+      templateOptImages.forEach((temp: any) => {
         if (temp) {
           temp.forEach((tTemp: any) => {
             updateData.append("options", tTemp);
           });
         }
       });
-
-    console.log("hhh", answerImages)
     answerImages &&
       answerImages.length !== 0 && answerImages.forEach((ai) => {
         // console.log(answerImages)
@@ -421,7 +432,7 @@ const McqTable = ({ mcqAllData }: any) => {
 
     templateOptTexts &&
       templateOptTexts.length !== 0 &&
-      templateOptTexts.forEach((temp) => {
+      templateOptTexts.forEach((temp: any) => {
         if (temp) {
           temp.forEach((tTemp: any) => {
             updateData.append("text_options", tTemp);
@@ -429,8 +440,8 @@ const McqTable = ({ mcqAllData }: any) => {
         }
       });
 
-    let tempAnswerText: any[] = [];
-    mcqsCnt.forEach((mc, ind) => {
+    let tempAnswerText = [];
+    quizzesCnt.forEach((_: any, ind: any) => {
       updateData.append(
         "question",
         document.getElementById(`add-question-${ind}`).value
@@ -458,13 +469,7 @@ const McqTable = ({ mcqAllData }: any) => {
     updateData.append("updated_data", JSON.stringify(updatedDataToBackend))
 
 
-    const updatedData = await updateMcqTemplates(updateData)
-    // if(updatedData){
-    // handleClose();
-    // setMcqsCnt([])
-    // setUpdate(false)
-    // window.location.reload();
-    // }
+    const updatedData = await updateQuizTemplates(updateData)
 
     if (
       updatedData?.success == "no" &&
@@ -474,65 +479,53 @@ const McqTable = ({ mcqAllData }: any) => {
     } else if (updatedData?.success == "no") {
       alert("system error try again leter");
     } else if (updatedData?.success == "yes") {
-      alert("mcq template updated successfully")
+      alert("quiz template updated successfully")
       window.location.reload();
     }
-
   }
 
-  const handleDelete = async (id: any) => {
-    const deleteData = { mcqDocId: id }
-    const deletedData = await deleteMcqTemplates(deleteData)
-    if (
-      deletedData?.success == "no" &&
-      deletedData?.message === "jwt expired"
-    ) {
-      return navigate("/");
-    } else if (deletedData?.success == "no") {
-      alert("system error try again leter");
-    } else if (deletedData?.success == "yes") {
-      // let tempTemplates = templates
-      // tempTemplates.forEach((temp, ind) => {
-      //   if (temp?._id == id) {
-      //     tempTemplates.splice(ind, 1)
-      //   }
-      // })
-      // setTemplates([...tempTemplates])
+  const handleDbTextAnswers = (e: any, ind: any) => {
+    let tempDbTextAnswers: any = dbTextAnswers
 
-      alert("mcq template deleted successfully")
-      window.location.reload();
-    }
+    tempDbTextAnswers[ind] = e.target.value
+  }
 
+  const handleDbQuestions = async (e: any, ind: any) => {
+    let tempQuestions: any = dbQuestions
+    tempQuestions[ind] = e.target.value
+    setDbQuestions([...tempQuestions])
   }
 
   useEffect(() => {
-    if (mcqsCnt.length !== 0) {
-      const index = mcqsCnt.length - 1;
+    if (quizzesCnt.length !== 0) {
+      const index = quizzesCnt.length - 1;
       document.getElementById(`add-option-type-text-${index}`).value = "off";
       document.getElementById(`add-option-type-image-${index}`).value = "off";
     }
-  }, [mcqsCnt]);
+  }, [quizzesCnt]);
 
   useEffect(() => {
-    if (dbMcqs && dbMcqs.length !== 0) {
-      let tempDbOptionsType: any[] = dbOptionsType
-      dbMcqs.forEach((dm: any, ind: any) => {
+    if (dbQuizzes && dbQuizzes.length !== 0) {
+
+      let tempDbOptionsType = dbOptionsType
+      dbQuizzes.forEach((dm, ind) => {
         if (dm?.options_type == "image") {
-          // console.log(document.getElementById(`db-option-type-image-${ind}`))
+          console.log(document.getElementById(`db-option-type-image-${ind}`))
           document.getElementById(`db-option-type-image-${ind}`).checked = true
           tempDbOptionsType[ind] = "image"
 
         } else if (dm?.options_type == "text") {
-          // console.log(document.getElementById(`db-option-type-text-${ind}`))
           document.getElementById(`db-option-type-text-${ind}`).checked = true
           tempDbOptionsType[ind] = "text"
         }
       })
+
       setDbOptionsType([...tempDbOptionsType])
-      dbMcqs.forEach((dm: any, ind: any) => {
+      dbQuizzes.forEach((dm, ind) => {
         if (dm?.options_type == "text") {
-          dm.options.forEach((op: any, mInd: any) => {
+          dm.options.forEach((op, mInd) => {
             document.getElementById(`db-opt-text-${ind}-${mInd}`).value = op
+
           })
           document.getElementById(`db-text-answer-${ind}`).value = dm?.answer
         }
@@ -547,13 +540,13 @@ const McqTable = ({ mcqAllData }: any) => {
         document.getElementById(`db-question-${ind}`).value = dm?.question
       })
     }
-  }, [dbMcqs])
+  }, [dbQuizzes])
 
   return (
     <>
       <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <h2 className="text-title-md2 font-semibold text-black dark:text-white">
-          Mcq Template Editor
+          Quiz Template Editor
         </h2>
 
         <nav className="flex justify-center items-center  gap-5 w-[40%]">
@@ -570,7 +563,7 @@ const McqTable = ({ mcqAllData }: any) => {
                 Dashboard /
               </Link>
             </li>
-            <li className="font-medium text-primary">Mcq Template Management</li>
+            <li className="font-medium text-primary">Quiz Template Management</li>
           </ol>
         </nav>
       </div>
@@ -584,7 +577,7 @@ const McqTable = ({ mcqAllData }: any) => {
                   Serial No.
                 </th>
                 <th className="min-w-[150px] py-4 px-4 font-bold text-black dark:text-white">
-                  Mcq
+                  Quiz
                 </th>
                 <th className="min-w-[120px] py-4 px-4 font-bold text-black dark:text-white">
                   Preview
@@ -595,15 +588,13 @@ const McqTable = ({ mcqAllData }: any) => {
               </tr>
             </thead>
             <tbody>
-              {mcqTemplates.map((temp, index) => (
+              {quizTemplates.map((temp: any, index: number) => (
                 <tr key={index}>
-
-                  <td className="border-b border-[#eee] py-5 px-2 pl-9 dark:border-strokedark xl:pl-11">
+                   <td className="border-b border-[#eee] py-5 px-2 pl-9 dark:border-strokedark xl:pl-11">
                     <h5 className="font-medium text-black dark:text-white">
                       {index+1}
                     </h5>
                   </td>
-
                   <td className="border-b border-[#eee] py-5 px-2 pl-9 dark:border-strokedark xl:pl-11">
                     <h5 className="font-medium text-black dark:text-white">
                       {temp.paper_name}
@@ -612,7 +603,7 @@ const McqTable = ({ mcqAllData }: any) => {
 
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <Link
-                      to="/view-mcq-template"
+                      to="/view-quiz-template"
                       state={{ templateData: temp }}
                       className="text-blue-500 font-bold text-center tracking"
                     >
@@ -627,8 +618,8 @@ const McqTable = ({ mcqAllData }: any) => {
                           // console.log("999",temp.mcqs)
 
                           setPaperName(temp?.paper_name)
-                          setDbMcqs(temp?.mcqs)
-                          setEditMcqDocId(temp?._id)
+                          setDbQuizzes(temp?.quizzes)
+                          setEditQuizDocId(temp?._id)
                           setDbBanner(temp?.banner)
                           setUpdate(true)
                           setShowModal(true)
@@ -678,7 +669,7 @@ const McqTable = ({ mcqAllData }: any) => {
                   className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   value={paperName}
                   onChange={(e) => {
-                    for (let temp of mcqTemplates) {
+                    for (let temp of quizTemplates) {
                       if (e.target.value === temp?.paper_name) {
                         alert("paper name already taken")
                         return;
@@ -728,11 +719,11 @@ const McqTable = ({ mcqAllData }: any) => {
 
 
               <div className="mb-2 mt-3">
-                {dbMcqs && dbMcqs.length !== 0 && (
+                {dbQuizzes && dbQuizzes.length !== 0 && (
                   <>
                     <label className="text-lg text-black dark:text-white">Attached Mcqs</label>
 
-                    {dbMcqs.map((dm: any, ind: any) => (
+                    {dbQuizzes.map((dm: any, ind: any) => (
                       <>
                         <div>
                           <div className="flex flex-col justify-start items-start gap-3">
@@ -932,7 +923,7 @@ const McqTable = ({ mcqAllData }: any) => {
                 </h3>
                 <button
                   onClick={() => {
-                    handleMcqsInputCnt();
+                    handleQuizzesInputCnt();
                   }}
                   className="flex w-[20%] justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90"
                 >
@@ -942,8 +933,8 @@ const McqTable = ({ mcqAllData }: any) => {
             </div>
 
 
-            {mcqsCnt.length !== 0 &&
-              mcqsCnt.map((_, ind) => (
+            {quizzesCnt.length !== 0 &&
+              quizzesCnt.map((_, ind) => (
                 <>
                   <div>
                     <div className="flex flex-col justify-start items-start gap-3">
@@ -1106,7 +1097,7 @@ const McqTable = ({ mcqAllData }: any) => {
                   </div>
 
                 </>
-            ))}
+              ))}
 
 
 
@@ -1127,6 +1118,6 @@ const McqTable = ({ mcqAllData }: any) => {
 
     </>
   );
-};
+}
 
-export default McqTable;
+export default QuizTable;

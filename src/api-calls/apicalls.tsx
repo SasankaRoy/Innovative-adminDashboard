@@ -509,72 +509,86 @@ export const fetchPurchaseOrders = async () => {
 //   }
 // };
 
-// export const createQuizTemplates = async (addData) => {
-//   let tempTemplates = [];
-//   try {
-//     // console.log("template data", addData);
+export const createQuizTemplates = async (addData:any) => {
+  let tempTemplates = [];
+  const token=localStorage.getItem("token")
+  if(token){
+  try {
+    // console.log("template data", addData);
 
-//     await axios({
-//       method: "post",
-//       url: `${process.env.REACT_APP_BASE_URL}/api/quiz-template`,
-//       data: addData,
-//       headers: {
-//         "Content-Type": "multipart/form-data",
-//         authorization: `Bearer ${token}`,
-//       },
-//     }).then((res) => {
-//       tempTemplates = res.data;
-//     });
-//   } catch (error) {
-//     // console.log("can not create templates");
-//     tempTemplates=error?.response?.data;
-//   } finally {
-//     return tempTemplates;
-//   }
-// };
+    await axios({
+      method: "post",
+      url: `${process.env.REACT_APP_BASE_URL}/api/quiz-template`,
+      data: addData,
+      headers: {
+        "Content-Type": "multipart/form-data",
+        authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      tempTemplates = res.data;
+    });
+  } catch (error:any) {
+    // console.log("can not create templates");
+    tempTemplates=error?.response?.data;
+  } finally {
+    return tempTemplates;
+  }}else{
+    return {message:"jwt is not present"}
+  }
+};
 
-// export const updateQuizTemplates = async (updateData) => {
-//   let tempQuizTemplates = [];
-//   try {
-//     await axios({
-//       method: "put",
-//       url: `${process.env.REACT_APP_BASE_URL}/api/quiz-template`,
-//       data: updateData,
-//       headers: {
-//         "Content-Type": "multipart/form-data",
-//         authorization: `Bearer ${token}`,
-//       },
-//     }).then((res) => {
-//       tempQuizTemplates = res.data;
-//     });
-//   } catch (error) {
-//     // console.log("can not create templates");
-//     tempQuizTemplates=error?.response?.data;
-//   } finally {
-//     return tempQuizTemplates;
-//   }
-// };
+export const updateQuizTemplates = async (updateData:any) => {
+  let tempQuizTemplates = [];
+  const token=localStorage.getItem("token")
 
-// export const deleteQuizTemplates = async (deleteData) => {
-//   let tempQuizTemplates = [];
-//   try {
-//     await axios({
-//       method: "delete",
-//       url: `${process.env.REACT_APP_BASE_URL}/api/quiz-template`,
-//       data: deleteData,
-//       headers: {
-//         authorization: `Bearer ${token}`,
-//       },
-//     }).then((res) => {
-//       tempQuizTemplates = res.data;
-//     });
-//   } catch (error) {
-//     // console.log("can not delete quiz templates");
-//     tempQuizTemplates=error?.response?.data;
-//   } finally {
-//     return tempQuizTemplates;
-//   }
-// };
+  if(token){
+  try {
+    await axios({
+      method: "put",
+      url: `${process.env.REACT_APP_BASE_URL}/api/quiz-template`,
+      data: updateData,
+      headers: {
+        "Content-Type": "multipart/form-data",
+        authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      tempQuizTemplates = res.data;
+    });
+  } catch (error:any) {
+    // console.log("can not create templates");
+    tempQuizTemplates=error?.response?.data;
+  } finally {
+    return tempQuizTemplates;
+  }}else{
+    return {message:"jwt is not present"}
+  }
+};
+
+export const deleteQuizTemplates = async (deleteData:any) => {
+  let tempQuizTemplates = [];
+  const token=localStorage.getItem("token")
+
+  if(token){
+  try {
+    await axios({
+      method: "delete",
+      url: `${process.env.REACT_APP_BASE_URL}/api/quiz-template`,
+      data: deleteData,
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      tempQuizTemplates = res.data;
+    });
+  } catch (error:any) {
+    // console.log("can not delete quiz templates");
+    tempQuizTemplates=error?.response?.data;
+  } finally {
+    return tempQuizTemplates;
+  }}else{
+    return {message:"jwt is not present"}
+  }
+};
 
 export const fetchQuizTemplates = async () => {
   let templatesData = [];

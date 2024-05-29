@@ -27,6 +27,7 @@ import { PartnersManagement } from './pages/PartnersManagement';
 import { ServiceManagement } from './pages/ServiceManagement';
 import Login from './pages/Authentication/Login';
 import ViewMcqTemplate from './components/viewMcqTemplate/viewMcqTemplate';
+import ViewQuizTemplate from './components/viewQuizTemplate/viewQuizTemplate';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -87,6 +88,15 @@ function App() {
             <>
               <PageTitle title="View Mcq Template" />
               <ViewMcqTemplate />
+            </>
+          }
+        />
+         <Route
+          path="/view-quiz-template"
+          element={
+            <>
+              <PageTitle title="View Quiz Template" />
+              <ViewQuizTemplate />
             </>
           }
         />
