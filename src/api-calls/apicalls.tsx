@@ -6,94 +6,114 @@ import axios from "axios";
 
 const API_URL = import.meta.env.VITE_API_BASE_URL
 
-// export const fetchTemplates = async () => {
-//   let templatesData = [];
-//   try {
-//     const response = await axios({
-//       method: "get",
-//       url: `${process.env.REACT_APP_BASE_URL}/api/template`,
-//       headers: {
-//         authorization: `Bearer ${token}`,
-//       },
-//     });
-//     templatesData = response.data.allTemplates;
-//     // console.log(templatesData)
-//   } catch (error) {
-//     // console.log("err", error);
-//     templatesData=error?.response?.data;
-//   } finally {
-//     return templatesData;
-//   }
-// };
+export const fetchFileTemplates = async () => {
+  const token = localStorage.getItem("token");
 
-// export const createTemplates = async (addData:any) => {
-//   let tempTemplates = [];
-//   try {
-//     console.log("template data", addData);
+  if (token) {
+  let templatesData = [];
+  try {
+    const response = await axios({
+      method: "get",
+      url: `${API_URL}/api/template`,
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+    templatesData = response.data.allTemplates;
+    // console.log(templatesData)
+  } catch (error:any) {
+    // console.log("err", error);
+    templatesData=error?.response?.data;
+  } finally {
+    return templatesData;
+  }}else {
+    return { message: "jwt is not present" }
+  }
+};
 
-//     await axios({
-//       method: "post",
-//       url: `${process.env.REACT_APP_BASE_URL}/api/template`,
-//       data: addData,
-//       headers: {
-//         "Content-Type": "multipart/form-data",
-//         authorization: `Bearer ${token}`,
-//       },
-//     }).then((res) => {
-//       tempTemplates = res.data;
-//     });
-//   } catch (error) {
-//     // console.log("can not create templates");
-//     tempTemplates=error?.response?.data;
-//   } finally {
-//     return tempTemplates;
-//   }
-// };
+export const createFileTemplates = async (addData:any) => {
+  let tempTemplates = [];
+  const token = localStorage.getItem("token");
 
-// export const updateTemplates = async (updateData:any) => {
-//   let tempTemplates = [];
-//   try {
-//     console.log("template data", updateData);
+  if (token) {
+  try {
+    console.log("template data", addData);
 
-//     await axios({
-//       method: "put",
-//       url: `${process.env.REACT_APP_BASE_URL}/api/template`,
-//       data: updateData,
-//       headers: {
-//         "Content-Type": "multipart/form-data",
-//         authorization: `Bearer ${token}`,
-//       },
-//     }).then((res) => {
-//       tempTemplates = res.data;
-//     });
-//   } catch (error) {
-//     // console.log("can not create templates");
-//     tempTemplates=error?.response?.data;
-//   } finally {
-//     return tempTemplates;
-//   }
-// };
+    await axios({
+      method: "post",
+      url: `${API_URL}/api/template`,
+      data: addData,
+      headers: {
+        "Content-Type": "multipart/form-data",
+        authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      tempTemplates = res.data;
+    });
+  } catch (error:any) {
+    // console.log("can not create templates");
+    tempTemplates=error?.response?.data;
+  } finally {
+    return tempTemplates;
+  }}else {
+    return { message: "jwt is not present" }
+  }
+};
 
-// export const deleteTemplates = async (deleteData:any) => {
-//   let tempTemplates = [];
-//   try {
-//     await axios({
-//       method: "delete",
-//       url: `${process.env.REACT_APP_BASE_URL}/api/template`,
-//       data: deleteData,
-//       headers: {
-//         authorization: `Bearer ${token}`,
-//       },
-//     }).then((res) => {
-//       tempTemplates = res.data;
-//     });
-//   } catch (error) {
-//     // console.log("can not create templates");
-//     tempTemplates=error?.response?.data;
-//   } finally {
-//     return tempTemplates;
-//   }
-// };
+export const updateFileTemplates = async (updateData:any) => {
+  let tempTemplates = [];
+  const token = localStorage.getItem("token");
+
+  if (token) {
+  try {
+    // console.log("template data", updateData);
+
+    await axios({
+      method: "put",
+      url: `${API_URL}/api/template`,
+      data: updateData,
+      headers: {
+        "Content-Type": "multipart/form-data",
+        authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      tempTemplates = res.data;
+    });
+  } catch (error:any) {
+    // console.log("can not create templates");
+    tempTemplates=error?.response?.data;
+  } finally {
+    return tempTemplates;
+  }}else {
+    return { message: "jwt is not present" }
+  }
+};
+
+export const deleteFileTemplates = async (deleteData:any) => {
+  let tempTemplates = [];
+  const token = localStorage.getItem("token");
+
+  if (token) {
+  try {
+    await axios({
+      method: "delete",
+      url: `${API_URL}/api/template`,
+      data: deleteData,
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      tempTemplates = res.data;
+    });
+  } catch (error:any) {
+    // console.log("can not create templates");
+    tempTemplates=error?.response?.data;
+  } finally {
+    return tempTemplates;
+  }}else {
+    return { message: "jwt is not present" }
+  }
+};
 
 export const fetchMcqTemplates = async () => {
   const token = localStorage.getItem("token");

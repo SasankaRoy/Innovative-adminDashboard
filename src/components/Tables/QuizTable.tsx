@@ -1,7 +1,5 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import "bootstrap/dist/css/bootstrap.css";
-import "bootstrap/dist/js/bootstrap.min.js";
 import { Link } from "react-router-dom";
 // import CreateIcon from "@mui/icons-material/Create";
 // import DeleteIcon from "@mui/icons-material/Delete";

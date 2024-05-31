@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Router,Route, Routes, useLocation } from 'react-router-dom';
+import { Router, Route, Routes, useLocation } from 'react-router-dom';
 
 import Loader from './common/Loader';
 import PageTitle from './components/PageTitle';
@@ -28,7 +28,9 @@ import { ServiceManagement } from './pages/ServiceManagement';
 import Login from './pages/Authentication/Login';
 import ViewMcqTemplate from './components/viewMcqTemplate/viewMcqTemplate';
 import ViewQuizTemplate from './components/viewQuizTemplate/viewQuizTemplate';
-
+import FileTemplateEditor from './pages/FileUploadTemplateEditor';
+import ViewFileTemplate from "./components/viewFileTemplate/viewFileTemplate"
+import PdfDetails from './components/viewFileTemplate/pdfDetails';
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
   const { pathname } = useLocation();
@@ -46,7 +48,7 @@ function App() {
   ) : (
     <>
       <Routes>
-      <Route
+        <Route
           index
           element={
             <>
@@ -56,7 +58,7 @@ function App() {
           }
         />
         <Route
-            path="/dashboard"
+          path="/dashboard"
           element={
             <>
               <PageTitle title="eCommerce Dashboard | TailAdmin - Tailwind CSS Admin Dashboard Template" />
@@ -64,7 +66,7 @@ function App() {
             </>
           }
         />
-         <Route
+        <Route
           path="/user-management"
           element={
             <>
@@ -73,7 +75,34 @@ function App() {
             </>
           }
         />
+        <Route
+          path="/file-template-editor"
+          element={
+            <>
+              <PageTitle title="File Template Editor | Innovative" />
+              <FileTemplateEditor />
+            </>
+          }
+        />
+        <Route
+          path="/view-file-template"
+          element={
+            <>
+              <PageTitle title="View File Template" />
+              <ViewFileTemplate />
+            </>
+          }
+        />
          <Route
+          path="/pdfDetails"
+          element={
+            <>
+              <PageTitle title="Pdf Details" />
+              <PdfDetails />
+            </>
+          }
+        />
+        <Route
           path="/mcq-template-editor"
           element={
             <>
@@ -82,7 +111,7 @@ function App() {
             </>
           }
         />
-         <Route
+        <Route
           path="/view-mcq-template"
           element={
             <>
@@ -91,7 +120,7 @@ function App() {
             </>
           }
         />
-         <Route
+        <Route
           path="/view-quiz-template"
           element={
             <>
@@ -100,7 +129,7 @@ function App() {
             </>
           }
         />
-         <Route
+        <Route
           path="/quiz-template-editor"
           element={
             <>
@@ -109,7 +138,7 @@ function App() {
             </>
           }
         />
-         <Route
+        <Route
           path="/gallery-management"
           element={
             <>
@@ -118,7 +147,7 @@ function App() {
             </>
           }
         />
-         <Route
+        <Route
           path="/product-management"
           element={
             <>
@@ -127,7 +156,7 @@ function App() {
             </>
           }
         />
-         <Route
+        <Route
           path="/category-management"
           element={
             <>
@@ -136,7 +165,7 @@ function App() {
             </>
           }
         />
-         <Route
+        <Route
           path="/training-module-management"
           element={
             <>
@@ -145,7 +174,7 @@ function App() {
             </>
           }
         />
-         <Route
+        <Route
           path="/choose-us"
           element={
             <>
@@ -154,7 +183,7 @@ function App() {
             </>
           }
         />
-         <Route
+        <Route
           path="/partner-management"
           element={
             <>
@@ -163,7 +192,7 @@ function App() {
             </>
           }
         />
-         <Route
+        <Route
           path="/service-management"
           element={
             <>
