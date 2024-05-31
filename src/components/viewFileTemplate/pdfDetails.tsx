@@ -24,7 +24,6 @@ function PdfDetails() {
     tempDoc.forEach((t: any) => {
       t.style.display = "flex";
       t.style.justifyContent = "center";
-      // t.style.height = "500px";
     });
   }
 
@@ -41,7 +40,6 @@ function PdfDetails() {
     const tempCanvas = document.querySelectorAll(".react-pdf__Page__canvas");
     tempCanvas.forEach((t: any) => {
       t.style.border = "2px solid #999595";
-      // t.style.marginLeft = "25%";
     });
   }
 
@@ -108,7 +106,7 @@ function PdfDetails() {
                   ""
                 )}
               </div>
-              <div className="pdf-container mt-5 mb-5 h-screen ">
+              <div className="pdf-container mt-5 mb-5 h-screen">
                 <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess}>
                   <div ref={downloadRef}>
                     {Array.from({ length: numPages }, (_, index) => (
