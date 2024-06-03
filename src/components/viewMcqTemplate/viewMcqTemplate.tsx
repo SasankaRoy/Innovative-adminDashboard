@@ -350,10 +350,14 @@ function ViewMcqTemplate() {
                   <div className="flex justify-center my-3">
                     <div className="grid grid-cols-2 gap-4 ">
                       {mcq.options.map((op: any, ind: any) => (
-                        <div className={`px-2 py-3 min-w-[40%]  flex justify-start items-start gap-3 rounded-lg ${mcq.answer === op &&  'bg-green-400/30'}`}>
+                        <div
+                          className={`px-2 py-3 min-w-[40%]  flex justify-start items-start gap-3 rounded-lg ${mcq.answer === op && 'bg-green-400/30'}`}
+                        >
                           {mcq?.options_type === 'image' ? (
                             <>
-                              <p className={`text-base font-[500] ${mcq.answer === op ? 'text-green-500 text-xl' : 'text-black'}`}>{`${ALPHABET[ind]} .`}</p>
+                              <p
+                                className={`text-base font-[500] ${mcq.answer === op ? 'text-green-500 text-xl' : 'text-black'}`}
+                              >{`${ALPHABET[ind]} .`}</p>
                               {/* View_mcq_template_options_img */}
                               <img
                                 className="h-28 w-28 object-contain"
@@ -425,9 +429,11 @@ function ViewMcqTemplate() {
           <>
             {templateData && (
               <>
-                <h1>{templateData?.paper_name}</h1>
+                <h1 className="text-black font-[600] ml-5 mb-4 text-3xl">
+                  {templateData?.paper_name}
+                </h1>
                 <img
-                  className="w-100"
+                  className="w-[100%]"
                   alt="banner"
                   src={templateData?.banner}
                 />
@@ -481,13 +487,13 @@ function ViewMcqTemplate() {
                       id={`line-${ind}`}
                       alt="line"
                       src={line}
-                      className="h-50 ms-2 me-2 mt-4"
+                      className="w-[100%]  mt-4"
                     />
                   </>
                 ))}
               </div>
             )}
-            <h3 className="mt-5 mb-3">
+            <h3 className="mt-5 mb-3 text-black font-[500]">
               Qustion {pageNumber} of {templateData.mcqs.length}
             </h3>
 
@@ -497,19 +503,20 @@ function ViewMcqTemplate() {
                 templateData.mcqs.map((mcq: any, mcqInd: any) => (
                   <>
                     {mcqInd + 1 === pageNumber && (
-                      <>
+                      <div className='p-3'>
                         <div className="flex">
-                          <h5
-                            className="ms-3 mt-1"
+                          <h5                           
+                            className="text-black font-[600] text-2xl capitalize"
                             style={{ whiteSpace: 'nowrap' }}
                           >
+                            <span className="text-xl">{(QustionCounter += 1)} .</span>{' '}
                             {mcqInd + 1 === pageNumber ? mcq?.question : ''}
                           </h5>
                         </div>
-                        <div className="flex justify-center mt-5 ms-3 mb-3">
+                        <div className="flex justify-center my-5">
                           <div className="grid grid-cols-2 gap-5 ">
                             {mcq.options.map((op: any, ind: any) => (
-                              <div className=" View_mcq_template_options_main border border-secondary p-0">
+                              <div className="p-0 w-full ">
                                 {mcq?.options_type === 'image' ? (
                                   <div
                                     id={`main-div-img-option-${ind}`}
@@ -532,7 +539,7 @@ function ViewMcqTemplate() {
                                 ) : (
                                   <div
                                     id={`main-div-text-option-${ind}`}
-                                    className="w-100"
+                                    className="max-w-full px-5  flex justify-center items-center gap-3"
                                   >
                                     <p>{`${ALPHABET[ind]}.`}</p>
                                     <div
@@ -545,7 +552,7 @@ function ViewMcqTemplate() {
                                         handleClickedOption('text', ind);
                                       }}
                                     >
-                                      {op}
+                                     <h2 className='text-black font-[600] text-xl'>{op} </h2> 
                                     </div>
                                   </div>
                                 )}
@@ -553,7 +560,7 @@ function ViewMcqTemplate() {
                             ))}
                           </div>
                         </div>
-                      </>
+                      </div>
                     )}
                   </>
                 ))}
