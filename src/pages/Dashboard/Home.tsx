@@ -6,10 +6,7 @@ import DefaultLayout from '../../layout/DefaultLayout';
 import { useNavigate } from 'react-router-dom';
 import { fetchInvoices, fetchMcqTemplates, fetchPurchaseOrders, fetchQuizTemplates, fetchUsers } from '../../api-calls/apicalls';
 
-// import ChartOne from '../../components/Charts/ChartOne';
-// import ChartThree from '../../components/Charts/ChartThree';
-// import ChartTwo from '../../components/Charts/ChartTwo';
-// import MapOne from '../../components/Maps/MapOne';
+
 
 const ECommerce: React.FC = () => {
   const [mcqTemplates, setMcqTemplates] = useState<any[]|undefined>(undefined);

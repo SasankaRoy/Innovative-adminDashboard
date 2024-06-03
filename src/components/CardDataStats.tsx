@@ -10,11 +10,11 @@ interface CardDataStatsProps {
 }
 
 const CardDataStats: React.FC<CardDataStatsProps> = ({
-  title,
+  // title,
   total,
-  rate,
-  levelUp,
-  levelDown,
+  // rate,
+  // levelUp,
+  // levelDown,
   children,
 }) => {
   return (
