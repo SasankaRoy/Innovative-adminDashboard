@@ -29,7 +29,7 @@ import Login from './pages/Authentication/Login';
 import ViewMcqTemplate from './components/viewMcqTemplate/viewMcqTemplate';
 import ViewQuizTemplate from './components/viewQuizTemplate/viewQuizTemplate';
 import FileTemplateEditor from './pages/FileUploadTemplateEditor';
-import ViewFileTemplate from "./components/viewFileTemplate/viewFileTemplate"
+import ViewFileTemplate from './components/viewFileTemplate/viewFileTemplate';
 import PdfDetails from './components/viewFileTemplate/pdfDetails';
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -52,7 +52,7 @@ function App() {
           index
           element={
             <>
-              {/* <PageTitle title="login" /> */}
+              <PageTitle title="login" />
               <Login />
             </>
           }
@@ -61,7 +61,7 @@ function App() {
           path="/dashboard"
           element={
             <>
-              <PageTitle title="eCommerce Dashboard | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Innovative - Home" />
               <ECommerce />
             </>
           }
@@ -93,7 +93,7 @@ function App() {
             </>
           }
         />
-         <Route
+        <Route
           path="/pdfDetails"
           element={
             <>
