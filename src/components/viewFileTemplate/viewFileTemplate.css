@@ -88,3 +88,7 @@
 .View_file_boxes{
      box-shadow: 10px 10px rgba(79, 79, 79, 0.2);
 }
+
+.downloadsAndlinks{
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
