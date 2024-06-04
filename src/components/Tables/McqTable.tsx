@@ -737,7 +737,7 @@ const McqTable = ({ mcqAllData }: any) => {
                         <div>
                           <div className="flex flex-col justify-start items-start gap-3">
                             <label className="text-lg text-black dark:text-white">
-                              {`Q${ind + 1}.`}
+                              {`${ind + 1}.`}
                             </label>
                             <input
                               type="text"
@@ -802,7 +802,7 @@ const McqTable = ({ mcqAllData }: any) => {
                               <div className="flex justify-between items-center w-full">
                                 <div className="flex justify-start items-start flex-col gap-2 w-[100%]">
                                   <label className="text-md text-black dark:text-white">
-                                    {`Option-${alphabates[index]}`}
+                                    {`${alphabates[index]}`}
                                   </label>
                                   <input
                                     type="text"
@@ -825,7 +825,7 @@ const McqTable = ({ mcqAllData }: any) => {
                               <div className="flex justify-between items-center w-full">
                                 <div className="flex justify-start items-start flex-col gap-2 w-[49%]">
                                   <label className="text-md text-black dark:text-white">
-                                    {`Option-${index + 1}`}
+                                    {`${index + 1}`}
                                   </label>
                                   <p className="mt-3">already attached :<img src={op} alt="already attached image" className="h-50 w-50" /></p>
                                   <input

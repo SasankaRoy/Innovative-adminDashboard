@@ -60,7 +60,7 @@ function Login() {
         className="flex justify-center items-center h-screen"
         style={{ backgroundImage: `url(${darkBg})`, backgroundSize: 'cover' }}
       >
-        <div className="admin__login_container flex flex-col justify-center items-center gap-4 h-[50%] bg-[#161313] rounded-2xl w-[40%]">
+        <div className="admin__login_container flex flex-col justify-center items-center gap-4 h-[55%] bg-[#161313] rounded-2xl w-[40%]">
           <div className="flex justify-center mt-3">
             <img alt="dark-logo" src={logoDark} className="w-25 h-25" />
           </div>
