@@ -348,7 +348,7 @@ function ViewMcqTemplate() {
                   </p>
                 ) : (
                   <div className="flex justify-center my-3">
-                    <div className="grid grid-cols-2 gap-4 ">
+                    <div className="grid grid-cols-1 gap-4 ">
                       {mcq.options.map((op: any, ind: any) => (
                         <div
                           className={`px-2 py-3 min-w-[40%]  flex justify-start items-start gap-3 rounded-lg ${mcq.answer === op && 'bg-green-400/30'}`}
@@ -386,7 +386,7 @@ function ViewMcqTemplate() {
                           ) : (
                             <>
                               <div
-                                className={`p-2  View_mcq_template_options_text flex justify-start items-start gap-3`}
+                                className={`p-2 View_mcq_template_options_text flex justify-start items-start gap-3`}
                                 id={`text-option-${ind}`}
                                 style={{
                                   cursor: 'pointer',
@@ -398,7 +398,7 @@ function ViewMcqTemplate() {
                                 <h2
                                   className={`${mcq.answer === op ? 'text-green-500 text-xl' : 'text-black'} capitalize  font-[500]`}
                                 >
-                                  {op}
+                                  {op} 22
                                 </h2>
                               </div>
                               {/* {mcq.answer === op ? (
@@ -503,13 +503,15 @@ function ViewMcqTemplate() {
                 templateData.mcqs.map((mcq: any, mcqInd: any) => (
                   <>
                     {mcqInd + 1 === pageNumber && (
-                      <div className='p-3'>
+                      <div className="p-3">
                         <div className="flex">
-                          <h5                           
+                          <h5
                             className="text-black font-[600] text-2xl capitalize"
                             style={{ whiteSpace: 'nowrap' }}
                           >
-                            <span className="text-xl">{(QustionCounter += 1)} .</span>{' '}
+                            <span className="text-xl">
+                              {(QustionCounter += 1)} .
+                            </span>{' '}
                             {mcqInd + 1 === pageNumber ? mcq?.question : ''}
                           </h5>
                         </div>
@@ -552,7 +554,9 @@ function ViewMcqTemplate() {
                                         handleClickedOption('text', ind);
                                       }}
                                     >
-                                     <h2 className='text-black font-[600] text-xl'>{op} </h2> 
+                                      <h2 className="text-black font-[600] text-xl">
+                                        {op}{' '}
+                                      </h2>
                                     </div>
                                   </div>
                                 )}
