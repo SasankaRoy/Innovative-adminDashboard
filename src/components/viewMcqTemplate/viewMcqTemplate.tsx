@@ -398,7 +398,7 @@ function ViewMcqTemplate() {
                                 <h2
                                   className={`${mcq.answer === op ? 'text-green-500 text-xl' : 'text-black'} capitalize  font-[500]`}
                                 >
-                                  {op} 22
+                                  {op} 
                                 </h2>
                               </div>
                               {/* {mcq.answer === op ? (
