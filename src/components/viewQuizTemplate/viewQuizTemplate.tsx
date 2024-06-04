@@ -322,25 +322,22 @@ function ViewQuizTemplate() {
                         <div className="flex justify-center">
                           <div className="grid grid-cols-1 gap-5 my-3">
                             {quiz.options.map((op: any, ind: any) => (
-                              <div className=" min-w-[40%]  py-2">
+                              <div className="min-w-[40%] py-2">
                                 {quiz?.options_type === 'image' ? (
                                   <div
                                     id={`main-div-img-option-${ind}`}
-                                    className="min-w-[40%]"
+                                    className="w-full flex justify-start items-start gap-3 cursor-pointer p-3 rounded-xl"
+                                    onClick={() => {
+                                      handleClickedOption('img', ind);
+                                    }}
                                   >
-                                    <p>{`${ALPHABET[ind]}.`}</p>
+                                    <p className="text-lg font-[500]">{`${ALPHABET[ind]}.`}</p>
 
                                     <img
-                                      className="View_quiz_template_options_img"
+                                      className="h-32 w-32 object-contain"
                                       id={`img-option-${ind}`}
                                       src={op}
                                       alt="op-img"
-                                      style={{
-                                        cursor: 'pointer',
-                                      }}
-                                      onClick={() => {
-                                        handleClickedOption('img', ind);
-                                      }}
                                     />
                                   </div>
                                 ) : (
