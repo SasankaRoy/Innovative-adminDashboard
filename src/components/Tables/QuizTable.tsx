@@ -1,15 +1,15 @@
-import React from "react";
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 // import CreateIcon from "@mui/icons-material/Create";
 // import DeleteIcon from "@mui/icons-material/Delete";
 // import AddIcon from "@mui/icons-material/Add";
 import {
   createQuizTemplates,
   deleteQuizTemplates,
-  updateQuizTemplates
-} from "../../api-calls/apicalls";
-import { useNavigate } from "react-router-dom";
+  updateQuizTemplates,
+} from '../../api-calls/apicalls';
+import { useNavigate } from 'react-router-dom';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import AddIcon from '@mui/icons-material/Add';
@@ -18,7 +18,7 @@ import AddRoundedIcon from '@mui/icons-material/AddRounded';
 
 function QuizTable({ quizAllData }: any) {
   const [quizTemplates, setQuizTemplates] = useState<any[]>(quizAllData);
-  const [paperName, setPaperName] = useState<string>("");
+  const [paperName, setPaperName] = useState<string>('');
   const [update, setUpdate] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [quizzesCnt, setQuizzesCnt] = useState<any[]>([]);
@@ -28,26 +28,26 @@ function QuizTable({ quizAllData }: any) {
   const [templateOptTexts, setTemplateOptTexts] = useState<any[]>([]);
   const [dbTemplateOptTexts, setDbTemplateOptTexts] = useState<any[]>([]);
   const [answerImages, setAnswerImages] = useState<any[]>([]);
-  const [explainations, setExplainations] = useState<any[]>([])
-  const [banner, setBanner] = useState<string>("")
-  const [dbBanner, setDbBanner] = useState<string>("")
+  const [explainations, setExplainations] = useState<any[]>([]);
+  const [banner, setBanner] = useState<string>('');
+  const [dbBanner, setDbBanner] = useState<string>('');
   // const [marks, setMarks] = useState([])
-  const [dbQuizzes, setDbQuizzes] = useState<any[]>([])
+  const [dbQuizzes, setDbQuizzes] = useState<any[]>([]);
   const [dbOptionsType, setDbOptionsType] = useState<any[]>([]);
-  const [editQuizDocId, setEditQuizDocId] = useState<string>("")
+  const [editQuizDocId, setEditQuizDocId] = useState<string>('');
   // const [dbMarks, setDbMarks] = useState([])
   const [dbAnswerImages, setDbAnswerImages] = useState<any[]>([]);
-  const [dbExplainations, setDbExplainations] = useState<any[]>([])
-  const [dbTextAnswers, setDbTextAnswers] = useState<any[]>([])
-  const [dbQuestions, setDbQuestions] = useState<any[]>([])
-  const [alphabates, setAlphabates] = useState<string[]>(["A", "B", "C", "D"])
-  const [checked, setChecked] = useState<string>("");
+  const [dbExplainations, setDbExplainations] = useState<any[]>([]);
+  const [dbTextAnswers, setDbTextAnswers] = useState<any[]>([]);
+  const [dbQuestions, setDbQuestions] = useState<any[]>([]);
+  const [alphabates, setAlphabates] = useState<string[]>(['A', 'B', 'C', 'D']);
+  const [checked, setChecked] = useState<string>('');
 
   const navigate = useNavigate();
 
   const handleClose = () => {
-    setUpdate(false)
-    setDbQuizzes([])
+    setUpdate(false);
+    setDbQuizzes([]);
     setShowModal(false);
   };
 
@@ -58,58 +58,66 @@ function QuizTable({ quizAllData }: any) {
   };
 
   const handleSubBtns = (id: any, index: any) => {
-    if (document.getElementById(`${id}`).value === "off") {
-      document.getElementById(`${id}`).value = "on";
+    if (document.getElementById(`${id}`).value === 'off') {
+      document.getElementById(`${id}`).value = 'on';
       let oppositeId = id;
 
-      id.split("-").forEach((ele, index) => {
+      id.split('-').forEach((ele, index) => {
         if (index === 3) {
-          id.split("-")[index] == "image"
-            ? oppositeId.replace("image", "text")
-            : oppositeId.replace("text", "image");
+          id.split('-')[index] == 'image'
+            ? oppositeId.replace('image', 'text')
+            : oppositeId.replace('text', 'image');
         }
       });
 
-      document.getElementById(`${oppositeId}`).value = "off";
+      document.getElementById(`${oppositeId}`).value = 'off';
 
       let tempOptionsType = optionsType;
-      if (id.includes("image")) {
-        tempOptionsType[index] = "image";
-      } else if (id.includes("text")) {
-        tempOptionsType[index] = "text";
+      if (id.includes('image')) {
+        tempOptionsType[index] = 'image';
+      } else if (id.includes('text')) {
+        tempOptionsType[index] = 'text';
       }
 
       setOptionsType([...tempOptionsType]);
-    } else if (document.getElementById(`${id}`).value == "on") {
-      document.getElementById(`${id}`).value = "off";
+    } else if (document.getElementById(`${id}`).value == 'on') {
+      document.getElementById(`${id}`).value = 'off';
       let oppositeId = id;
 
-      id.split("-").forEach((ele, index) => {
+      id.split('-').forEach((ele, index) => {
         if (index === 3) {
-          id.split("-")[index] == "image"
-            ? oppositeId.replace("image", "text")
-            : oppositeId.replace("text", "image");
+          id.split('-')[index] == 'image'
+            ? oppositeId.replace('image', 'text')
+            : oppositeId.replace('text', 'image');
         }
       });
 
-      document.getElementById(`${oppositeId}`).value = "on";
+      document.getElementById(`${oppositeId}`).value = 'on';
       let tempOptionsType = optionsType;
-      if (oppositeId.includes("image")) {
-        tempOptionsType[index] = "image";
-      } else if (oppositeId.includes("text")) {
-        tempOptionsType[index] = "text";
+      if (oppositeId.includes('image')) {
+        tempOptionsType[index] = 'image';
+      } else if (oppositeId.includes('text')) {
+        tempOptionsType[index] = 'text';
       }
 
       setOptionsType([...tempOptionsType]);
     }
   };
 
-  const imageFilesHandler = (e: any, operation: any, cntInd: any, optInd: any) => {
+  const imageFilesHandler = (
+    e: any,
+    operation: any,
+    cntInd: any,
+    optInd: any,
+  ) => {
     let selectedImage = e.target.files[0];
-    let tempTemplateImages = operation === "add" ? templateOptImages : dbTemplateOptImages;
-    if (selectedImage.type !== "image/png") {
-      alert("please select images");
-      document.getElementById(`${operation}-opt-image-${cntInd}-${optInd}`).value = "";
+    let tempTemplateImages =
+      operation === 'add' ? templateOptImages : dbTemplateOptImages;
+    if (selectedImage.type !== 'image/png') {
+      alert('please select images');
+      document.getElementById(
+        `${operation}-opt-image-${cntInd}-${optInd}`,
+      ).value = '';
       tempTemplateImages[cntInd].splice(1, optInd);
       return;
     } else if (
@@ -118,11 +126,15 @@ function QuizTable({ quizAllData }: any) {
     ) {
       tempTemplateImages[cntInd][optInd] = selectedImage;
 
-      operation === "add" ? setTemplateOptImages([...tempTemplateImages]) : setDbTemplateOptImages([...tempTemplateImages]);
+      operation === 'add'
+        ? setTemplateOptImages([...tempTemplateImages])
+        : setDbTemplateOptImages([...tempTemplateImages]);
     } else {
       tempTemplateImages[cntInd] = [];
       tempTemplateImages[cntInd][optInd] = selectedImage;
-      operation === "add" ? setTemplateOptImages([...tempTemplateImages]) : setDbTemplateOptImages([...tempTemplateImages]);
+      operation === 'add'
+        ? setTemplateOptImages([...tempTemplateImages])
+        : setDbTemplateOptImages([...tempTemplateImages]);
     }
   };
 
@@ -135,55 +147,68 @@ function QuizTable({ quizAllData }: any) {
       tempTemplateTexts[cntInd]?.length !== 0
     ) {
       tempTemplateTexts[cntInd][optInd] = selectedText;
-      if (update) { document.getElementById(`db-opt-text-${cntInd}-${optInd}`).value = selectedText }
-      operation === "add" ? setTemplateOptTexts([...tempTemplateTexts]) : setDbTemplateOptTexts([...tempTemplateTexts]);
+      if (update) {
+        document.getElementById(`db-opt-text-${cntInd}-${optInd}`).value =
+          selectedText;
+      }
+      operation === 'add'
+        ? setTemplateOptTexts([...tempTemplateTexts])
+        : setDbTemplateOptTexts([...tempTemplateTexts]);
     } else {
       tempTemplateTexts[cntInd] = [];
       tempTemplateTexts[cntInd][optInd] = selectedText;
-      if (update) { document.getElementById(`db-opt-text-${cntInd}-${optInd}`).value = selectedText }
-      operation === "add" ? setTemplateOptTexts([...tempTemplateTexts]) : setDbTemplateOptTexts([...tempTemplateTexts]);
+      if (update) {
+        document.getElementById(`db-opt-text-${cntInd}-${optInd}`).value =
+          selectedText;
+      }
+      operation === 'add'
+        ? setTemplateOptTexts([...tempTemplateTexts])
+        : setDbTemplateOptTexts([...tempTemplateTexts]);
     }
   };
 
   const answerImageFilesHandler = (e: any, operation: any, ind: any) => {
     // console.log(";;;",ind)
     let selectedImage = e.target.files[0];
-    let tempAnswerImages = operation === "add" ? answerImages : dbAnswerImages;
+    let tempAnswerImages = operation === 'add' ? answerImages : dbAnswerImages;
     // console.log(selectedImage.type)
-    if (selectedImage.type !== "image/png") {
-      alert("please select images");
-      document.getElementById(`add-img-answer-${ind}`).value = "";
+    if (selectedImage.type !== 'image/png') {
+      alert('please select images');
+      document.getElementById(`add-img-answer-${ind}`).value = '';
       tempAnswerImages.splice(1, ind);
       return;
     } else {
       tempAnswerImages[ind] = selectedImage;
     }
 
-    operation === "add" ? setAnswerImages([...tempAnswerImages]) : setDbAnswerImages([...tempAnswerImages]);
+    operation === 'add'
+      ? setAnswerImages([...tempAnswerImages])
+      : setDbAnswerImages([...tempAnswerImages]);
   };
 
   const handleCreate = async () => {
     let addData = new FormData();
 
-    addData.append("paper_name", paperName);
-    addData.append("banner", banner)
+    addData.append('paper_name', paperName);
+    addData.append('banner', banner);
     optionsType.forEach((ot) => {
-      addData.append("options_type", ot);
+      addData.append('options_type', ot);
     });
     templateOptImages &&
       templateOptImages.length !== 0 &&
       templateOptImages.forEach((temp) => {
         if (temp) {
           temp.forEach((tTemp) => {
-            addData.append("options", tTemp);
+            addData.append('options', tTemp);
           });
         }
       });
     answerImages &&
-      answerImages.length !== 0 && answerImages.forEach((ai) => {
+      answerImages.length !== 0 &&
+      answerImages.forEach((ai) => {
         // console.log(answerImages)
         // if(ai){
-        addData.append("answers", ai);
+        addData.append('answers', ai);
         // }
       });
 
@@ -192,7 +217,7 @@ function QuizTable({ quizAllData }: any) {
       templateOptTexts.forEach((temp) => {
         if (temp) {
           temp.forEach((tTemp) => {
-            addData.append("text_options", tTemp);
+            addData.append('text_options', tTemp);
           });
         }
       });
@@ -200,24 +225,25 @@ function QuizTable({ quizAllData }: any) {
     let tempAnswerText = [];
     quizzesCnt.forEach((mc, ind) => {
       addData.append(
-        "question",
-        document.getElementById(`add-question-${ind}`).value
+        'question',
+        document.getElementById(`add-question-${ind}`).value,
       );
-      if (optionsType[ind] == "text") {
+      if (optionsType[ind] == 'text') {
         tempAnswerText[ind] = document.getElementById(
-          `add-text-answer-${ind}`
+          `add-text-answer-${ind}`,
         ).value;
       }
     });
 
     if (tempAnswerText.length !== 0) {
-      addData.append("answer_text", JSON.stringify(tempAnswerText));
+      addData.append('answer_text', JSON.stringify(tempAnswerText));
     }
 
-
-    explainations && explainations.length !== 0 && explainations.forEach((exp) => {
-      addData.append("explaination", exp)
-    })
+    explainations &&
+      explainations.length !== 0 &&
+      explainations.forEach((exp) => {
+        addData.append('explaination', exp);
+      });
 
     // marks && marks.length !== 0 && marks.forEach((mark) => {
     //   addData.append("mark", mark)
@@ -230,15 +256,15 @@ function QuizTable({ quizAllData }: any) {
     // handleClose();
     // window.location.reload();
     if (
-      createdData?.success === "no" &&
-      createdData?.message === "jwt expired"
+      createdData?.success === 'no' &&
+      createdData?.message === 'jwt expired'
     ) {
-      return navigate("/");
-    } else if (createdData?.success === "no") {
-      alert("system error try again leter");
-    } else if (createdData?.success === "yes") {
-      alert("quiz created successfully")
-      handleClose()
+      return navigate('/');
+    } else if (createdData?.success === 'no') {
+      alert('system error try again leter');
+    } else if (createdData?.success === 'yes') {
+      alert('quiz created successfully');
+      handleClose();
       window.location.reload();
     }
   };
@@ -256,127 +282,118 @@ function QuizTable({ quizAllData }: any) {
   // }
 
   const handleDelete = async (id: any) => {
-    const deleteData = { quizDocId: id }
-    const deletedData = await deleteQuizTemplates(deleteData)
+    const deleteData = { quizDocId: id };
+    const deletedData = await deleteQuizTemplates(deleteData);
     if (
-      deletedData?.success === "no" &&
-      deletedData?.message === "jwt expired"
+      deletedData?.success === 'no' &&
+      deletedData?.message === 'jwt expired'
     ) {
-      return navigate("/");
-    } else if (deletedData?.success === "no") {
-      alert("system error try again leter");
-    } else if (deletedData?.success === "yes") {
-      alert("quiz template deleted successfully")
-      handleClose()
+      return navigate('/');
+    } else if (deletedData?.success === 'no') {
+      alert('system error try again leter');
+    } else if (deletedData?.success === 'yes') {
+      alert('quiz template deleted successfully');
+      handleClose();
       window.location.reload();
     }
-  }
+  };
 
   const handleExplainations = async (e: any, operation: any, ind: any) => {
-    let tempExplainations = operation === "add" ? explainations : dbExplainations
-    tempExplainations[ind] = e.target.value
-    operation === "add" ? setExplainations([...tempExplainations]) : setDbExplainations([...tempExplainations])
-  }
+    let tempExplainations =
+      operation === 'add' ? explainations : dbExplainations;
+    tempExplainations[ind] = e.target.value;
+    operation === 'add'
+      ? setExplainations([...tempExplainations])
+      : setDbExplainations([...tempExplainations]);
+  };
 
   const handleUpdate = async () => {
+    let updateData = new FormData();
 
-    let updateData = new FormData()
+    updateData.append('quizDocId', editQuizDocId);
+    updateData.append('paper_name', paperName);
+    {
+      banner && updateData.append('banner', banner);
+    }
 
+    let updatedDataToBackend: any[] = [];
 
-
-    updateData.append("quizDocId", editQuizDocId)
-    updateData.append("paper_name", paperName)
-    { banner && updateData.append("banner", banner) }
-
-    let updatedDataToBackend: any[] = []
-
-    dbTemplateOptImages && dbTemplateOptImages.length !== 0 && dbTemplateOptImages.forEach((di: any, ind: any) => {
-      if (di) {
-        di.forEach((ele: any, eleInd: any) => {
-          if (ele !== undefined) {
-            updatedDataToBackend.push({
-
-              "db_options_replacable_option_type": "image",
-              "db_options_replacable_question_no": ind,
-              "db_options_replacable_option_index": eleInd
-
-            })
-            updateData.append(`db_options`, ele)
-          }
-        })
-      }
-    })
-
-    dbTemplateOptTexts && dbTemplateOptTexts.length !== 0 && dbTemplateOptTexts.forEach((di: any, ind: number) => {
-      if (di) {
-        di.forEach((ele: any, eleInd: any) => {
-          if (ele !== undefined) {
-            updatedDataToBackend.push({
-
-              "db_options_text_replacable_option_type": "text",
-              "db_options_text_replacable_question_no": ind,
-              "db_options_text_replacable_option_index": eleInd,
-              "db_options_text_data": ele
-            })
-
-          }
-        })
-      }
-    })
-
-    dbAnswerImages && dbAnswerImages.length !== 0 && dbAnswerImages.forEach((di: any, ind: number) => {
-      if (di) {
-        // console.log("294",dbAnswerImages)
-
-        if (di !== undefined) {
-          updatedDataToBackend.push({
-
-            "db_answers_replacable_question_no": ind,
-            "db_image_answer_replacable_option_type": "image",
-
-
-          })
-          updateData.append(`db_answers`, di)
+    dbTemplateOptImages &&
+      dbTemplateOptImages.length !== 0 &&
+      dbTemplateOptImages.forEach((di: any, ind: any) => {
+        if (di) {
+          di.forEach((ele: any, eleInd: any) => {
+            if (ele !== undefined) {
+              updatedDataToBackend.push({
+                db_options_replacable_option_type: 'image',
+                db_options_replacable_question_no: ind,
+                db_options_replacable_option_index: eleInd,
+              });
+              updateData.append(`db_options`, ele);
+            }
+          });
         }
+      });
 
-      }
-    })
+    dbTemplateOptTexts &&
+      dbTemplateOptTexts.length !== 0 &&
+      dbTemplateOptTexts.forEach((di: any, ind: number) => {
+        if (di) {
+          di.forEach((ele: any, eleInd: any) => {
+            if (ele !== undefined) {
+              updatedDataToBackend.push({
+                db_options_text_replacable_option_type: 'text',
+                db_options_text_replacable_question_no: ind,
+                db_options_text_replacable_option_index: eleInd,
+                db_options_text_data: ele,
+              });
+            }
+          });
+        }
+      });
 
-    dbTextAnswers && dbTextAnswers.length !== 0 && dbTextAnswers.forEach((dta: any, ind: number) => {
-      if (dta) {
+    dbAnswerImages &&
+      dbAnswerImages.length !== 0 &&
+      dbAnswerImages.forEach((di: any, ind: number) => {
+        if (di) {
+          // console.log("294",dbAnswerImages)
 
+          if (di !== undefined) {
+            updatedDataToBackend.push({
+              db_answers_replacable_question_no: ind,
+              db_image_answer_replacable_option_type: 'image',
+            });
+            updateData.append(`db_answers`, di);
+          }
+        }
+      });
 
-        updatedDataToBackend.push({
+    dbTextAnswers &&
+      dbTextAnswers.length !== 0 &&
+      dbTextAnswers.forEach((dta: any, ind: number) => {
+        if (dta) {
+          updatedDataToBackend.push({
+            db_text_answer_replacable_question_no: ind,
+            db_text_answer_replacable_option_type: 'text',
+            db_text_answer_data: dta,
+          });
+        }
+      });
 
-          "db_text_answer_replacable_question_no": ind,
-          "db_text_answer_replacable_option_type": "text",
-          "db_text_answer_data": dta
-        })
-
-
-      }
-
-    })
-
-    dbExplainations && dbExplainations.length !== 0 && dbExplainations.forEach((dta: any, ind: any) => {
-      if (dta) {
-
-
-        updatedDataToBackend.push({
-
-          "db_explaination_replacable_question_no": ind,
-          "db_explaination_replacable_option_type": "text",
-          "db_explaination_data": dta
-        })
-
-
-      }
-
-    })
+    dbExplainations &&
+      dbExplainations.length !== 0 &&
+      dbExplainations.forEach((dta: any, ind: any) => {
+        if (dta) {
+          updatedDataToBackend.push({
+            db_explaination_replacable_question_no: ind,
+            db_explaination_replacable_option_type: 'text',
+            db_explaination_data: dta,
+          });
+        }
+      });
 
     // dbMarks && dbMarks.length !== 0 && dbMarks.forEach((dta, ind) => {
     //   if (dta) {
-
 
     //     updatedDataToBackend.push({
 
@@ -385,30 +402,24 @@ function QuizTable({ quizAllData }: any) {
     //       "db_marks_data": dta
     //     })
 
-
     //   }
 
     // })
 
-    dbQuestions && dbQuestions.length !== 0 && dbQuestions.forEach((dta: any, ind: any) => {
-      if (dta) {
-
-
-        updatedDataToBackend.push({
-
-          "db_questions_replacable_question_no": ind,
-          "db_questions_replacable_option_type": "text",
-          "db_questions_data": dta
-        })
-
-
-      }
-
-    })
-
+    dbQuestions &&
+      dbQuestions.length !== 0 &&
+      dbQuestions.forEach((dta: any, ind: any) => {
+        if (dta) {
+          updatedDataToBackend.push({
+            db_questions_replacable_question_no: ind,
+            db_questions_replacable_option_type: 'text',
+            db_questions_data: dta,
+          });
+        }
+      });
 
     optionsType.forEach((ot: any) => {
-      updateData.append("options_type", ot);
+      updateData.append('options_type', ot);
     });
 
     templateOptImages &&
@@ -416,15 +427,16 @@ function QuizTable({ quizAllData }: any) {
       templateOptImages.forEach((temp: any) => {
         if (temp) {
           temp.forEach((tTemp: any) => {
-            updateData.append("options", tTemp);
+            updateData.append('options', tTemp);
           });
         }
       });
     answerImages &&
-      answerImages.length !== 0 && answerImages.forEach((ai) => {
+      answerImages.length !== 0 &&
+      answerImages.forEach((ai) => {
         // console.log(answerImages)
         // if(ai){
-        updateData.append("answers", ai);
+        updateData.append('answers', ai);
         // }
       });
 
@@ -433,7 +445,7 @@ function QuizTable({ quizAllData }: any) {
       templateOptTexts.forEach((temp: any) => {
         if (temp) {
           temp.forEach((tTemp: any) => {
-            updateData.append("text_options", tTemp);
+            updateData.append('text_options', tTemp);
           });
         }
       });
@@ -441,104 +453,100 @@ function QuizTable({ quizAllData }: any) {
     let tempAnswerText = [];
     quizzesCnt.forEach((_: any, ind: any) => {
       updateData.append(
-        "question",
-        document.getElementById(`add-question-${ind}`).value
+        'question',
+        document.getElementById(`add-question-${ind}`).value,
       );
-      if (optionsType[ind] == "text") {
+      if (optionsType[ind] == 'text') {
         tempAnswerText[ind] = document.getElementById(
-          `add-text-answer-${ind}`
+          `add-text-answer-${ind}`,
         ).value;
       }
     });
 
     if (tempAnswerText.length !== 0) {
-      updateData.append("answer_text", JSON.stringify(tempAnswerText));
+      updateData.append('answer_text', JSON.stringify(tempAnswerText));
     }
 
-
-    explainations && explainations.length !== 0 && explainations.forEach((exp) => {
-      updateData.append("explaination", exp)
-    })
+    explainations &&
+      explainations.length !== 0 &&
+      explainations.forEach((exp) => {
+        updateData.append('explaination', exp);
+      });
 
     // marks && marks.length !== 0 && marks.forEach((mark) => {
     //   updateData.append("mark", mark)
     // })
 
-    updateData.append("updated_data", JSON.stringify(updatedDataToBackend))
+    updateData.append('updated_data', JSON.stringify(updatedDataToBackend));
 
-
-    const updatedData = await updateQuizTemplates(updateData)
+    const updatedData = await updateQuizTemplates(updateData);
 
     if (
-      updatedData?.success == "no" &&
-      updatedData?.message === "jwt expired"
+      updatedData?.success == 'no' &&
+      updatedData?.message === 'jwt expired'
     ) {
-      return navigate("/");
-    } else if (updatedData?.success == "no") {
-      alert("system error try again leter");
-    } else if (updatedData?.success == "yes") {
-      alert("quiz template updated successfully")
+      return navigate('/');
+    } else if (updatedData?.success == 'no') {
+      alert('system error try again leter');
+    } else if (updatedData?.success == 'yes') {
+      alert('quiz template updated successfully');
       window.location.reload();
     }
-  }
+  };
 
   const handleDbTextAnswers = (e: any, ind: any) => {
-    let tempDbTextAnswers: any = dbTextAnswers
+    let tempDbTextAnswers: any = dbTextAnswers;
 
-    tempDbTextAnswers[ind] = e.target.value
-  }
+    tempDbTextAnswers[ind] = e.target.value;
+  };
 
   const handleDbQuestions = async (e: any, ind: any) => {
-    let tempQuestions: any = dbQuestions
-    tempQuestions[ind] = e.target.value
-    setDbQuestions([...tempQuestions])
-  }
+    let tempQuestions: any = dbQuestions;
+    tempQuestions[ind] = e.target.value;
+    setDbQuestions([...tempQuestions]);
+  };
 
   useEffect(() => {
     if (quizzesCnt.length !== 0) {
       const index = quizzesCnt.length - 1;
-      document.getElementById(`add-option-type-text-${index}`).value = "off";
-      document.getElementById(`add-option-type-image-${index}`).value = "off";
+      document.getElementById(`add-option-type-text-${index}`).value = 'off';
+      document.getElementById(`add-option-type-image-${index}`).value = 'off';
     }
   }, [quizzesCnt]);
 
   useEffect(() => {
     if (dbQuizzes && dbQuizzes.length !== 0) {
-
-      let tempDbOptionsType = dbOptionsType
+      let tempDbOptionsType = dbOptionsType;
       dbQuizzes.forEach((dm, ind) => {
-        if (dm?.options_type == "image") {
-          console.log(document.getElementById(`db-option-type-image-${ind}`))
-          document.getElementById(`db-option-type-image-${ind}`).checked = true
-          tempDbOptionsType[ind] = "image"
-
-        } else if (dm?.options_type == "text") {
-          document.getElementById(`db-option-type-text-${ind}`).checked = true
-          tempDbOptionsType[ind] = "text"
+        if (dm?.options_type == 'image') {
+          console.log(document.getElementById(`db-option-type-image-${ind}`));
+          document.getElementById(`db-option-type-image-${ind}`).checked = true;
+          tempDbOptionsType[ind] = 'image';
+        } else if (dm?.options_type == 'text') {
+          document.getElementById(`db-option-type-text-${ind}`).checked = true;
+          tempDbOptionsType[ind] = 'text';
         }
-      })
+      });
 
-      setDbOptionsType([...tempDbOptionsType])
+      setDbOptionsType([...tempDbOptionsType]);
       dbQuizzes.forEach((dm, ind) => {
-        if (dm?.options_type == "text") {
+        if (dm?.options_type == 'text') {
           dm.options.forEach((op, mInd) => {
-            document.getElementById(`db-opt-text-${ind}-${mInd}`).value = op
-
-          })
-          document.getElementById(`db-text-answer-${ind}`).value = dm?.answer
-        }
-
-        else if (dm?.options_type == "image") {
-
-          document.getElementById(`db-attached-img-answer-${ind}`).src = dm?.answer
+            document.getElementById(`db-opt-text-${ind}-${mInd}`).value = op;
+          });
+          document.getElementById(`db-text-answer-${ind}`).value = dm?.answer;
+        } else if (dm?.options_type == 'image') {
+          document.getElementById(`db-attached-img-answer-${ind}`).src =
+            dm?.answer;
         }
 
         // document.getElementById(`db-marks-${ind}`).value = dm?.mark
-        document.getElementById(`db-explaination-${ind}`).value = dm?.explaination
-        document.getElementById(`db-question-${ind}`).value = dm?.question
-      })
+        document.getElementById(`db-explaination-${ind}`).value =
+          dm?.explaination;
+        document.getElementById(`db-question-${ind}`).value = dm?.question;
+      });
     }
-  }, [dbQuizzes])
+  }, [dbQuizzes]);
 
   return (
     <>
@@ -548,10 +556,13 @@ function QuizTable({ quizAllData }: any) {
         </h2>
 
         <nav className="flex justify-center items-center  gap-5 w-[40%]">
-          <button onClick={() => {
-            setUpdate(false)
-            setShowModal(true)
-          }} className="flex w-[25%] justify-center rounded-lg bg-primary py-2 font-medium text-gray hover:bg-opacity-90">
+          <button
+            onClick={() => {
+              setUpdate(false);
+              setShowModal(true);
+            }}
+            className="flex w-[25%] justify-center rounded-lg bg-primary py-2 font-medium text-gray hover:bg-opacity-90"
+          >
             <AddIcon />
             Create
           </button>
@@ -561,7 +572,9 @@ function QuizTable({ quizAllData }: any) {
                 Dashboard /
               </Link>
             </li>
-            <li className="font-medium text-primary">Quiz Template Management</li>
+            <li className="font-medium text-primary">
+              Quiz Template Management
+            </li>
           </ol>
         </nav>
       </div>
@@ -588,9 +601,9 @@ function QuizTable({ quizAllData }: any) {
             <tbody>
               {quizTemplates.map((temp: any, index: number) => (
                 <tr key={index}>
-                   <td className="border-b border-[#eee] py-5 px-2 pl-9 dark:border-strokedark xl:pl-11">
+                  <td className="border-b border-[#eee] py-5 px-2 pl-9 dark:border-strokedark xl:pl-11">
                     <h5 className="font-medium text-black dark:text-white">
-                      {index+1}
+                      {index + 1}
                     </h5>
                   </td>
                   <td className="border-b border-[#eee] py-5 px-2 pl-9 dark:border-strokedark xl:pl-11">
@@ -615,20 +628,23 @@ function QuizTable({ quizAllData }: any) {
                         onClick={() => {
                           // console.log("999",temp.mcqs)
 
-                          setPaperName(temp?.paper_name)
-                          setDbQuizzes(temp?.quizzes)
-                          setEditQuizDocId(temp?._id)
-                          setDbBanner(temp?.banner)
-                          setUpdate(true)
-                          setShowModal(true)
+                          setPaperName(temp?.paper_name);
+                          setDbQuizzes(temp?.quizzes);
+                          setEditQuizDocId(temp?._id);
+                          setDbBanner(temp?.banner);
+                          setUpdate(true);
+                          setShowModal(true);
                         }}
                         className="h-9 w-9 flex justify-center items-center border border-[#3c50e0] rounded-md hover:text-[#3c50e0] transition-all duration-150 ease-in-out"
                       >
                         <EditRoundedIcon />
                       </button>
-                      <button className="h-9 w-9 flex justify-center items-center border border-[#dc3545] rounded-md hover:text-[#dc3545] transition-all duration-150 ease-in-out" onClick={() => {
-                        handleDelete(temp?._id)
-                      }}>
+                      <button
+                        className="h-9 w-9 flex justify-center items-center border border-[#dc3545] rounded-md hover:text-[#dc3545] transition-all duration-150 ease-in-out"
+                        onClick={() => {
+                          handleDelete(temp?._id);
+                        }}
+                      >
                         <DeleteRoundedIcon />
                       </button>
                     </div>
@@ -644,11 +660,12 @@ function QuizTable({ quizAllData }: any) {
         <div className="fixed top-0 left-0 EditModelZindex flex justify-center items-center w-full h-full backdrop-blur-md">
           <div className="shadow-md p-4 w-[50%] rounded-md dark:border-strokedark dark:bg-boxdark border-stroke bg-white overflow-y-auto max-h-full">
             <div className="flex justify-between items-center">
-              <h2 className="text-[800] text-3xl ">{update ? "Update Template" : "Add Template"}</h2>
+              <h2 className="text-[800] text-3xl ">
+                {update ? 'Update Template' : 'Add Template'}
+              </h2>
               <button
                 onClick={() => {
-                  handleClose()
-
+                  handleClose();
                 }}
                 className="hover:text-[#dc3545] transition-all duration-200 ease-in-out"
               >
@@ -669,64 +686,55 @@ function QuizTable({ quizAllData }: any) {
                   onChange={(e) => {
                     for (let temp of quizTemplates) {
                       if (e.target.value === temp?.paper_name) {
-                        alert("paper name already taken")
+                        alert('paper name already taken');
                         return;
                       }
                     }
                     setPaperName(e.target.value);
                   }}
-
                 />
               </div>
-              {dbBanner && <div className="mt-3">
-                <div className="flex flex-col justify-start items-start gap-3">
-                  <label className="text-lg text-black dark:text-white">
-                    Attached Banner
-                  </label>
-                  <img
-
-
-                    className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                    src={dbBanner}
-                  />
+              {dbBanner && (
+                <div className="mt-3">
+                  <div className="flex flex-col justify-start items-start gap-3">
+                    <label className="text-lg text-black dark:text-white">
+                      Attached Banner
+                    </label>
+                    <img
+                      className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                      src={dbBanner}
+                    />
+                  </div>
                 </div>
-
-              </div>}
+              )}
               <div className="mt-3">
                 <div className="flex flex-col justify-start items-start gap-3">
                   <label className="text-lg text-black dark:text-white">
-                    {update ? "Change Banner" : "Add Banner"}
+                    {update ? 'Change Banner' : 'Add Banner'}
                   </label>
                   <input
                     type="file"
-
                     className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-
                     onChange={(e: any) => {
-                      setBanner(e.target.files[0])
+                      setBanner(e.target.files[0]);
                     }}
-
                   />
                 </div>
-
               </div>
-
-
-
-
-
 
               <div className="mb-2 mt-3">
                 {dbQuizzes && dbQuizzes.length !== 0 && (
                   <>
-                    <label className="text-lg text-black dark:text-white">Attached Mcqs</label>
+                    <label className="text-lg text-black dark:text-white">
+                      Attached Mcqs
+                    </label>
 
                     {dbQuizzes.map((dm: any, ind: any) => (
                       <>
                         <div>
                           <div className="flex flex-col justify-start items-start gap-3">
                             <label className="text-lg text-black dark:text-white">
-                              {`Q${ind + 1}.`}
+                              {` ${ind + 1}.`}
                             </label>
                             <input
                               type="text"
@@ -734,7 +742,7 @@ function QuizTable({ quizAllData }: any) {
                               placeholder="Enter question ...."
                               id={`db-question-${ind}`}
                               onChange={(e) => {
-                                handleDbQuestions(e, ind)
+                                handleDbQuestions(e, ind);
                               }}
                             />
                           </div>
@@ -743,55 +751,59 @@ function QuizTable({ quizAllData }: any) {
                               Options Type
                             </h3>
                             <div className="flex justify-end items-center gap-3">
-                              {dm?.options_type == "text" && (<div className="flex justify-center items-center gap-2">
-                                <label
-                                  htmlFor={`db-option-type-text-${ind}`}
-                                  className="text-lg cursor-pointer text-black dark:text-white"
-                                >
-                                  Text
-                                </label>
-                                <input
-                                  name={`db-optionType-text-${ind}`}
-                                  type="radio"
-                                  // className="cursor-pointer"
-                                  // checked={checked === "text"}
-                                  id={`db-option-type-text-${ind}`}
-                                  onChange={() => {
-                                    // setChecked("text")
-                                    // handleSubBtns(`db-option-type-text-${ind}`, ind);
-                                  }}
-                                />
-                              </div>)}
-                              {dm?.options_type == "image" && (<div className="flex justify-center items-center gap-2">
-                                <label
-                                  htmlFor={`db-option-type-image-${ind}`}
-                                  className="text-lg cursor-pointer text-black dark:text-white"
-                                >
-                                  Images
-                                </label>
-                                <input
-                                  // checked={checked === "image"}
-                                  name={`db-optionType-img-${ind}`}
-                                  type="radio"
-                                  // className="cursor-pointer"
-                                  id={`db-option-type-image-${ind}`}
-                                  onChange={() => {
-                                    // setChecked("image")
-                                    // handleSubBtns(`add-option-type-image-${ind}`, ind);
-                                  }}
-                                />
-                              </div>)}
+                              {dm?.options_type == 'text' && (
+                                <div className="flex justify-center items-center gap-2">
+                                  <label
+                                    htmlFor={`db-option-type-text-${ind}`}
+                                    className="text-lg cursor-pointer text-black dark:text-white"
+                                  >
+                                    Text
+                                  </label>
+                                  <input
+                                    name={`db-optionType-text-${ind}`}
+                                    type="radio"
+                                    // className="cursor-pointer"
+                                    // checked={checked === "text"}
+                                    id={`db-option-type-text-${ind}`}
+                                    onChange={() => {
+                                      // setChecked("text")
+                                      // handleSubBtns(`db-option-type-text-${ind}`, ind);
+                                    }}
+                                  />
+                                </div>
+                              )}
+                              {dm?.options_type == 'image' && (
+                                <div className="flex justify-center items-center gap-2">
+                                  <label
+                                    htmlFor={`db-option-type-image-${ind}`}
+                                    className="text-lg cursor-pointer text-black dark:text-white"
+                                  >
+                                    Images
+                                  </label>
+                                  <input
+                                    // checked={checked === "image"}
+                                    name={`db-optionType-img-${ind}`}
+                                    type="radio"
+                                    // className="cursor-pointer"
+                                    id={`db-option-type-image-${ind}`}
+                                    onChange={() => {
+                                      // setChecked("image")
+                                      // handleSubBtns(`add-option-type-image-${ind}`, ind);
+                                    }}
+                                  />
+                                </div>
+                              )}
                             </div>
                           </div>
                         </div>
 
-                        {dm?.options_type === 'text' &&
-                          (<div className="flex flex-col gap-3">
+                        {dm?.options_type === 'text' && (
+                          <div className="flex flex-col gap-3">
                             {dm?.options.map((_: any, index: any) => (
                               <div className="flex justify-between items-center w-full">
                                 <div className="flex justify-start items-start flex-col gap-2 w-[100%]">
                                   <label className="text-md text-black dark:text-white">
-                                    {`Option-${alphabates[index]}`}
+                                    {`${alphabates[index]}`}
                                   </label>
                                   <input
                                     type="text"
@@ -799,84 +811,90 @@ function QuizTable({ quizAllData }: any) {
                                     placeholder={`Enter Option ${alphabates[index]} ...`}
                                     id={`db-opt-text-${ind}-${index}`}
                                     onChange={(e) => {
-                                      textOptHandler(e, "update", ind, index);
+                                      textOptHandler(e, 'update', ind, index);
                                     }}
                                   />
                                 </div>
                               </div>
                             ))}
-                          </div>)
-                        }
+                          </div>
+                        )}
 
-                        {dm?.options_type === 'image' &&
-                          (<div className="flex flex-col gap-3">
+                        {dm?.options_type === 'image' && (
+                          <div className="flex flex-col gap-3">
                             {dm?.options.map((op: any, index: any) => (
                               <div className="flex justify-between items-center w-full">
                                 <div className="flex justify-start items-start flex-col gap-2 w-[49%]">
                                   <label className="text-md text-black dark:text-white">
-                                    {`Option-${index + 1}`}
+                                    {`${index + 1}`}
                                   </label>
-                                  <p className="mt-3">already attached :<img src={op} alt="already attached image" className="h-50 w-50" /></p>
+                                  <p className="mt-3">
+                                    already attached :
+                                    <img
+                                      src={op}
+                                      alt="already attached image"
+                                      className="h-50 w-50"
+                                    />
+                                  </p>
                                   <input
                                     type="file"
                                     className="w-full h-full object-cover"
                                     // placeholder="Enter Option A ..."
                                     id={`db-opt-image-${ind}-${index}`}
                                     onChange={(e) => {
-                                      imageFilesHandler(e, "update", ind, index);
+                                      imageFilesHandler(
+                                        e,
+                                        'update',
+                                        ind,
+                                        index,
+                                      );
                                     }}
                                   />
                                 </div>
                               </div>
                             ))}
+                          </div>
+                        )}
 
-                          </div>)
-                        }
-
-                        {dm?.options_type == "text" && (
-
+                        {dm?.options_type == 'text' && (
                           <div className="flex flex-col justify-start items-start gap-2 w-[49%]">
                             <label className="text-lg text-black dark:text-white">
                               Answer
                             </label>
 
                             <input
-
                               className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                               placeholder="Enter Answer ...."
                               type="text"
                               id={`db-text-answer-${ind}`}
                               onChange={(e) => {
-                                handleDbTextAnswers(e, ind)
+                                handleDbTextAnswers(e, ind);
                               }}
                             />
                           </div>
-
                         )}
 
-                        {dm?.options_type == "image" && (
-
+                        {dm?.options_type == 'image' && (
                           <div className="flex flex-col justify-start items-start gap-2 w-[49%] mt-3">
-                            <p>Already attached answer:
+                            <p>
+                              Already attached answer:
                               <img
-
                                 id={`db-attached-img-answer-${ind}`}
                                 className="ms-2 h-50 w-50"
                                 alt="answer"
-
-                              /></p>
+                              />
+                            </p>
                             <label className="text-lg text-black dark:text-white">
-                              {update ? "Change Answer:" : "Answer"}
+                              {update ? 'Change Answer:' : 'Answer'}
                             </label>
 
                             <input
-
                               className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                               placeholder="Enter Answer ...."
                               type="file"
                               id={`db-attached-img-answer-${ind}`}
                               onChange={(e) => {
-                                answerImageFilesHandler(e, "update", ind);
+                                answerImageFilesHandler(e, 'update', ind);
                               }}
                             />
                           </div>
@@ -892,28 +910,15 @@ function QuizTable({ quizAllData }: any) {
                             placeholder="Explain ...."
                             id={`db-explaination-${ind}`}
                             onChange={(e: any) => {
-                              handleExplainations(e, "update", ind)
+                              handleExplainations(e, 'update', ind);
                             }}
                           ></textarea>
                         </div>
                       </>
                     ))}
-
                   </>
                 )}
               </div>
-
-
-
-
-
-
-
-
-
-
-
-
 
               <div className="flex justify-between items-center w-full mx-auto my-4">
                 <h3 className="text-lg font-bold text-black dark:text-white">
@@ -925,11 +930,10 @@ function QuizTable({ quizAllData }: any) {
                   }}
                   className="flex w-[20%] justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90"
                 >
-                  <AddRoundedIcon className="font-bold" /> Add{' '}Mcqs
+                  <AddRoundedIcon className="font-bold" /> Add Mcqs
                 </button>
               </div>
             </div>
-
 
             {quizzesCnt.length !== 0 &&
               quizzesCnt.map((_, ind) => (
@@ -962,10 +966,10 @@ function QuizTable({ quizAllData }: any) {
                             name={`optionType-text-${ind}`}
                             type="radio"
                             className="cursor-pointer"
-                            checked={checked === "text"}
+                            checked={checked === 'text'}
                             id={`add-option-type-text-${ind}`}
                             onChange={() => {
-                              setChecked("text")
+                              setChecked('text');
                               handleSubBtns(`add-option-type-text-${ind}`, ind);
                             }}
                           />
@@ -978,14 +982,17 @@ function QuizTable({ quizAllData }: any) {
                             Images
                           </label>
                           <input
-                            checked={checked === "image"}
+                            checked={checked === 'image'}
                             name={`optionType-img-${ind}`}
                             type="radio"
                             className="cursor-pointer"
                             id={`add-option-type-image-${ind}`}
                             onChange={() => {
-                              setChecked("image")
-                              handleSubBtns(`add-option-type-image-${ind}`, ind);
+                              setChecked('image');
+                              handleSubBtns(
+                                `add-option-type-image-${ind}`,
+                                ind,
+                              );
                             }}
                           />
                         </div>
@@ -993,13 +1000,13 @@ function QuizTable({ quizAllData }: any) {
                     </div>
                   </div>
 
-                  {optionsType[ind] === 'text' &&
-                    (<div className="flex flex-col gap-3">
+                  {optionsType[ind] === 'text' && (
+                    <div className="flex flex-col gap-3">
                       {[...Array(4)].map((_, index) => (
                         <div className="flex justify-between items-center w-full">
                           <div className="flex justify-start items-start flex-col gap-2 w-[100%]">
                             <label className="text-md text-black dark:text-white">
-                              {`Option-${alphabates[index]}`}
+                              {`${alphabates[index]}`}
                             </label>
                             <input
                               type="text"
@@ -1007,22 +1014,22 @@ function QuizTable({ quizAllData }: any) {
                               placeholder={`Enter Option ${alphabates[index]} ...`}
                               id={`add-opt-text-${ind}-${index}`}
                               onChange={(e) => {
-                                textOptHandler(e, "add", ind, index);
+                                textOptHandler(e, 'add', ind, index);
                               }}
                             />
                           </div>
                         </div>
                       ))}
-                    </div>)
-                  }
+                    </div>
+                  )}
 
-                  {optionsType[ind] === 'image' &&
-                    (<div className="flex flex-col gap-3">
+                  {optionsType[ind] === 'image' && (
+                    <div className="flex flex-col gap-3">
                       {[...Array(4)].map((_, index) => (
                         <div className="flex justify-between items-center w-full">
                           <div className="flex justify-start items-start flex-col gap-2 w-[49%]">
                             <label className="text-md text-black dark:text-white">
-                              {`Option-${index + 1}`}
+                              {`${index + 1}`}
                             </label>
                             <input
                               type="file"
@@ -1030,51 +1037,41 @@ function QuizTable({ quizAllData }: any) {
                               placeholder="Enter Option A ..."
                               id={`add-opt-image-${ind}-${index}`}
                               onChange={(e) => {
-                                imageFilesHandler(e, "add", ind, index);
+                                imageFilesHandler(e, 'add', ind, index);
                               }}
                             />
                           </div>
                         </div>
                       ))}
+                    </div>
+                  )}
 
-                    </div>)
-                  }
-
-
-
-
-
-                  {optionsType[ind] == "text" && (
-
+                  {optionsType[ind] == 'text' && (
                     <div className="flex flex-col justify-start items-start gap-2 w-[49%]">
                       <label className="text-lg text-black dark:text-white">
                         Answer
                       </label>
                       <input
-
                         className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                         placeholder="Enter Answer ...."
                         type="text"
                         id={`add-text-answer-${ind}`}
                       />
                     </div>
-
                   )}
 
-                  {optionsType[ind] == "image" && (
-
+                  {optionsType[ind] == 'image' && (
                     <div className="flex flex-col justify-start items-start gap-2 w-[49%]">
                       <label className="text-lg text-black dark:text-white">
                         Answer
                       </label>
                       <input
-
                         className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                         placeholder="Enter Answer ...."
                         type="file"
                         id={`add-img-answer-${ind}`}
                         onChange={(e) => {
-                          answerImageFilesHandler(e, "add", ind);
+                          answerImageFilesHandler(e, 'add', ind);
                         }}
                       />
                     </div>
@@ -1089,31 +1086,34 @@ function QuizTable({ quizAllData }: any) {
                       className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                       placeholder="Explain ...."
                       onChange={(e) => {
-                        handleExplainations(e, "add", ind)
+                        handleExplainations(e, 'add', ind);
                       }}
                     ></textarea>
                   </div>
-
                 </>
               ))}
 
-
-
             <div className="flex justify-end items-center gap-4 my-4">
-              <button onClick={() => { handleClose() }} className="w-[15%] py-3 bg-[#dc3545] rounded-lg text-white hover:bg-opacity-90">
+              <button
+                onClick={() => {
+                  handleClose();
+                }}
+                className="w-[15%] py-3 bg-[#dc3545] rounded-lg text-white hover:bg-opacity-90"
+              >
                 Cancel
               </button>
-              <button className="flex w-[15%] justify-center rounded-lg bg-primary p-3 font-medium text-gray hover:bg-opacity-90"
-
-                onClick={() => { update ? handleUpdate() : handleCreate() }}
+              <button
+                className="flex w-[15%] justify-center rounded-lg bg-primary p-3 font-medium text-gray hover:bg-opacity-90"
+                onClick={() => {
+                  update ? handleUpdate() : handleCreate();
+                }}
               >
-                {update ? "Update" : "Create"}
+                {update ? 'Update' : 'Create'}
               </button>
             </div>
           </div>
         </div>
       )}
-
     </>
   );
 }
