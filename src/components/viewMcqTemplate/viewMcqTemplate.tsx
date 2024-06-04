@@ -515,8 +515,8 @@ function ViewMcqTemplate() {
                             {mcqInd + 1 === pageNumber ? mcq?.question : ''}
                           </h5>
                         </div>
-                        <div className="flex justify-center my-5">
-                          <div className="grid grid-cols-2 gap-5 ">
+                        <div className="flex justify-start  my-5">
+                          <div className="grid grid-cols-1 gap-5 ">
                             {mcq.options.map((op: any, ind: any) => (
                               <div className="p-0 w-full ">
                                 {mcq?.options_type === 'image' ? (
@@ -541,9 +541,9 @@ function ViewMcqTemplate() {
                                 ) : (
                                   <div
                                     id={`main-div-text-option-${ind}`}
-                                    className="max-w-full px-5  flex justify-center items-center gap-3"
+                                    className="  px-5  flex justify-start items-center gap-3"
                                   >
-                                    <p>{`${ALPHABET[ind]}.`}</p>
+                                    <p>{`${ALPHABET[ind]}`}.</p>
                                     <div
                                       className="View_mcq_template_options_text"
                                       id={`text-option-${ind}`}
@@ -555,7 +555,7 @@ function ViewMcqTemplate() {
                                       }}
                                     >
                                       <h2 className="text-black font-[600] text-xl">
-                                        {op}{' '}
+                                        {' '}{op}{' '}
                                       </h2>
                                     </div>
                                   </div>
