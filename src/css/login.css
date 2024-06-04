@@ -2,16 +2,16 @@
 
 
 .admin__login_container{
-background-color: #161313;
+/* background-color: #161313;
 height: 25rem;
 width: 23rem;
 box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-border-radius: 1rem;
+border-radius: 1rem; */
 transition: opacity 1s;
 animation: borderAnimation 3s infinite alternate;
-display: inline-flex;
+/* display: inline-flex;
 justify-content: center;
-flex-direction: column;
+flex-direction: column; */
 }
 
 @keyframes borderAnimation {
