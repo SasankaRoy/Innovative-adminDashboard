@@ -147,10 +147,13 @@ function ViewQuizTemplate() {
         {showAns ? (
           <>
             {templateData.quizzes.map((quiz: any, index: number) => (
-              <div className="flex justify-start View_quiz_template_quiz mt-3 flex-column">
+              <div className="flex justify-start items-start View_quiz_template_quiz p-4 mt-3 flex-col">
                 <div className="flex">
-                  <h5 className="ms-3 mt-3" style={{ whiteSpace: 'nowrap' }}>
-                    {quiz?.question}
+                  <h5
+                    className=" text-black text-2xl font-[500] capitalize"
+                    style={{ whiteSpace: 'nowrap' }}
+                  >
+                    <span className='text-lg'>{(QustionCounter = +1)}</span> . {quiz?.question}
                   </h5>
                   {ansSigns[index] === 'correct' ? (
                     <img
@@ -169,68 +172,41 @@ function ViewQuizTemplate() {
                   )}
                 </div>
                 {ans[index] === 'unattempted' ? (
-                  <p className="View_quiz_template_not_attempted">
+                  <p className="text-red-600 font-[600] text-center my-3 text-lg">
                     Not Attempted
                   </p>
                 ) : (
                   <div className="flex justify-center">
-                    <div className="View_quiz_template_options_super_main grid grid-cols-2 gap-5 mb-3   ">
+                    <div className=" grid grid-cols-1 gap-5 my-3   ">
                       {quiz.options.map((op: any, ind: number) => (
-                        <div className="View_quiz_template_options_main border border-secondary p-0">
+                        <div className={`flex justify-start items-start ${quiz.answer === op && 'bg-green-400/40'} ${ans[index] === ind && quiz.answer != op && 'bg-red-400/40'}  px-4 py-3`}>
                           {quiz?.options_type === 'image' ? (
                             <>
                               <p>{`${ALPHABET[ind]}.`}</p>
                               <img
-                                className="View_quiz_template_options_img"
+                                className="h-28 w-28 object-cover"
                                 id={`img-option-${ind}`}
                                 src={op}
                                 alt="op-img"
                                 style={{
                                   cursor: 'pointer',
                                 }}
-                              />
-                              {quiz.answer === op ? (
-                                <p className="View_quiz_template_correct_answer">
-                                  correct answer
-                                </p>
-                              ) : (
-                                ''
-                              )}
-                              {ans[index] === ind && quiz.answer != op ? (
-                                <p className="View_quiz_template_incorrect_answer">
-                                  incorrect answer
-                                </p>
-                              ) : (
-                                ''
-                              )}
+                              />                              
                             </>
                           ) : (
-                            <>
-                              <p>{`${ALPHABET[ind]}.`}</p>
-                              <div
-                                className="View_quiz_template_options_text"
+                            <div className='flex justify-start relative items-center gap-3 py-3 px-4 rounded-md'>
+                              <p className={`text-lg font-[500] ${quiz.answer === op && 'text-green-600'} ${ans[index] === ind && quiz.answer != op && 'text-red-600'}`}>{`${ALPHABET[ind]}.`}</p>
+                              <h2
+                                className={`text-black text-xl font-[600] ${quiz.answer === op && 'text-green-600'} ${ans[index] === ind && quiz.answer != op && 'text-red-600'} capitalize`}
                                 id={`text-option-${ind}`}
                                 style={{
                                   cursor: 'pointer',
                                 }}
                               >
-                                {op}
-                              </div>
-                              {quiz.answer === op ? (
-                                <p className="View_quiz_template_correct_answer">
-                                  correct answer
-                                </p>
-                              ) : (
-                                ''
-                              )}
-                              {ans[index] === ind && quiz.answer != op ? (
-                                <p className="View_quiz_template_incorrect_answer">
-                                  incorrect answer
-                                </p>
-                              ) : (
-                                ''
-                              )}
-                            </>
+                                {op} 
+                              </h2>
+                             
+                            </div>
                           )}
                         </div>
                       ))}
@@ -367,18 +343,11 @@ function ViewQuizTemplate() {
                 ))}
             </div>
 
-            {/* {explaination && (
-                <div
-                  className="d-flex justify-content-center mt-3"
-                  style={{ color: `${explainationColor}` }}
-                >
-                  {explaination}
-                </div>
-              )} */}
+            
 
             <div className="flex justify-center mt-5">
               <button
-                className="btn btn-primary rounded"
+                className="bg-[#3C50E0] text-white w-[15%] py-3 text-lg font-[500] rounded-xl"
                 onClick={() => {
                   handleSaveAndNext();
                 }}
