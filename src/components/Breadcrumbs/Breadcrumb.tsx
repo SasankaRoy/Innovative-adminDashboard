@@ -3,11 +3,14 @@ import AddIcon from '@mui/icons-material/Add';
 import { useState } from 'react';
 // import { CreateModel } from '../../common/CreateModel/CreateModel';
 import { UpdateModel } from '../../common/UpdateModel/UpdateMcqModel';
+import { UpdateInvoiceManagement } from '../../common/UpdateModel/UpdateInvoiceManagementModel';
 interface BreadcrumbProps {
   pageName: string;
 }
 const Breadcrumb = ({ pageName }: BreadcrumbProps) => {
   const [isCreateModel, setIsCreateModel] = useState(false);
+
+  
 
   return (
     <>
@@ -40,6 +43,11 @@ const Breadcrumb = ({ pageName }: BreadcrumbProps) => {
        {
         isCreateModel && pageName.split(' ')[0] === 'Mcq' &&(
           <UpdateModel setIsCreateModel={setIsCreateModel} pagetitle={pageName.split(' ')[0]} />
+        )
+      }
+       {
+        isCreateModel && pageName.split(' ')[0] === 'Invoice' &&(
+          <UpdateInvoiceManagement setIsCreateModel={setIsCreateModel} pagetitle={pageName.split(' ')[0]} />
         )
       }
     </>

@@ -31,6 +31,7 @@ import ViewQuizTemplate from './components/viewQuizTemplate/viewQuizTemplate';
 import FileTemplateEditor from './pages/FileUploadTemplateEditor';
 import ViewFileTemplate from './components/viewFileTemplate/viewFileTemplate';
 import PdfDetails from './components/viewFileTemplate/pdfDetails';
+import { InvoiceManagement } from './pages/InvoiceManagement';
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
   const { pathname } = useLocation();
@@ -135,6 +136,15 @@ function App() {
             <>
               <PageTitle title="Quzie Template Editor | Innovative" />
               <QuizeTemplateEditor />
+            </>
+          }
+        />
+        <Route
+          path="/invoice-management"
+          element={
+            <>
+              <PageTitle title="Invoice Management | Innovative" />
+              <InvoiceManagement />
             </>
           }
         />

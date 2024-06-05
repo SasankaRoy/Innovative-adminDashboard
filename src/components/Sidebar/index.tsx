@@ -416,6 +416,18 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
 
               <li>
                 <NavLink
+                  to="/invoice-management"
+                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                    pathname.includes('quize') && 'bg-graydark dark:bg-meta-4'
+                  }`}
+                >
+                  
+                  Invoice Management
+                </NavLink>
+              </li>
+
+              <li>
+                <NavLink
                   to="/gallery-management"
                   className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
                     pathname.includes('gallery') && 'bg-graydark dark:bg-meta-4'
