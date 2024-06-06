@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 // import "bootstrap/dist/css/bootstrap.min.css";
 // import Nav from "../navbar/navbar";
 // import Sidebar from "../sidebar/sidebar";
@@ -322,7 +322,7 @@ function ViewMcqTemplate() {
         <div className="absolute  opacity-60 w-[6%] right-[10%]  top-[40%]">
           <img src={MathGIF2} alt="" />
         </div>
-        <div className="absolute  opacity-60 w-[15%] right-[50%] top-[40%]">
+        <div className="absolute  opacity-40 w-[15%] right-[50%] top-[40%]">
           <img src={MathGIF3} alt="" />
         </div>
         <div className="absolute  opacity-60 w-[8%] right-[5%] bottom-[4%]">
@@ -445,6 +445,12 @@ function ViewMcqTemplate() {
             //   ))}
             // </>
             <>
+              <Link
+                to="/mcq-template-editor"
+                className=" border-2 border-[#FFF]/30 rounded-lg shadow-lg bg-transparent text-white font-[400] text-base px-4 py-2"
+              >
+                Go Back
+              </Link>
               {templateData.mcqs.map((mcq: any, index: any) => (
                 <div
                   key={index}
@@ -518,10 +524,16 @@ function ViewMcqTemplate() {
             <>
               {templateData && (
                 <div className="h-[40%] relative">
-                  <div className="absolute z-10  w-full h-full top-0 left-0 flex justify-center items-center">
-                    <h1 className="text-white font-[600] ml-5 mb-4 text-3xl">
+                  <div className="absolute z-10  w-full h-full top-0 left-0 flex flex-col justify-center items-center">
+                    <h1 className="text-white font-[600] my-2 text-3xl">
                       {templateData?.paper_name}
                     </h1>
+                    <Link
+                      to="/mcq-template-editor"
+                      className="bg-transparent text-white font-[400] text-base px-4 py-2"
+                    >
+                      Go Back
+                    </Link>
                   </div>
                   <img
                     className="w-full h-full object-cover rounded-lg brightness-50"
@@ -532,19 +544,26 @@ function ViewMcqTemplate() {
               )}
 
               {templateData && templateData?.mcqs?.length !== 0 && (
-                <div className="flex justify-center items-center mt-3">
+                <div className="flex justify-center items-center  mt-3">
                   {templateData?.mcqs?.map((_: any, ind: any) => (
                     <>
                       {sign[ind] === 'right' && (
-                        <img
-                          className={
-                            'View_mcq_template_right  mb-2 ' +
+                        <>
+                          <img
+                            className={
+                              'View_mcq_template_right  mb-2 ' +
+                              (ind === 0 ? 'ms-3' : '')
+                            }
+                            id={`right-${ind}`}
+                            src={rightPng}
+                            alt="right"
+                          />
+                          {/* <div className={
+                            ' h-10 w-10 border-2 border-[#FFF]/30 text-white ' +
                             (ind === 0 ? 'ms-3' : '')
                           }
-                          id={`right-${ind}`}
-                          src={rightPng}
-                          alt="right"
-                        />
+                          id={`right-${ind}`} >fds</div> */}
+                        </>
                       )}
                       {sign[ind] === 'wrong' && (
                         <img
@@ -560,7 +579,7 @@ function ViewMcqTemplate() {
                       {sign[ind] === 'unsigned' && (
                         <p
                           className={
-                            'View_mcq_template_page_no mt-2 mb-2 ' +
+                            'View_mcq_template_page_no text-white mt-2 mb-2 ' +
                             (ind === 0 ? 'ms-3' : '')
                           }
                           id={`page-no-${ind}`}
@@ -568,25 +587,70 @@ function ViewMcqTemplate() {
                           {ind + 1}
                         </p>
                       )}
-                      <img
+                      {/* <img
                         id={`dotted-${ind}`}
                         alt="dotted"
                         src={dotted}
                         className="h-50 ms-2 me-2 mt-4"
+                      /> */}
+                      <div
+                        id={`dotted-${ind}`}
+                        className="h-2 bg-[#FFF]/20 backdrop-blur-lg w-[10%] rounded-full"
                       />
-                      <img
+                      <div
+                        id={`line-${ind}`}
+                        className="h-2 bg-[#FFF]/20 backdrop-blur-lg w-[10%] rounded-full"
+                      />
+                      {/* <img
                         id={`line-${ind}`}
                         alt="line"
                         src={line}
                         className="w-[100%] "
-                      />
+                      /> */}
                     </>
                   ))}
                 </div>
               )}
-              {/* <h3 className="mt-5 mb-3 text-white font-[500]">
-              Qustion {pageNumber} of {templateData.mcqs.length}
-            </h3> */}
+
+              {/* {templateData && templateData?.mcqs?.length !== 0 && (
+                <div className="flex justify-center items-center gap-2  w-full mt-3 ">
+                  {templateData?.quizzes?.map((_: any, ind: any) => (
+                    <>
+                      {sign[ind] === 'right' && (
+                        <img
+                          className={'mt-0 ' + (ind === 0 ? 'ms-0' : '')}
+                          id={`right-${ind}`}
+                          src={rightPng}
+                          alt="right"
+                        />
+                      )}
+                      {sign[ind] === 'wrong' && (
+                        <div
+                          className={
+                            'border-2 border-[#FFF]/50 h-8 w-8 rounded-full flex justify-center items-center' +
+                            (ind === 0 && 'ms-0')
+                          }
+                          id={`page-no-${ind}`}
+                        >
+                          <h2 className="text-white font-[600] text-xl">
+                            {ind + 1}
+                          </h2>
+                        </div>
+                      )}
+
+                      <div
+                        id={`dotted-${ind}`}
+                        className="h-2 bg-[#FFF]/20 backdrop-blur-lg w-[10%] rounded-full"
+                      />
+
+                      <div
+                        id={`line-${ind}`}
+                        className="h-2 bg-[#FFF]/70 backdrop-blur-lg w-[40%] rounded-full"
+                      />
+                    </>
+                  ))}
+                </div>
+              )} */}
 
               {/* <div className="flex justify-start View_mcq_template_mcq mt-3 flex-column">
               {templateData &&
