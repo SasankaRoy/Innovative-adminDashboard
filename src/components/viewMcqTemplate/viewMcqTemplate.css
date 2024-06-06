@@ -1,3 +1,34 @@
+.gradientBg__MCQ {
+    /* background: #556270;
+    background: -webkit-linear-gradient(to right, #ff6b6b, #556270);
+    background: linear-gradient(to right, #ff6b6b, #556270); */
+  
+  
+    /* background: #c9ffbf; 
+    background: -webkit-linear-gradient(
+      to right,
+      #ffafbd,
+      #c9ffbf
+    ); 
+    background: linear-gradient(
+      to right,
+      #ffafbd,
+      #c9ffbf
+    );  */
+  
+    background: #649173; 
+    background: -webkit-linear-gradient(
+      to right,
+      #dbd5a4,
+      #649173
+    );
+    /* background: linear-gradient(
+      to right,
+      #dbd5a4,
+      #649173
+    );  */
+  }
+
 .View_mcq_template_pagination_mainWrapper{
     background: #f1f1f1;
     border-radius: 15em;

@@ -15,6 +15,10 @@ import {
 import correct from '../../assets/correct.png';
 import incorrect from '../../assets/incorrect.png';
 
+import MathGIF1 from '../../assets/Math1.gif';
+import MathGIF2 from '../../assets/Math2.gif';
+import MathGIF3 from '../../assets/Math3.gif';
+
 function ViewMcqTemplate() {
   const location = useLocation();
   const ADMIN_EMAIL = 'admin@gmail.com'; //temporary
@@ -116,7 +120,7 @@ function ViewMcqTemplate() {
 
               document.getElementById(
                 `main-div-${type}-option-${ind}`,
-              ).style.border = '6px solid #D4FFD6';
+              ).style.background = '#22C55E';
 
               templateData.mcqs[pageNumber - 1].options.forEach(
                 (_: any, opInd: any) => {
@@ -142,14 +146,14 @@ function ViewMcqTemplate() {
 
               document.getElementById(
                 `main-div-${type}-option-${ind}`,
-              ).style.border = '6px solid #FFD4D4';
+              ).style.background = 'red';
 
               templateData.mcqs[pageNumber - 1].options.forEach(
                 (op: any, opInd: any) => {
                   if (op === templateData.mcqs[pageNumber - 1].answer) {
                     document.getElementById(
                       `main-div-${type}-option-${opInd}`,
-                    ).style.border = '6px solid #D4FFD6';
+                    ).style.background = '#22C55E';
                   }
                 },
               );
@@ -306,69 +310,80 @@ function ViewMcqTemplate() {
   return (
     <>
       <div
-        className="p-5"
+        className="h-screen relative gradientBg__MCQ"
         style={{
-          overflowY: 'hidden',
+          overflowY: 'auto',
         }}
       >
-        {showAns ? (
-          <>
-            {templateData.mcqs.map((mcq: any, index: any) => (
-              <div className="flex justify-start items-start View_mcq_template_mcq my-3 py-3 px-4 flex-col">
-                {/* qustion and status  start */}
-                <div className="flex justify-start items-center gap-3">
-                  <h5
-                    className="text-black font-[600] text-2xl capitalize"
-                    style={{ whiteSpace: 'nowrap' }}
-                  >
-                    <span className="text-xl">{(QustionCounter += 1)}.</span>{' '}
-                    {mcq?.question}
-                  </h5>
-                  {ansSigns[index] === 'correct' ? (
-                    <img
-                      src={correct}
-                      className=""
-                      alt="correct"
-                      style={{ height: '2%', width: '2%' }}
-                    />
-                  ) : (
-                    <img
-                      className=""
-                      style={{ height: '2%', width: '2%' }}
-                      src={incorrect}
-                      alt="incorrect"
-                    />
-                  )}
-                </div>
-                {/* qustion and status  end */}
+        <div className="absolute  opacity-60 w-[8%] left-[2%] bottom-[5%] rotate-45">
+          <img src={MathGIF1} alt="" />
+        </div>
+        <div className="absolute  opacity-60 w-[6%] right-[10%]  top-[40%]">
+          <img src={MathGIF2} alt="" />
+        </div>
+        <div className="absolute  opacity-60 w-[15%] right-[50%] top-[40%]">
+          <img src={MathGIF3} alt="" />
+        </div>
 
-                {ans[index] === 'unattempted' ? (
-                  <p className="View_mcq_template_not_attemted">
-                    Not Attempted
-                  </p>
-                ) : (
-                  <div className="flex justify-center my-3">
-                    <div className="grid grid-cols-1 gap-4 ">
-                      {mcq.options.map((op: any, ind: any) => (
-                        <div
-                          className={`px-2 py-3 min-w-[40%]  flex justify-start items-start gap-3 rounded-lg ${mcq.answer === op && 'bg-green-400/30'}`}
-                        >
-                          {mcq?.options_type === 'image' ? (
-                            <>
-                              <p
-                                className={`text-base font-[500] ${mcq.answer === op ? 'text-green-500 text-xl' : 'text-black'}`}
-                              >{`${ALPHABET[ind]} .`}</p>
-                              {/* View_mcq_template_options_img */}
-                              <img
-                                className="h-28 w-28 object-contain"
-                                id={`img-option-${ind}`}
-                                src={op}
-                                alt="op-img"
-                                style={{
-                                  cursor: 'pointer',
-                                }}
-                              />
-                              {/* {mcq.answer === op ? (
+        <div className="w-full h-full p-5 z-20">
+          {showAns ? (
+            <>
+              {templateData.mcqs.map((mcq: any, index: any) => (
+                <div className="flex justify-start items-start View_mcq_template_mcq my-3 py-3 px-4 flex-col">
+                  {/* qustion and status  start */}
+                  <div className="flex justify-start items-center gap-3">
+                    <h5
+                      className="text-black font-[600] text-2xl capitalize"
+                      style={{ whiteSpace: 'nowrap' }}
+                    >
+                      <span className="text-xl">{(QustionCounter += 1)}.</span>{' '}
+                      {mcq?.question}
+                    </h5>
+                    {ansSigns[index] === 'correct' ? (
+                      <img
+                        src={correct}
+                        className=""
+                        alt="correct"
+                        style={{ height: '2%', width: '2%' }}
+                      />
+                    ) : (
+                      <img
+                        className=""
+                        style={{ height: '2%', width: '2%' }}
+                        src={incorrect}
+                        alt="incorrect"
+                      />
+                    )}
+                  </div>
+                  {/* qustion and status  end */}
+
+                  {ans[index] === 'unattempted' ? (
+                    <p className="View_mcq_template_not_attemted">
+                      Not Attempted
+                    </p>
+                  ) : (
+                    <div className="flex justify-center my-3">
+                      <div className="grid grid-cols-1 gap-4 ">
+                        {mcq.options.map((op: any, ind: any) => (
+                          <div
+                            className={`px-2 py-3 min-w-[40%]  flex justify-start items-start gap-3 rounded-lg ${mcq.answer === op && 'bg-green-400/30'}`}
+                          >
+                            {mcq?.options_type === 'image' ? (
+                              <>
+                                <p
+                                  className={`text-base font-[500] ${mcq.answer === op ? 'text-green-500 text-xl' : 'text-black'}`}
+                                >{`${ALPHABET[ind]} .`}</p>
+                                {/* View_mcq_template_options_img */}
+                                <img
+                                  className="h-28 w-28 object-contain"
+                                  id={`img-option-${ind}`}
+                                  src={op}
+                                  alt="op-img"
+                                  style={{
+                                    cursor: 'pointer',
+                                  }}
+                                />
+                                {/* {mcq.answer === op ? (
                                 <p className="View_mcq_template_correct_answer">
                                   correct answer 
                                 </p>
@@ -382,26 +397,26 @@ function ViewMcqTemplate() {
                               ) : (
                                 ''
                               )} */}
-                            </>
-                          ) : (
-                            <>
-                              <div
-                                className={`p-2 View_mcq_template_options_text flex justify-start items-start gap-3`}
-                                id={`text-option-${ind}`}
-                                style={{
-                                  cursor: 'pointer',
-                                }}
-                              >
-                                <p
-                                  className={`text-base font-[500] ${mcq.answer === op ? 'text-green-500 text-xl' : 'text-black'}`}
-                                >{`${ALPHABET[ind]} .`}</p>
-                                <h2
-                                  className={`${mcq.answer === op ? 'text-green-500 text-xl' : 'text-black'} capitalize  font-[500]`}
+                              </>
+                            ) : (
+                              <>
+                                <div
+                                  className={`p-2 View_mcq_template_options_text flex justify-start items-start gap-3`}
+                                  id={`text-option-${ind}`}
+                                  style={{
+                                    cursor: 'pointer',
+                                  }}
                                 >
-                                  {op} 
-                                </h2>
-                              </div>
-                              {/* {mcq.answer === op ? (
+                                  <p
+                                    className={`text-base font-[500] ${mcq.answer === op ? 'text-green-500 text-xl' : 'text-black'}`}
+                                  >{`${ALPHABET[ind]} .`}</p>
+                                  <h2
+                                    className={`${mcq.answer === op ? 'text-green-500 text-xl' : 'text-black'} capitalize  font-[500]`}
+                                  >
+                                    {op}
+                                  </h2>
+                                </div>
+                                {/* {mcq.answer === op ? (
                                 <p className="View_mcq_template_correct_answer">
                                   correct answer
                                 </p>
@@ -415,89 +430,91 @@ function ViewMcqTemplate() {
                               ) : (
                                 ''
                               )} */}
-                            </>
-                          )}
-                        </div>
-                      ))}
+                              </>
+                            )}
+                          </div>
+                        ))}
+                      </div>
                     </div>
+                  )}
+                </div>
+              ))}
+            </>
+          ) : (
+            <>
+              {templateData && (
+                <div className="h-[40%] relative">
+                  <div className="absolute z-10  w-full h-full top-0 left-0 flex justify-center items-center">
+                    <h1 className="text-white font-[600] ml-5 mb-4 text-3xl">
+                      {templateData?.paper_name}
+                    </h1>
                   </div>
-                )}
-              </div>
-            ))}
-          </>
-        ) : (
-          <>
-            {templateData && (
-              <>
-                <h1 className="text-black font-[600] ml-5 mb-4 text-3xl">
-                  {templateData?.paper_name}
-                </h1>
-                <img
-                  className="w-[100%]"
-                  alt="banner"
-                  src={templateData?.banner}
-                />
-              </>
-            )}
+                  <img
+                    className="w-full h-full object-cover rounded-lg brightness-50"
+                    alt="banner"
+                    src={templateData?.banner}
+                  />
+                </div>
+              )}
 
-            {templateData && templateData?.mcqs?.length !== 0 && (
-              <div className="flex View_mcq_template_pagination_mainWrapper mt-3">
-                {templateData?.mcqs?.map((_: any, ind: any) => (
-                  <>
-                    {sign[ind] === 'right' && (
+              {templateData && templateData?.mcqs?.length !== 0 && (
+                <div className="flex justify-center items-center mt-3">
+                  {templateData?.mcqs?.map((_: any, ind: any) => (
+                    <>
+                      {sign[ind] === 'right' && (
+                        <img
+                          className={
+                            'View_mcq_template_right  mb-2 ' +
+                            (ind === 0 ? 'ms-3' : '')
+                          }
+                          id={`right-${ind}`}
+                          src={rightPng}
+                          alt="right"
+                        />
+                      )}
+                      {sign[ind] === 'wrong' && (
+                        <img
+                          className={
+                            'View_mcq_template_right  mb-2 ' +
+                            (ind === 0 ? 'ms-3' : '')
+                          }
+                          id={`wrong-${ind}`}
+                          src={wrongPng}
+                          alt="wrong"
+                        />
+                      )}
+                      {sign[ind] === 'unsigned' && (
+                        <p
+                          className={
+                            'View_mcq_template_page_no mt-2 mb-2 ' +
+                            (ind === 0 ? 'ms-3' : '')
+                          }
+                          id={`page-no-${ind}`}
+                        >
+                          {ind + 1}
+                        </p>
+                      )}
                       <img
-                        className={
-                          'View_mcq_template_right mt-2 mb-2 ' +
-                          (ind === 0 ? 'ms-3' : '')
-                        }
-                        id={`right-${ind}`}
-                        src={rightPng}
-                        alt="right"
+                        id={`dotted-${ind}`}
+                        alt="dotted"
+                        src={dotted}
+                        className="h-50 ms-2 me-2 mt-4"
                       />
-                    )}
-                    {sign[ind] === 'wrong' && (
                       <img
-                        className={
-                          'View_mcq_template_right mt-2 mb-2 ' +
-                          (ind === 0 ? 'ms-3' : '')
-                        }
-                        id={`wrong-${ind}`}
-                        src={wrongPng}
-                        alt="wrong"
+                        id={`line-${ind}`}
+                        alt="line"
+                        src={line}
+                        className="w-[100%] "
                       />
-                    )}
-                    {sign[ind] === 'unsigned' && (
-                      <p
-                        className={
-                          'View_mcq_template_page_no mt-2 mb-2 ' +
-                          (ind === 0 ? 'ms-3' : '')
-                        }
-                        id={`page-no-${ind}`}
-                      >
-                        {ind + 1}
-                      </p>
-                    )}
-                    <img
-                      id={`dotted-${ind}`}
-                      alt="dotted"
-                      src={dotted}
-                      className="h-50 ms-2 me-2 mt-4"
-                    />
-                    <img
-                      id={`line-${ind}`}
-                      alt="line"
-                      src={line}
-                      className="w-[100%]  mt-4"
-                    />
-                  </>
-                ))}
-              </div>
-            )}
-            <h3 className="mt-5 mb-3 text-black font-[500]">
+                    </>
+                  ))}
+                </div>
+              )}
+              {/* <h3 className="mt-5 mb-3 text-white font-[500]">
               Qustion {pageNumber} of {templateData.mcqs.length}
-            </h3>
+            </h3> */}
 
-            <div className="flex justify-start View_mcq_template_mcq mt-3 flex-column">
+              {/* <div className="flex justify-start View_mcq_template_mcq mt-3 flex-column">
               {templateData &&
                 templateData?.mcqs?.length !== 0 &&
                 templateData.mcqs.map((mcq: any, mcqInd: any) => (
@@ -555,7 +572,8 @@ function ViewMcqTemplate() {
                                       }}
                                     >
                                       <h2 className="text-black font-[600] text-xl">
-                                        {' '}{op}{' '}
+                                        {' '}
+                                        {op}{' '}
                                       </h2>
                                     </div>
                                   </div>
@@ -568,28 +586,104 @@ function ViewMcqTemplate() {
                     )}
                   </>
                 ))}
-            </div>
-            {explaination && (
-              <div
-                className="flex justify-center mt-3"
-                style={{ color: `${explainationColor}` }}
-              >
-                {explaination}
-              </div>
-            )}
-            <div className="flex justify-center mt-5">
-              <button
-                id="save_next"
-                className="btn btn-primary rounded"
-                onClick={() => {
-                  handleSaveAndNext();
-                }}
-              >
-                save and next
-              </button>
-            </div>
-          </>
-        )}
+            </div> */}
+
+              {templateData &&
+                templateData?.mcqs?.length !== 0 &&
+                templateData.mcqs.map((mcq: any, mcqInd: any) => (
+                  <>
+                    {mcqInd + 1 === pageNumber && (
+                      <div
+                        key={mcqInd}
+                        className="w-full flex justify-center items-center"
+                      >
+                        <div className="max-w-[90%] min-w-[70%] my-5 py-5 px-7 backdrop-blur-lg bg-[#FFF]/10 rounded-xl shadow-lg">
+                          <div className="flex flex-col justify-center items-center gap-8">
+                            <div className="border-4 customBorder border-[#FFF]/50 px-6 py-4 rounded-full">
+                              <h2 className="text-white font-bold text-2xl text-center">
+                                <span>{mcqInd + 1} .</span>{' '}
+                                {mcqInd + 1 === pageNumber ? mcq?.question : ''}
+                              </h2>
+                            </div>
+
+                            {/* OPTIONS */}
+                            <div className="grid grid-cols-2 w-[60%] gap-5 ">
+                              {mcq?.options.map((currOpt: any, optID: any) => (
+                                <>
+                                  {mcq?.options_type === 'image' ? (
+                                    <>
+                                      {/* IF THE OPTIONS ARE IMAGE'S */}
+                                      <div
+                                        key={optID}
+                                        id={`main-div-img-option-${optID}`}
+                                        onClick={() => {
+                                          handleClickedOption('img', optID);
+                                        }}
+                                        className="flex items-center border-4 border-[#FFF]/50 rounded-full text-white px-4 py-3 cursor-pointer"
+                                      >
+                                        <span className="font-semibold text-lg justify-self-start">
+                                          {ALPHABET[optID]} .
+                                        </span>
+                                        <img
+                                          src={currOpt}
+                                          id={`img-option-${optID}`}
+                                          className=" w-[20%] mx-auto"
+                                        />
+                                      </div>
+                                    </>
+                                  ) : (
+                                    <>
+                                      {/* IF THE OPTIONS ARE TEXT */}
+                                      <div
+                                        key={optID}
+                                        id={`main-div-text-option-${optID}`}
+                                        onClick={() => {
+                                          handleClickedOption('text', optID);
+                                        }}
+                                        className="flex items-center border-4 border-[#FFF]/50 rounded-full text-white px-4 py-3 cursor-pointer hover:scale-110 transition-all duration-200 ease-in-out"
+                                      >
+                                        <span className="font-semibold text-lg justify-self-start">
+                                          {ALPHABET[optID]} .
+                                        </span>
+                                        <h2 className="font-semibold capitalize text-xl mx-auto">
+                                          {currOpt}
+                                        </h2>
+                                      </div>
+                                    </>
+                                  )}
+                                </>
+                              ))}
+                            </div>
+
+                            <button
+                              onClick={() => {
+                                handleSaveAndNext();
+                              }}
+                              className="text-white font-semibold text-lg  w-[20%] py-2 rounded-full border-4 border-[#FFF]/50 hoverEffect__QuizeNextBTN"
+                            >
+                              Save and Next
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </>
+                ))}
+
+              {explaination && (
+                <div
+                  className="flex justify-center items-center max-w-[60%] py-4 px-5 shadow-lg rounded-lg mx-auto  backdrop-blur-lg bg-[#FFF]/10 "
+                  style={{ color: `${explainationColor}` }}
+                >
+                  <p className="text-white font-[500] text-lg text-center">
+                    {explaination}
+                  </p>
+                </div>
+              )}
+             
+            </>
+          )}
+        </div>
       </div>
     </>
   );

@@ -125,15 +125,15 @@ function ViewQuizTemplate() {
       });
   }, []);
 
-  // useEffect(() => {
-  //   if (showAns == false) {
-  //     setTimeout(async () => {
-  //       if (nextClicked[pageNumber - 1] !== 'clicked') {
-  //         await handleSaveAndNext();
-  //       }
-  //     }, 10000);
-  //   }
-  // });
+  useEffect(() => {
+    if (showAns == false) {
+      setTimeout(async () => {
+        if (nextClicked[pageNumber - 1] !== 'clicked') {
+          await handleSaveAndNext();
+        }
+      }, 10000);
+    }
+  });
 
   useEffect(() => {
     // console.log("ans", ans)
@@ -164,13 +164,13 @@ function ViewQuizTemplate() {
         className="p-4 relative h-screen gradientBg__Quize"
         style={{ overflowY: 'auto' }}
       >
-        <div className="absolute opacity-30 w-[8%] bottom-[5%] rotate-45">
+        <div className="absolute opacity-60 w-[8%] left-[2%] bottom-[5%] rotate-45">
           <img src={MathGIF1} alt="" />
         </div>
-        <div className="absolute opacity-30 w-[6%] right-[10%]  top-[40%]">
+        <div className="absolute opacity-60 w-[6%] right-[10%]  top-[40%]">
           <img src={MathGIF2} alt="" />
         </div>
-        <div className="absolute opacity-30 w-[15%] right-[50%] top-[40%]">
+        <div className="absolute opacity-60 w-[15%] right-[50%] top-[40%]">
           <img src={MathGIF3} alt="" />
         </div>
 
