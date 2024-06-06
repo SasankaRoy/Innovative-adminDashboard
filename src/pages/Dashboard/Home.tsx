@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import CardDataStats from '../../components/CardDataStats';
 import ChatCard from '../../components/Chat/ChatCard';
-import TableOne from '../../components/Tables/TableOne';
+import TableOne from '../../components/Tables/UserTable';
 import DefaultLayout from '../../layout/DefaultLayout';
 import { useNavigate } from 'react-router-dom';
 import { fetchInvoices, fetchMcqTemplates, fetchPurchaseOrders, fetchQuizTemplates, fetchUsers } from '../../api-calls/apicalls';
@@ -172,7 +172,7 @@ setActiveUsers([...purchaseOrdersData]);
         {/* <ChartThree /> */}
         {/* <MapOne /> */}
         <div className="col-span-12 xl:col-span-8">
-          <TableOne />
+          {/* <TableOne /> */}
         </div>
         <ChatCard />
       </div>

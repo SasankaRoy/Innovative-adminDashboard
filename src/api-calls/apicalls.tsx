@@ -369,74 +369,92 @@ export const fetchUsers = async () => {
   }
 };
 
-// export const createUsers = async (userData) => {
-//   let tempUsers = [];
-//   try {
-//     // console.log("userData", userData);
+export const createUsers = async (userData:any) => {
+  let tempUsers = [];
+  const token = localStorage.getItem("token");
 
-//     await axios({
-//       method: "post",
-//       url: `${process.env.REACT_APP_BASE_URL}/api/user/create-user`,
-//       data: userData,
-//       headers: {
-//         "Content-Type": "application/json",
-//         authorization: `Bearer ${token}`,
-//       },
-//     }).then((res) => {
-//       tempUsers = res.data;
-//     });
-//   } catch (error) {
-//     // console.log("can not save users");
-//     tempUsers=error?.response?.data;
-//   } finally {
-//     return tempUsers;
-//   }
-// };
+  if(token)
+{  try {
+    // console.log("userData", userData);
 
-// export const updateUsers = async (userData) => {
-//   let tempUsers = [];
-//   try {
-//     // console.log("userData", userData);
+    await axios({
+      method: "post",
+      url: `${API_URL}/api/user/create-user`,
+      data: userData,
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      tempUsers = res.data;
+    });
+  } catch (error:any) {
+    // console.log("can not save users");
+    tempUsers=error?.response?.data;
+  } finally {
+    return tempUsers;
+  }}else{
+    return {message:"jwt is not present"}
+  }
+};
 
-//     await axios({
-//       method: "put",
-//       url: `${process.env.REACT_APP_BASE_URL}/api/user/`,
-//       data: userData,
-//       headers: {
-//         "Content-Type": "application/json",
-//         authorization: `Bearer ${token}`,
-//       },
-//     }).then((res) => {
-//       tempUsers = res.data;
-//     });
-//   } catch (error) {
-//     // console.log("can not update users");
-//     tempUsers=error?.response?.data;
-//   } finally {
-//     return tempUsers;
-//   }
-// };
+export const updateUsers = async (userData:any) => {
+  let tempUsers = [];
+  const token = localStorage.getItem("token");
 
-// export const deleteUsers = async (deleteData) => {
-//   let tempUser = [];
-//   try {
-//     await axios({
-//       method: "delete",
-//       url: `${process.env.REACT_APP_BASE_URL}/api/user`,
-//       data: deleteData,
-//       headers: {
-//         authorization: `Bearer ${token}`,
-//       },
-//     }).then((res) => {
-//       tempUser = res.data;
-//     });
-//   } catch (error) {
-//     // console.log("can not delete user");
-//     tempUser=error?.response?.data;
-//   } finally {
-//     return tempUser;
-//   }
-// };
+  if(token){
+  try {
+    // console.log("userData", userData);
+
+    await axios({
+      method: "put",
+      url: `${API_URL}/api/user/`,
+      data: userData,
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      tempUsers = res.data;
+    });
+  } catch (error:any) {
+    // console.log("can not update users");
+    tempUsers=error?.response?.data;
+  } finally {
+    return tempUsers;
+  }}else{
+    return {message:"jwt is not present"}
+  }
+
+  
+};
+
+export const deleteUsers = async (deleteData:any) => {
+  let tempUser = [];
+  const token = localStorage.getItem("token");
+
+  if(token){
+  try {
+    await axios({
+      method: "delete",
+      url: `${API_URL}/api/user`,
+      data: deleteData,
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      tempUser = res.data;
+    });
+  } catch (error:any) {
+    // console.log("can not delete user");
+    tempUser=error?.response?.data;
+  } finally {
+    return tempUser;
+  }}
+  else{
+    return {message:"jwt is not present"}
+  }
+};
 
 // export const createPurchaseOrders = async (addData) => {
 //   let tempPurchaseOrders = [];

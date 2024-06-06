@@ -104,3 +104,208 @@ const TableTwo = () => {
 };
 
 export default TableTwo;
+
+
+
+{/* <hr style={{ color: "black", margin: '0' }} />
+<div className="row">
+
+  <div className="col-md-10 p-4" style={{ height:'90vh',overflowY:'auto' }}>
+  
+    <div className="d-flex">
+      <div className="fw-bold">
+        {`Users(${users.length - 1})`}
+      </div>
+
+      <div className="w-50 ms-3">
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Search"
+        />
+
+
+      </div>
+      
+      <button
+        className="btn btn-outline-primary ms-2"
+        type="search"
+
+      >
+        Search
+      </button>
+      <button
+        className="btn ms-2"
+        style={{
+          width: "fit-content",
+          background: "#90EE90",
+          whiteSpace: "nowrap",
+        }}
+        onClick={() => {
+          setUpdate(false);
+          setShowModal(true);
+        }}
+      >
+        <AddIcon />
+        <span className="ms-2">Create</span>
+      </button>
+
+    </div>
+
+
+
+
+    <table className="table mt-4 p-4 w-70 text-center">
+      <thead>
+        <tr className="table-primary table-striped">
+           <th scope="col">SN.</th> 
+          <th  className='w-25'>Name</th>
+          <th className='w-25'>Action</th>
+        </tr>
+      </thead>
+      {users.length !== 0 && users.map((user, ind) =>
+        user.email !== "admin@gmail.com" && (
+          <tbody>
+            <tr >
+             <th scope="col">{ind + 1}</th> 
+              <th className='w-25'> {user?.first_name + " " + user?.last_name}</th>
+
+              <th className='w-25'>
+                <CreateIcon
+                  className="text-primary border border-primary rounded me-2"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => {
+                    setUpdate(true)
+                    setShowModal(true);
+                    setFirstName(user?.first_name)
+                    setLastName(user?.last_name)
+                    setEmail(user?.email)
+                    setPhone(user?.phone_no)
+                    setPassword("")
+                    setRole(user?.role)
+                    setUserId(user?._id)
+                  }}
+                />
+                <DeleteIcon
+                  className="text-danger border border-danger cursor-pointer rounded"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => {
+                    handleDelete(user?._id)
+                  }}
+                />
+              </th>
+            </tr>
+          </tbody>
+        )
+
+      )}
+
+
+
+    </table>
+
+  </div>
+</div>
+
+<Modal show={showModal} onHide={handleClose} size="lg" centered>
+  <Modal.Header closeButton>
+    <Modal.Title>
+      {update ? "Update Users" : "Add Users"}
+    </Modal.Title>
+  </Modal.Header>
+  <Modal.Body>
+    <div className="row gy-2">
+      <div className="mb-2">
+        <label className="pb-1">First Name</label>
+        <input
+          type="text"
+          className="form-control"
+          placeholder="First Name"
+          value={firstName}
+          onChange={(e) => {
+            setFirstName(e.target.value);
+          }}
+        />
+      </div>
+
+      <div className="mb-2">
+        <label className="pb-1">Last Name</label>
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Last Name"
+          value={lastName}
+          onChange={(e) => {
+            setLastName(e.target.value);
+          }}
+        />
+      </div>
+
+      <div className="mb-2">
+        <label className="pb-1">Phone No</label>
+        <input
+          type="text"
+          className="form-control"
+          placeholder="phone"
+          value={phone}
+          onChange={(e) => {
+            setPhone(e.target.value);
+          }}
+        />
+      </div>
+
+      <div className="mb-2">
+        <label className="pb-1">Email</label>
+        <input
+          type="text"
+          className="form-control"
+          placeholder="email"
+          value={email}
+          onChange={(e) => {
+            setEmail(e.target.value);
+          }}
+        />
+      </div>
+
+      <div className="mb-2">
+        <label className="pb-1">Password</label>
+        <input
+          type="text"
+          className="form-control"
+          placeholder="password"
+          value={password}
+          onChange={(e) => {
+            setPassword(e.target.value);
+          }}
+        />
+      </div>
+
+      <div className="mb-2">
+        <label className="pb-1">Role</label>
+        <select value={role} onChange={handleRole} className="form-control">
+          <option defaultValue="select role">Select Role</option>
+          <option>User 1</option>
+          <option>User 2</option>
+          <option>User 3</option>
+        </select>
+      </div>
+    </div>
+  </Modal.Body>
+  <Modal.Footer>
+    <Button
+      className="btn"
+      style={{ background: "red", border: "none" }}
+      onClick={handleClose}
+    >
+      Close
+    </Button>
+    <Button
+      variant="primary"
+      onClick={() => {
+        update ? handleUpdate() : handleCreate();
+      }}
+    >
+      {update ? "Update" : "Create"}
+    </Button>
+  </Modal.Footer>
+</Modal> */}
