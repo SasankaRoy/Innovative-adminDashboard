@@ -11,6 +11,7 @@ import DefaultBanner from '../../assets/banner.png';
 import MathGIF1 from '../../assets/Math1.gif';
 import MathGIF2 from '../../assets/Math2.gif';
 import MathGIF3 from '../../assets/Math3.gif';
+import MathGIF4 from '../../assets/Math4.gif';
 
 function ViewQuizTemplate() {
   const location = useLocation();
@@ -172,6 +173,9 @@ function ViewQuizTemplate() {
         </div>
         <div className="absolute opacity-60 w-[15%] right-[50%] top-[40%]">
           <img src={MathGIF3} alt="" />
+        </div>
+        <div className="absolute  opacity-60 w-[8%] right-[5%] bottom-[4%]">
+          <img src={MathGIF4} alt="" />
         </div>
 
         <div className="w-full h-full">

@@ -18,6 +18,7 @@ import incorrect from '../../assets/incorrect.png';
 import MathGIF1 from '../../assets/Math1.gif';
 import MathGIF2 from '../../assets/Math2.gif';
 import MathGIF3 from '../../assets/Math3.gif';
+import MathGIF4 from '../../assets/Math4.gif';
 
 function ViewMcqTemplate() {
   const location = useLocation();
@@ -312,7 +313,7 @@ function ViewMcqTemplate() {
       <div
         className="h-screen relative gradientBg__MCQ"
         style={{
-          overflowY: 'auto',
+          overflowY: 'hidden',
         }}
       >
         <div className="absolute  opacity-60 w-[8%] left-[2%] bottom-[5%] rotate-45">
@@ -324,119 +325,192 @@ function ViewMcqTemplate() {
         <div className="absolute  opacity-60 w-[15%] right-[50%] top-[40%]">
           <img src={MathGIF3} alt="" />
         </div>
+        <div className="absolute  opacity-60 w-[8%] right-[5%] bottom-[4%]">
+          <img src={MathGIF4} alt="" />
+        </div>
 
-        <div className="w-full h-full p-5 z-20">
+        <div className="w-full h-full p-5 overflow-y-auto">
           {showAns ? (
+            // <>
+            //   {templateData.mcqs.map((mcq: any, index: any) => (
+            //     <div className="flex justify-start items-start View_mcq_template_mcq my-3 py-3 px-4 flex-col">
+            //       {/* qustion and status  start */}
+            //       <div className="flex justify-start items-center gap-3">
+            //         <h5
+            //           className="text-black font-[600] text-2xl capitalize"
+            //           style={{ whiteSpace: 'nowrap' }}
+            //         >
+            //           <span className="text-xl">{(QustionCounter += 1)}.</span>{' '}
+            //           {mcq?.question}
+            //         </h5>
+            //         {ansSigns[index] === 'correct' ? (
+            //           <img
+            //             src={correct}
+            //             className=""
+            //             alt="correct"
+            //             style={{ height: '2%', width: '2%' }}
+            //           />
+            //         ) : (
+            //           <img
+            //             className=""
+            //             style={{ height: '2%', width: '2%' }}
+            //             src={incorrect}
+            //             alt="incorrect"
+            //           />
+            //         )}
+            //       </div>
+            //       {/* qustion and status  end */}
+
+            //       {ans[index] === 'unattempted' ? (
+            //         <p className="View_mcq_template_not_attemted">
+            //           Not Attempted
+            //         </p>
+            //       ) : (
+            //         <div className="flex justify-center my-3">
+            //           <div className="grid grid-cols-1 gap-4 ">
+            //             {mcq.options.map((op: any, ind: any) => (
+            //               <div
+            //                 className={`px-2 py-3 min-w-[40%]  flex justify-start items-start gap-3 rounded-lg ${mcq.answer === op && 'bg-green-400/30'}`}
+            //               >
+            //                 {mcq?.options_type === 'image' ? (
+            //                   <>
+            //                     <p
+            //                       className={`text-base font-[500] ${mcq.answer === op ? 'text-green-500 text-xl' : 'text-black'}`}
+            //                     >{`${ALPHABET[ind]} .`}</p>
+            //                     {/* View_mcq_template_options_img */}
+            //                     <img
+            //                       className="h-28 w-28 object-contain"
+            //                       id={`img-option-${ind}`}
+            //                       src={op}
+            //                       alt="op-img"
+            //                       style={{
+            //                         cursor: 'pointer',
+            //                       }}
+            //                     />
+            //                     {/* {mcq.answer === op ? (
+            //                     <p className="View_mcq_template_correct_answer">
+            //                       correct answer
+            //                     </p>
+            //                   ) : (
+            //                     ''
+            //                   )}
+            //                   {ans[index] === ind && mcq.answer != op ? (
+            //                     <p className="View_mcq_template_incorrect_answer">
+            //                       incorrect answer
+            //                     </p>
+            //                   ) : (
+            //                     ''
+            //                   )} */}
+            //                   </>
+            //                 ) : (
+            //                   <>
+            //                     <div
+            //                       className={`p-2 View_mcq_template_options_text flex justify-start items-start gap-3`}
+            //                       id={`text-option-${ind}`}
+            //                       style={{
+            //                         cursor: 'pointer',
+            //                       }}
+            //                     >
+            //                       <p
+            //                         className={`text-base font-[500] ${mcq.answer === op ? 'text-green-500 text-xl' : 'text-black'}`}
+            //                       >{`${ALPHABET[ind]} .`}</p>
+            //                       <h2
+            //                         className={`${mcq.answer === op ? 'text-green-500 text-xl' : 'text-black'} capitalize  font-[500]`}
+            //                       >
+            //                         {op}
+            //                       </h2>
+            //                     </div>
+            //                     {/* {mcq.answer === op ? (
+            //                     <p className="View_mcq_template_correct_answer">
+            //                       correct answer
+            //                     </p>
+            //                   ) : (
+            //                     ''
+            //                   )}
+            //                   {ans[index] === ind && mcq.answer != op ? (
+            //                     <p className="View_mcq_template_incorrect_answer">
+            //                       incorrect answer
+            //                     </p>
+            //                   ) : (
+            //                     ''
+            //                   )} */}
+            //                   </>
+            //                 )}
+            //               </div>
+            //             ))}
+            //           </div>
+            //         </div>
+            //       )}
+            //     </div>
+            //   ))}
+            // </>
             <>
               {templateData.mcqs.map((mcq: any, index: any) => (
-                <div className="flex justify-start items-start View_mcq_template_mcq my-3 py-3 px-4 flex-col">
-                  {/* qustion and status  start */}
-                  <div className="flex justify-start items-center gap-3">
-                    <h5
-                      className="text-black font-[600] text-2xl capitalize"
-                      style={{ whiteSpace: 'nowrap' }}
-                    >
-                      <span className="text-xl">{(QustionCounter += 1)}.</span>{' '}
-                      {mcq?.question}
-                    </h5>
-                    {ansSigns[index] === 'correct' ? (
-                      <img
-                        src={correct}
-                        className=""
-                        alt="correct"
-                        style={{ height: '2%', width: '2%' }}
-                      />
-                    ) : (
-                      <img
-                        className=""
-                        style={{ height: '2%', width: '2%' }}
-                        src={incorrect}
-                        alt="incorrect"
-                      />
-                    )}
-                  </div>
-                  {/* qustion and status  end */}
-
-                  {ans[index] === 'unattempted' ? (
-                    <p className="View_mcq_template_not_attemted">
-                      Not Attempted
-                    </p>
-                  ) : (
-                    <div className="flex justify-center my-3">
-                      <div className="grid grid-cols-1 gap-4 ">
-                        {mcq.options.map((op: any, ind: any) => (
-                          <div
-                            className={`px-2 py-3 min-w-[40%]  flex justify-start items-start gap-3 rounded-lg ${mcq.answer === op && 'bg-green-400/30'}`}
-                          >
-                            {mcq?.options_type === 'image' ? (
-                              <>
-                                <p
-                                  className={`text-base font-[500] ${mcq.answer === op ? 'text-green-500 text-xl' : 'text-black'}`}
-                                >{`${ALPHABET[ind]} .`}</p>
-                                {/* View_mcq_template_options_img */}
-                                <img
-                                  className="h-28 w-28 object-contain"
-                                  id={`img-option-${ind}`}
-                                  src={op}
-                                  alt="op-img"
-                                  style={{
-                                    cursor: 'pointer',
-                                  }}
-                                />
-                                {/* {mcq.answer === op ? (
-                                <p className="View_mcq_template_correct_answer">
-                                  correct answer 
-                                </p>
-                              ) : (
-                                ''
-                              )}
-                              {ans[index] === ind && mcq.answer != op ? (
-                                <p className="View_mcq_template_incorrect_answer">
-                                  incorrect answer
-                                </p>
-                              ) : (
-                                ''
-                              )} */}
-                              </>
-                            ) : (
-                              <>
-                                <div
-                                  className={`p-2 View_mcq_template_options_text flex justify-start items-start gap-3`}
-                                  id={`text-option-${ind}`}
-                                  style={{
-                                    cursor: 'pointer',
-                                  }}
-                                >
-                                  <p
-                                    className={`text-base font-[500] ${mcq.answer === op ? 'text-green-500 text-xl' : 'text-black'}`}
-                                  >{`${ALPHABET[ind]} .`}</p>
-                                  <h2
-                                    className={`${mcq.answer === op ? 'text-green-500 text-xl' : 'text-black'} capitalize  font-[500]`}
-                                  >
-                                    {op}
-                                  </h2>
-                                </div>
-                                {/* {mcq.answer === op ? (
-                                <p className="View_mcq_template_correct_answer">
-                                  correct answer
-                                </p>
-                              ) : (
-                                ''
-                              )}
-                              {ans[index] === ind && mcq.answer != op ? (
-                                <p className="View_mcq_template_incorrect_answer">
-                                  incorrect answer
-                                </p>
-                              ) : (
-                                ''
-                              )} */}
-                              </>
-                            )}
-                          </div>
-                        ))}
+                <div
+                  key={index}
+                  className="w-full flex justify-center items-center"
+                >
+                  <div className="max-w-[90%] min-w-[70%] my-5 py-5 px-7 backdrop-blur-lg bg-[#FFF]/10 rounded-xl shadow-lg">
+                    <div className="flex flex-col justify-center items-center gap-8">
+                      {/* question */}
+                      <div className="border-4 customBorder border-[#FFF]/50 px-6 py-4 rounded-full">
+                        <h2 className="text-white font-bold text-2xl text-center">
+                          <span>{index + 1} .</span> {mcq?.question}
+                        </h2>
                       </div>
+
+                      {/* options  */}
+                      {ans[index] === 'unattempted' ? (
+                        <p className="text-white font-semibold text-xl">
+                          No Attempted this question
+                        </p>
+                      ) : (
+                        <div className="grid grid-cols-2 w-[60%] gap-5 ">
+                          {mcq?.options.map((currOpt: any, optID: any) => (
+                            <>
+                              {mcq?.options_type === 'image' ? (
+                                <>
+                                  {/* IF THE OPTIONS ARE IMAGE'S */}
+                                  <div
+                                    key={optID}
+                                    // id={`main-div-img-option-${optID}`}
+                                    id={`img-option-${optID}`}
+                                    className={`flex items-center border-4 border-[#FFF]/50 rounded-full text-white px-4 py-3 cursor-pointer ${mcq.answer === optID && 'bg-green-400/30'} ${ans[index] === optID && mcq.answer != optID && 'bg-red-600/50'}`}
+                                  >
+                                    <span className="font-semibold text-lg justify-self-start">
+                                      {ALPHABET[optID]} .
+                                    </span>
+                                    <img
+                                      src={currOpt}
+                                      id={`img-option-${optID}`}
+                                      className=" w-[20%] mx-auto"
+                                    />
+                                  </div>
+                                </>
+                              ) : (
+                                <>
+                                  {/* IF THE OPTIONS ARE TEXT */}
+                                  <div
+                                    key={optID}
+                                    // id={`main-div-text-option-${optID}`}
+                                    id={`text-option-${optID}`}
+                                    className={`flex items-center border-4 border-[#FFF]/50 rounded-full text-white px-4 py-3 cursor-pointer ${mcq.answer === currOpt && 'bg-green-400/30'} ${ans[index] === optID && mcq.answer != optID && 'bg-red-600/50'}`}
+                                  >
+                                    <span className="font-semibold text-lg justify-self-start">
+                                      {ALPHABET[optID]} .
+                                    </span>
+                                    <h2 className="font-semibold capitalize text-xl mx-auto">
+                                      {currOpt}
+                                    </h2>
+                                  </div>
+                                </>
+                              )}
+                            </>
+                          ))}
+                        </div>
+                      )}
                     </div>
-                  )}
+                  </div>
                 </div>
               ))}
             </>
@@ -680,7 +754,6 @@ function ViewMcqTemplate() {
                   </p>
                 </div>
               )}
-             
             </>
           )}
         </div>
