@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './viewQuizTemplate.css';
 // import dotted from '../../assets/Dotted.png';
 // import line from '../../assets/Line.png';
@@ -258,6 +258,12 @@ function ViewQuizTemplate() {
 
             // </>
             <>
+              <Link
+                to="/quiz-template-editor"
+                className=" border-2 border-[#FFF]/30 rounded-lg shadow-lg bg-transparent text-white font-[400] text-base px-4 py-2"
+              >
+                Go Back
+              </Link>
               {templateData.quizzes.map((currQuize: any, quizeId: any) => (
                 <div
                   key={quizeId}
@@ -333,10 +339,16 @@ function ViewQuizTemplate() {
             <>
               {templateData && (
                 <div className="h-[40%] overflow-hidden relative rounded-lg">
-                  <div className="absolute z-10 top-0 left-0 w-full h-full flex justify-center items-center">
-                    <h1 className="text-white capitalize text-center font-[600] text-3xl my-4">
+                  <div className="absolute z-10 top-0 left-0 w-full h-full flex flex-col justify-center items-center">
+                    <h1 className="text-white capitalize text-center font-[600] text-3xl my-2">
                       {templateData?.paper_name}
                     </h1>
+                    <Link
+                      to="/quiz-template-editor"
+                      className=" border-none bg-transparent text-white font-[500] text-lg px-3 py-1"
+                    >
+                      Go Back
+                    </Link>
                   </div>
                   <img
                     className="w-full h-full absolute top-0 left-0  object-cover brightness-75"
