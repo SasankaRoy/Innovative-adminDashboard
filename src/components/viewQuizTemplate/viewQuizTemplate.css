@@ -105,6 +105,9 @@
   position: relative;
   overflow: hidden;
   z-index: 1;
+  transition: 0.5s ease-out;
+  
+  color: #000;
 }
 .hoverEffect__QuizeNextBTN::after {
   position: absolute;
@@ -117,6 +120,9 @@
   z-index: -1;
   border-radius: 9999px;
   transition: 0.4s ease-out;
+}
+.hoverEffect__QuizeNextBTN:hover{
+  color: #fff;
 }
 .hoverEffect__QuizeNextBTN:hover::after {
   top: 0%;

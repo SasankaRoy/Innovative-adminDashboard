@@ -71,6 +71,7 @@ function ViewMcqTemplate() {
 
     if (tempPageNo == templateData?.mcqs?.length) {
       setShowAns(true);
+      setExplaination('');
       return;
     }
 
@@ -821,6 +822,30 @@ function ViewMcqTemplate() {
             </>
           )}
         </div>
+        {explaination && (
+          <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center bg-[#000]/30 backdrop-blur-sm z-20">
+            <div
+              className="flex flex-col gap-3 justify-center items-center w-[40%] py-5  px-5 shadow-2xl rounded-lg mx-auto  backdrop-blur-lg bg-[#FFF] "
+              style={{ color: `${explainationColor}` }}
+            >
+              <h2 className="text-black font-semibold text-2xl">
+                Explaination for your answer
+              </h2>
+              <p className="text-black font-[500] text-lg text-center">
+                {explaination}
+              </p>
+
+              <button
+                onClick={() => {
+                  handleSaveAndNext();
+                }}
+                className="text-black shadow-md font-semibold text-base  w-[30%] py-2 rounded-full border-2 border-[#000]/50 hoverEffect__QuizeNextBTN"
+              >
+                Save and Next
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );
