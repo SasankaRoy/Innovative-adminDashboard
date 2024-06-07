@@ -16,13 +16,13 @@ function ViewFileTemplate() {
   const { templateData } = location.state;
   const navigate = useNavigate();
 
-  const handleDownloadZip = (clickedZip: any) => {
-    templateData?.template_zips?.forEach((zip: any) => {
-      if (zip._id === clickedZip._id) {
-        saveAs(zip?.url, `${zip?.file_name}`);
-      }
-    });
-  };
+  // const handleDownloadZip = (clickedZip: any) => {
+  //   templateData?.template_zips?.forEach((zip: any) => {
+  //     if (zip._id === clickedZip._id) {
+  //       saveAs(zip?.url, `${zip?.file_name}`);
+  //     }
+  //   });
+  // };
 
   useEffect(() => {
     const verifier = async () => {
@@ -137,10 +137,33 @@ function ViewFileTemplate() {
         </div> */}
 
         <div className=" w-[85%] mx-auto my-4 p-2">
-          <AccordionCustomIcon
-            templateData={templateData}
-            pdfData={templateData.template_pdfs}
-          />
+          <div className="my-4">
+            <h2 className="text-3xl font-[600] text-black  my-2">Pdf's</h2>
+            <AccordionCustomIcon
+              templateData={templateData}
+              Data={templateData.template_pdfs}
+            />
+          </div>
+
+          <div className="my-4">
+            <h2 className="text-3xl font-[600] text-black my-2">
+              Dowload Zip's
+            </h2>
+            <AccordionCustomIcon
+              templateData={templateData}
+              Data={templateData.template_zips}
+            />
+          </div>
+
+          {/* <div className="my-4">
+            <h2 className="text-3xl font-[600] text-black my-2">
+              Web Links
+            </h2>
+            <AccordionCustomIcon
+              templateData={templateData}
+              Data={templateData.template_links}
+            />
+          </div> */}
         </div>
       </div>
     </div>
@@ -168,16 +191,21 @@ function Icon({ id, open }: any) {
   );
 }
 
-export function AccordionCustomIcon({ templateData, pdfData }: any) {
-  console.log(pdfData, 'in the accordion');
-
+export function AccordionCustomIcon({ templateData, Data }: any) {
   const [open, setOpen] = React.useState(0);
-
   const handleOpen = (value: any) => setOpen(open === value ? 0 : value);
+
+  const handleDownloadZip = (clickedZip: any) => {
+    templateData?.template_zips?.forEach((zip: any) => {
+      if (zip._id === clickedZip._id) {
+        saveAs(zip?.url, `${zip?.file_name}`);
+      }
+    });
+  };
 
   return (
     <>
-      {pdfData.map((cur: any, id: any) => (
+      {Data.map((cur: any, id: any) => (
         // @ts-ignore
         <Accordion
           key={id}
@@ -188,17 +216,30 @@ export function AccordionCustomIcon({ templateData, pdfData }: any) {
             // @ts-ignore
             onClick={() => handleOpen(id + 1)}
           >
-            <h2 className="text-black font-[500] capitalize">
+            <h2 className="text-black text-xl font-[500] capitalize">
               {cur.file_name.split('.')[0]}
             </h2>
           </AccordionHeader>
-          <AccordionBody>
-            <Link
-              to="/pdfDetails"
-              state={{ template: templateData, clickedPdf: cur }}
-            >
-              View & download
-            </Link>
+          <AccordionBody className="px-4">
+            {cur.file_name.split('.')[1] === 'zip' && (
+              <div className="bg-[#3c50e0] text-white cursor-pointer hover:bg-white hover:text-[#3c50e0] transition-all duration-200 ease-in-out w-[10%] flex justify-center items-center py-2 rounded-lg shadow-md">
+                <DownloadIcon
+                  onClick={() => {
+                    handleDownloadZip(cur);
+                  }}
+                />
+              </div>
+            )}
+
+            {cur.file_name.split('.')[1] === 'pdf' && (
+              <Link
+                to="/pdfDetails"
+                state={{ template: templateData, clickedPdf: cur }}
+                className="text-lg font-[600] text-blue-800"
+              >
+                View & download
+              </Link>
+            )}
           </AccordionBody>
         </Accordion>
       ))}
