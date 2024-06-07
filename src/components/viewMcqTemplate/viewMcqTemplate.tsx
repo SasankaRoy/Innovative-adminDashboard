@@ -588,12 +588,7 @@ function ViewMcqTemplate() {
                           {ind + 1}
                         </p>
                       )}
-                      {/* <img
-                        id={`dotted-${ind}`}
-                        alt="dotted"
-                        src={dotted}
-                        className="h-50 ms-2 me-2 mt-4"
-                      /> */}
+                    
                       <div
                         id={`dotted-${ind}`}
                         className="h-2 bg-[#FFF]/20 backdrop-blur-lg w-[10%] rounded-full"
@@ -602,12 +597,7 @@ function ViewMcqTemplate() {
                         id={`line-${ind}`}
                         className="h-2 bg-[#FFF]/20 backdrop-blur-lg w-[10%] rounded-full"
                       />
-                      {/* <img
-                        id={`line-${ind}`}
-                        alt="line"
-                        src={line}
-                        className="w-[100%] "
-                      /> */}
+                    
                     </>
                   ))}
                 </div>
