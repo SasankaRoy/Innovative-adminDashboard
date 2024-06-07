@@ -57,87 +57,8 @@ function ViewFileTemplate() {
           </div>
         </div>
 
-        {/* <div className="grid grid-cols-3 gap-5 my-3 w-[95%] mx-auto">
-          <div className="mt-4 px-6 py-8 downloadsAndlinks bg-[#eff2f7] rounded-lg">
-            <h5 className="flex justify-center font-bold capitalize text-3xl text-black">
-              Pdfs
-            </h5>
-            <div className="flex flex-col gap-3 justify-start items-start w-full">
-              {templateData && templateData?.template_pdfs?.length !== 0 ? (
-                templateData.template_pdfs.map((pdf: any) => (
-                  <div className="w-full flex justify-between items-center hover:bg-opacity-95 transition-all duration-200 ease-in-out">
-                    <h3 className="text-sm capitalize font-medium text-black">
-                      {pdf?.file_name}
-                    </h3>
-                    <Link
-                      to="/pdfDetails"
-                      state={{ template: templateData, clickedPdf: pdf }}
-                      className="font-semibold w-[20%] bg-[#3c50e0] text-white hover:text-[#3c50e0] hover:bg-white transition-all duration-200 ease-in-out text-sm flex justify-center items-center capitalize py-2 rounded-md shadow-md"
-                    >
-                      details
-                    </Link>
-                  </div>
-                ))
-              ) : (
-                <p>no data</p>
-              )}
-            </div>
-          </div>
-
-          <div className="mt-4 px-6 py-8   downloadsAndlinks bg-[#eff2f7] rounded-lg">
-            <h5 className="flex justify-center font-bold capitalize text-3xl text-black">
-              Zips
-            </h5>
-            <div className="flex flex-col justify-start items-start gap-3">
-              {templateData && templateData?.template_zips?.length !== 0 ? (
-                templateData.template_zips.map((zip: any) => (
-                  <div className="flex justify-between items-center w-full">
-                    <h3 className="text-sm capitalize font-medium text-black">
-                      {zip?.file_name}
-                    </h3>
-                    <div className="bg-[#3c50e0] text-white cursor-pointer hover:bg-white hover:text-[#3c50e0] transition-all duration-200 ease-in-out w-[10%] flex justify-center items-center py-2 rounded-lg shadow-md">
-                      <DownloadIcon
-                        onClick={() => {
-                          handleDownloadZip(zip);
-                        }}
-                      />
-                    </div>
-                  </div>
-                ))
-              ) : (
-                <p>no data</p>
-              )}
-            </div>
-          </div>
-
-          <div className="mt-4 px-6 py-8  downloadsAndlinks bg-[#eff2f7] rounded-lg">
-            <h5 className="flex justify-center font-bold capitalize text-3xl text-black">
-              Links
-            </h5>
-            <div className="flex flex-col justify-start items-center gap-4">
-              {templateData && templateData?.template_links?.length !== 0 ? (
-                templateData.template_links.map((link: any) => (
-                  <div className="w-full flex justify-between items-center">
-                    <h3 className="text-sm capitalize font-medium text-black">
-                      {link?.link_preview_name}
-                    </h3>
-                    <Link
-                      to={`${link?.link_url}`}
-                      className="cursor-pointer font-[600] text-sm w-[20%] py-2 text-white flex justify-center items-center rounded-lg shadow-md bg-[#3c50e0]  hover:bg-white hover:text-[#3c50e0] transition-all duration-200 ease-in-out delay-150"
-                    >
-                      Visit
-                    </Link>
-                  </div>
-                ))
-              ) : (
-                <p>no data</p>
-              )}
-            </div>
-          </div>
-        </div> */}
-
+        
         <div className=" w-[85%] mx-auto my-4 p-2">
-
           {templateData && templateData?.template_pdfs?.length !== 0 && (
             <div className="my-4">
               <AccordionPDF
@@ -147,36 +68,20 @@ function ViewFileTemplate() {
             </div>
           )}
 
-
-          {
-            templateData && templateData?.template_zips?.length !== 0 &&(
-              <div className="my-4">
+          {templateData && templateData?.template_zips?.length !== 0 && (
+            <div className="my-4">
               <AccordionZip
                 templateData={templateData}
                 zipData={templateData.template_zips}
               />
             </div>
-            )
-          }
+          )}
 
-          {
-             templateData && templateData?.template_links?.length !== 0 &&(
-              <div className='my-4'>
-
-              </div>
-             )
-          }
-
-
-          {/* <div className="my-4">
-            <h2 className="text-3xl font-[600] text-black my-2">
-              Web Links
-            </h2>
-            <AccordionCustomIcon
-              templateData={templateData}
-              Data={templateData.template_links}
-            />
-          </div> */}
+          {templateData && templateData?.template_links?.length !== 0 && (
+            <div className="my-4">
+              <AccordionWebLink linkData={templateData.template_links} />
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -205,17 +110,8 @@ function Icon({ id, open }: any) {
 }
 
 export function AccordionPDF({ templateData, pdfData }: any) {
-
   const [open, setOpen] = React.useState(0);
   const handleOpen = (value: any) => setOpen(open === value ? 0 : value);
-
-  // const handleDownloadZip = (clickedZip: any) => {
-  //   templateData?.template_zips?.forEach((zip: any) => {
-  //     if (zip._id === clickedZip._id) {
-  //       saveAs(zip?.url, `${zip?.file_name}`);
-  //     }
-  //   });
-  // };
 
   return (
     <>
@@ -238,7 +134,7 @@ export function AccordionPDF({ templateData, pdfData }: any) {
             <Link
               to="/pdfDetails"
               state={{ template: templateData, clickedPdf: cur }}
-              className="text-base font-[600] text-black underline underline-offset-4 hover:text-blue-800 transition-all duration-150 ease-out"
+              className="text-base font-[600] text-black underline underline-offset-4 hover:text-blue-500 transition-all duration-150 ease-out"
             >
               {cur.file_name.split('.')[0]}
             </Link>
@@ -249,8 +145,8 @@ export function AccordionPDF({ templateData, pdfData }: any) {
   );
 }
 
-export const AccordionZip = ({templateData,zipData}:any)=>{
-  console.log(zipData)
+export const AccordionZip = ({ templateData, zipData }: any) => {
+  console.log(zipData);
   const [open, setOpen] = React.useState(0);
   const handleOpen = (value: any) => setOpen(open === value ? 0 : value);
 
@@ -281,8 +177,8 @@ export const AccordionZip = ({templateData,zipData}:any)=>{
           </AccordionHeader>
           <AccordionBody className="px-4">
             <p
-              onClick={()=>handleDownloadZip(cur)}
-              className="text-base font-[600] text-black underline underline-offset-4 hover:text-blue-800 transition-all duration-150 ease-out"
+              onClick={() => handleDownloadZip(cur)}
+              className="text-base font-[600] text-black cursor-pointer underline underline-offset-4 hover:text-blue-500 transition-all duration-150 ease-out"
             >
               {cur.file_name.split('.')[0]}
             </p>
@@ -291,4 +187,38 @@ export const AccordionZip = ({templateData,zipData}:any)=>{
       ))}
     </>
   );
-}
+};
+
+export const AccordionWebLink = ({ linkData }: any) => {
+  const [open, setOpen] = React.useState(0);
+  const handleOpen = (value: any) => setOpen(open === value ? 0 : value);
+  return (
+    <>
+      {linkData.map((cur: any, id: any) => (
+        // @ts-ignore
+        <Accordion
+          key={id}
+          open={open === id + 1}
+          icon={<Icon id={id + 1} open={open} />}
+        >
+          <AccordionHeader
+            // @ts-ignore
+            onClick={() => handleOpen(id + 1)}
+          >
+            <h2 className="text-[#1155cc] font-[Bitter] text-lg font-[500] capitalize">
+              {cur.link_preview_name}
+            </h2>
+          </AccordionHeader>
+          <AccordionBody className="px-4">
+            <Link
+              to={cur.link_url}
+              className="text-base font-[600] text-black underline underline-offset-4 hover:text-blue-500 transition-all duration-150 ease-out"
+            >
+              {cur.link_url}
+            </Link>
+          </AccordionBody>
+        </Accordion>
+      ))}
+    </>
+  );
+};
