@@ -137,23 +137,36 @@ function ViewFileTemplate() {
         </div> */}
 
         <div className=" w-[85%] mx-auto my-4 p-2">
-          <div className="my-4">
-            <h2 className="text-3xl font-[600] text-black  my-2">Pdf's</h2>
-            <AccordionCustomIcon
-              templateData={templateData}
-              Data={templateData.template_pdfs}
-            />
-          </div>
 
-          <div className="my-4">
-            <h2 className="text-3xl font-[600] text-black my-2">
-              Dowload Zip's
-            </h2>
-            <AccordionCustomIcon
-              templateData={templateData}
-              Data={templateData.template_zips}
-            />
-          </div>
+          {templateData && templateData?.template_pdfs?.length !== 0 && (
+            <div className="my-4">
+              <AccordionPDF
+                templateData={templateData}
+                pdfData={templateData.template_pdfs}
+              />
+            </div>
+          )}
+
+
+          {
+            templateData && templateData?.template_zips?.length !== 0 &&(
+              <div className="my-4">
+              <AccordionZip
+                templateData={templateData}
+                zipData={templateData.template_zips}
+              />
+            </div>
+            )
+          }
+
+          {
+             templateData && templateData?.template_links?.length !== 0 &&(
+              <div className='my-4'>
+
+              </div>
+             )
+          }
+
 
           {/* <div className="my-4">
             <h2 className="text-3xl font-[600] text-black my-2">
@@ -191,7 +204,53 @@ function Icon({ id, open }: any) {
   );
 }
 
-export function AccordionCustomIcon({ templateData, Data }: any) {
+export function AccordionPDF({ templateData, pdfData }: any) {
+
+  const [open, setOpen] = React.useState(0);
+  const handleOpen = (value: any) => setOpen(open === value ? 0 : value);
+
+  // const handleDownloadZip = (clickedZip: any) => {
+  //   templateData?.template_zips?.forEach((zip: any) => {
+  //     if (zip._id === clickedZip._id) {
+  //       saveAs(zip?.url, `${zip?.file_name}`);
+  //     }
+  //   });
+  // };
+
+  return (
+    <>
+      {pdfData.map((cur: any, id: any) => (
+        // @ts-ignore
+        <Accordion
+          key={id}
+          open={open === id + 1}
+          icon={<Icon id={id + 1} open={open} />}
+        >
+          <AccordionHeader
+            // @ts-ignore
+            onClick={() => handleOpen(id + 1)}
+          >
+            <h2 className="text-[#1155cc] font-[Bitter] text-lg font-[500] capitalize">
+              {cur.pdf_title}
+            </h2>
+          </AccordionHeader>
+          <AccordionBody className="px-4">
+            <Link
+              to="/pdfDetails"
+              state={{ template: templateData, clickedPdf: cur }}
+              className="text-base font-[600] text-black underline underline-offset-4 hover:text-blue-800 transition-all duration-150 ease-out"
+            >
+              {cur.file_name.split('.')[0]}
+            </Link>
+          </AccordionBody>
+        </Accordion>
+      ))}
+    </>
+  );
+}
+
+export const AccordionZip = ({templateData,zipData}:any)=>{
+  console.log(zipData)
   const [open, setOpen] = React.useState(0);
   const handleOpen = (value: any) => setOpen(open === value ? 0 : value);
 
@@ -205,7 +264,7 @@ export function AccordionCustomIcon({ templateData, Data }: any) {
 
   return (
     <>
-      {Data.map((cur: any, id: any) => (
+      {zipData.map((cur: any, id: any) => (
         // @ts-ignore
         <Accordion
           key={id}
@@ -216,57 +275,20 @@ export function AccordionCustomIcon({ templateData, Data }: any) {
             // @ts-ignore
             onClick={() => handleOpen(id + 1)}
           >
-            <h2 className="text-black text-xl font-[500] capitalize">
-              {cur.file_name.split('.')[0]}
+            <h2 className="text-[#1155cc] font-[Bitter] text-lg font-[500] capitalize">
+              {cur.zip_title}
             </h2>
           </AccordionHeader>
           <AccordionBody className="px-4">
-            {cur.file_name.split('.')[1] === 'zip' && (
-              <div className="bg-[#3c50e0] text-white cursor-pointer hover:bg-white hover:text-[#3c50e0] transition-all duration-200 ease-in-out w-[10%] flex justify-center items-center py-2 rounded-lg shadow-md">
-                <DownloadIcon
-                  onClick={() => {
-                    handleDownloadZip(cur);
-                  }}
-                />
-              </div>
-            )}
-
-            {cur.file_name.split('.')[1] === 'pdf' && (
-              <Link
-                to="/pdfDetails"
-                state={{ template: templateData, clickedPdf: cur }}
-                className="text-lg font-[600] text-blue-800"
-              >
-                View & download
-              </Link>
-            )}
+            <p
+              onClick={()=>handleDownloadZip(cur)}
+              className="text-base font-[600] text-black underline underline-offset-4 hover:text-blue-800 transition-all duration-150 ease-out"
+            >
+              {cur.file_name.split('.')[0]}
+            </p>
           </AccordionBody>
         </Accordion>
       ))}
-
-      {/* <Accordion open={open === 2} icon={<Icon id={2} open={open} />}>
-        <AccordionHeader onClick={() => handleOpen(2)}>
-          How to use Material Tailwind?
-        </AccordionHeader>
-        <AccordionBody>
-          We&apos;re not always in the position that we want to be at.
-          We&apos;re constantly growing. We&apos;re constantly making mistakes.
-          We&apos;re constantly trying to express ourselves and actualize our
-          dreams.
-        </AccordionBody>
-      </Accordion>
-
-      <Accordion open={open === 3} icon={<Icon id={3} open={open} />}>
-        <AccordionHeader onClick={() => handleOpen(3)}>
-          What can I do with Material Tailwind?
-        </AccordionHeader>
-        <AccordionBody>
-          We&apos;re not always in the position that we want to be at.
-          We&apos;re constantly growing. We&apos;re constantly making mistakes.
-          We&apos;re constantly trying to express ourselves and actualize our
-          dreams.
-        </AccordionBody>
-      </Accordion> */}
     </>
   );
 }
