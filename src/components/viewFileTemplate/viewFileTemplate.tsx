@@ -5,6 +5,11 @@ import { Link } from 'react-router-dom';
 import { saveAs } from 'file-saver';
 import DownloadIcon from '@mui/icons-material/Download';
 import { verifyToken } from '../../api-calls/apicalls';
+import {
+  Accordion,
+  AccordionHeader,
+  AccordionBody,
+} from '@material-tailwind/react';
 
 function ViewFileTemplate() {
   const location = useLocation();
@@ -33,27 +38,26 @@ function ViewFileTemplate() {
 
   return (
     <div className="flex">
-      <div className="p-4 h-screen w-full">
+      <div className="h-screen w-full">
         <div
           style={{ backgroundImage: `url(${banner})` }}
-          className="bg-cover w-full h-[58%] rounded-xl"
+          className="bg-cover w-full h-[50%] rounded-xl"
         >
-          <div className="flex justify-center items-center h-1/2">
-            <div className="text-white text-3xl capitalize tracking-wide font-[500]">
+          <div className="flex justify-center items-center h-full">
+            <div className="text-white text-4xl capitalize tracking-wide font-[600]">
               {templateData?.template_name}
             </div>
           </div>
-          <div className="flex justify-center">
-            <div className="flex justify-center">
+        </div>
+        <div className="flex justify-center self-end bg-[#3a3a3a]">
+          <div className="flex flex-col justify-start gap-3 w-[85%] py-3 px-4 ">
+            <p className="text-white font-[500] text-xl">
               {templateData?.template_desc}
-            </div>
+            </p>
           </div>
         </div>
-        <h2 className="text-center my-5 text-4xl font-semibold text-black">
-           Downloads & Links 
-        </h2>
-        <div className="grid grid-cols-3 gap-5 my-3 w-[95%] mx-auto">
 
+        {/* <div className="grid grid-cols-3 gap-5 my-3 w-[95%] mx-auto">
           <div className="mt-4 px-6 py-8 downloadsAndlinks bg-[#eff2f7] rounded-lg">
             <h5 className="flex justify-center font-bold capitalize text-3xl text-black">
               Pdfs
@@ -130,6 +134,13 @@ function ViewFileTemplate() {
               )}
             </div>
           </div>
+        </div> */}
+
+        <div className=" w-[85%] mx-auto my-4 p-2">
+          <AccordionCustomIcon
+            templateData={templateData}
+            pdfData={templateData.template_pdfs}
+          />
         </div>
       </div>
     </div>
@@ -137,3 +148,84 @@ function ViewFileTemplate() {
 }
 
 export default ViewFileTemplate;
+
+function Icon({ id, open }: any) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={2}
+      stroke="currentColor"
+      className={`${id === open ? 'rotate-180' : ''} h-5 w-5 transition-transform`}
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+      />
+    </svg>
+  );
+}
+
+export function AccordionCustomIcon({ templateData, pdfData }: any) {
+  console.log(pdfData, 'in the accordion');
+
+  const [open, setOpen] = React.useState(0);
+
+  const handleOpen = (value: any) => setOpen(open === value ? 0 : value);
+
+  return (
+    <>
+      {pdfData.map((cur: any, id: any) => (
+        // @ts-ignore
+        <Accordion
+          key={id}
+          open={open === id + 1}
+          icon={<Icon id={id + 1} open={open} />}
+        >
+          <AccordionHeader
+            // @ts-ignore
+            onClick={() => handleOpen(id + 1)}
+          >
+            <h2 className="text-black font-[500] capitalize">
+              {cur.file_name.split('.')[0]}
+            </h2>
+          </AccordionHeader>
+          <AccordionBody>
+            <Link
+              to="/pdfDetails"
+              state={{ template: templateData, clickedPdf: cur }}
+            >
+              View & download
+            </Link>
+          </AccordionBody>
+        </Accordion>
+      ))}
+
+      {/* <Accordion open={open === 2} icon={<Icon id={2} open={open} />}>
+        <AccordionHeader onClick={() => handleOpen(2)}>
+          How to use Material Tailwind?
+        </AccordionHeader>
+        <AccordionBody>
+          We&apos;re not always in the position that we want to be at.
+          We&apos;re constantly growing. We&apos;re constantly making mistakes.
+          We&apos;re constantly trying to express ourselves and actualize our
+          dreams.
+        </AccordionBody>
+      </Accordion>
+
+      <Accordion open={open === 3} icon={<Icon id={3} open={open} />}>
+        <AccordionHeader onClick={() => handleOpen(3)}>
+          What can I do with Material Tailwind?
+        </AccordionHeader>
+        <AccordionBody>
+          We&apos;re not always in the position that we want to be at.
+          We&apos;re constantly growing. We&apos;re constantly making mistakes.
+          We&apos;re constantly trying to express ourselves and actualize our
+          dreams.
+        </AccordionBody>
+      </Accordion> */}
+    </>
+  );
+}

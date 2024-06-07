@@ -162,8 +162,8 @@ function ViewQuizTemplate() {
   return (
     <>
       <div
-        className="p-4 relative h-screen gradientBg__Quize"
-        style={{ overflowY: 'auto' }}
+        className=" relative h-screen gradientBg__Quize"
+        style={{ overflowY: 'hidden' }}
       >
         <div className="absolute opacity-60 w-[8%] left-[2%] bottom-[5%] rotate-45">
           <img src={MathGIF1} alt="" />
@@ -178,7 +178,7 @@ function ViewQuizTemplate() {
           <img src={MathGIF4} alt="" />
         </div>
 
-        <div className="w-full h-full">
+        <div className="w-full h-full overflow-y-auto p-4 ">
           {showAns ? (
             // <>
 
