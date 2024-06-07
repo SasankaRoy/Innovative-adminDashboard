@@ -212,7 +212,7 @@ export const AccordionWebLink = ({ linkData }: any) => {
           <AccordionBody className="px-4">
             <Link
               to={cur.link_url}
-              className="text-base font-[600] text-black underline underline-offset-4 hover:text-blue-500 transition-all duration-150 ease-out"
+              className="text-base font-[600] font-[Bitter] text-black underline underline-offset-4 hover:text-blue-500 transition-all duration-150 ease-out"
             >
               {cur.link_url}
             </Link>

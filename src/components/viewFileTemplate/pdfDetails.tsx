@@ -1,14 +1,14 @@
-import { Document, Page, pdfjs } from "react-pdf";
-import "react-pdf/dist/esm/Page/AnnotationLayer.css";
-import { useState, useEffect, useRef } from "react";
-import Watermark from "./Watermark";
-import { useLocation, useNavigate } from "react-router-dom";
-import logo from "../../assets/logo.png";
-import { verifyToken } from "../../api-calls/apicalls";
+import { Document, Page, pdfjs } from 'react-pdf';
+import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
+import { useState, useEffect, useRef } from 'react';
+import Watermark from './Watermark';
+import { useLocation, useNavigate } from 'react-router-dom';
+import logo from '../../assets/logo.png';
+import { verifyToken } from '../../api-calls/apicalls';
 import generatePDF from 'react-to-pdf';
-import banner from "../../assets/banner.png";
+import banner from '../../assets/banner.png';
 import 'react-pdf/dist/Page/TextLayer.css';
-import "./viewFileTemplate.css"
+import './viewFileTemplate.css';
 
 function PdfDetails() {
   const [numPages, setNumPages] = useState(null);
@@ -20,36 +20,37 @@ function PdfDetails() {
 
   function onDocumentLoadSuccess({ numPages }: any) {
     setNumPages(numPages);
-    const tempDoc = document.querySelectorAll(".react-pdf__Document");
+    const tempDoc = document.querySelectorAll('.react-pdf__Document');
     tempDoc.forEach((t: any) => {
-      t.style.display = "flex";
-      t.style.justifyContent = "center";
+      t.style.display = 'flex';
+      t.style.justifyContent = 'center';
     });
   }
 
   function removeTextLayerOffset() {
-    const textLayers = document.querySelectorAll(".react-pdf__Page__textContent");
+    const textLayers = document.querySelectorAll(
+      '.react-pdf__Page__textContent',
+    );
     textLayers.forEach((layer: any) => {
       const { style } = layer;
-      style.top = "0";
-      style.left = "0";
-      style.transform = "";
-      style.display = "none";
+      style.top = '0';
+      style.left = '0';
+      style.transform = '';
+      style.display = 'none';
     });
 
-    const tempCanvas = document.querySelectorAll(".react-pdf__Page__canvas");
+    const tempCanvas = document.querySelectorAll('.react-pdf__Page__canvas');
     tempCanvas.forEach((t: any) => {
-      t.style.border = "2px solid #999595";
+      t.style.border = '2px solid #999595';
     });
   }
 
   useEffect(() => {
-
     pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
     const verifier = async () => {
       const verifiedTokenData = await verifyToken();
-      if (verifiedTokenData?.message === "jwt expired") {
-        return navigate("/");
+      if (verifiedTokenData?.message === 'jwt expired') {
+        return navigate('/');
       } else {
         return;
       }
@@ -87,7 +88,7 @@ function PdfDetails() {
               className="flex justify-center items-center h-1/2 bg-cover"
               style={{
                 backgroundImage: `url(${banner})`,
-                backgroundSize: "cover"
+                backgroundSize: 'cover',
               }}
             >
               <h1 className="text-3xl text-white">{clickedPdf?.file_name}</h1>
@@ -98,12 +99,16 @@ function PdfDetails() {
                 {clickedPdf?.pdf_downloadable ? (
                   <button
                     className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                    onClick={() => generatePDF(downloadRef, { filename: `${clickedPdf?.file_name}` })}
+                    onClick={() =>
+                      generatePDF(downloadRef, {
+                        filename: `${clickedPdf?.file_name}`,
+                      })
+                    }
                   >
                     Download PDF
                   </button>
                 ) : (
-                  ""
+                  ''
                 )}
               </div>
               <div className="pdf-container mt-5 mb-5 h-screen">
@@ -115,29 +120,25 @@ function PdfDetails() {
                         onLoadSuccess={removeTextLayerOffset}
                       >
                         {clickedPdf?.top_left_logo ? (
-                           <div className="flex justify-start">
-                          <img
-                            className="View_file_template_pdf_logo"
-                            src={logo}
-                            alt="logo"
-                          />
+                          <div className="flex justify-start">
+                            <img
+                              className="View_file_template_pdf_logo"
+                              src={logo}
+                              alt="logo"
+                            />
                           </div>
                         ) : (
-                          ""
+                          ''
                         )}
-                        {clickedPdf?.watermark ? (
-                          <Watermark />
-                        ) : (
-                          ""
-                        )}
+                        {clickedPdf?.watermark ? <Watermark /> : ''}
                         {clickedPdf?.bottom_right_page_no ? (
                           <div className="flex justify-end">
-                          <p className="View_file_template_pdf_page_no">
-                            Page {index + 1} of {numPages}
-                          </p>
+                            <p className="View_file_template_pdf_page_no">
+                              Page {index + 1} of {numPages}
+                            </p>
                           </div>
                         ) : (
-                          ""
+                          ''
                         )}
                       </Page>
                     ))}
@@ -148,7 +149,6 @@ function PdfDetails() {
           </div>
         </div>
       </div>
-
     );
   }
 }
