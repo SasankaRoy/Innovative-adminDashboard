@@ -253,29 +253,33 @@ export const deleteMcqTemplates = async (deleteData:any) => {
   }
 };
 
-// export const createInvoices = async (addData:any) => {
-//   let tempInvoices = [];
-//   try {
-//     console.log("invoice data", addData);
+export const createInvoices = async (addData:any) => {
+  let tempInvoices = [];
+const token=localStorage.getItem("token")
+  if(token)
+  {try {
+    console.log("invoice data", addData);
 
-//     await axios({
-//       method: "post",
-//       url: `${process.env.REACT_APP_BASE_URL}/api/invoice`,
-//       data: addData,
-//       headers: {
-//         "Content-Type": "application/json",
-//         authorization: `Bearer ${token}`,
-//       },
-//     }).then((res) => {
-//       tempInvoices = res.data;
-//     });
-//   } catch (error) {
-//     // console.log("can not create templates");
-//     tempInvoices=error?.response?.data;
-//   } finally {
-//     return tempInvoices;
-//   }
-// };
+    await axios({
+      method: "post",
+      url: `${API_URL}/api/invoice`,
+      data: addData,
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      tempInvoices = res.data;
+    });
+  } catch (error:any) {
+    // console.log("can not create templates");
+    tempInvoices=error?.response?.data;
+  } finally {
+    return tempInvoices;
+  }}else{
+    return {message:"jwt is not present"}
+  }
+};
 
 export const fetchInvoices = async () => {
   let invoicesData = [];
@@ -302,48 +306,56 @@ export const fetchInvoices = async () => {
   }
 };
 
-// export const updateInvoices = async (updateData) => {
-//   let invoicesData = [];
-//   try {
-//     await axios({
-//       method: "put",
-//       url: `${process.env.REACT_APP_BASE_URL}/api/invoice`,
-//       data: updateData,
-//       headers: {
-//         "Content-Type": "application/json",
-//         authorization: `Bearer ${token}`,
-//       },
-//     }).then((res) => {
-//       invoicesData = res.data;
-//     });
-//   } catch (error) {
-//     // console.log("can not update invoices");
-//     invoicesData=error?.response?.data;
-//   } finally {
-//     return invoicesData;
-//   }
-// };
+export const updateInvoices = async (updateData:any) => {
+  let invoicesData = [];
+  const token=localStorage.getItem('token')
+  if(token)
+{  try {
+    await axios({
+      method: "put",
+      url: `${API_URL}/api/invoice`,
+      data: updateData,
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      invoicesData = res.data;
+    });
+  } catch (error:any) {
+    // console.log("can not update invoices");
+    invoicesData=error?.response?.data;
+  } finally {
+    return invoicesData;
+  }}else{
+    return {message:"jwt is not present"}
+  }
+};
 
-// export const deleteInvoices = async (deleteData) => {
-//   let tempInvoice = [];
-//   try {
-//     await axios({
-//       method: "delete",
-//       url: `${process.env.REACT_APP_BASE_URL}/api/invoice`,
-//       data: deleteData,
-//       headers: {
-//         authorization: `Bearer ${token}`,
-//       },
-//     }).then((res) => {
-//       tempInvoice = res.data;
-//     });
-//   } catch (error) {
-//     // console.log("can not delete invoice");
-//     tempInvoice=error?.response?.data;
-//   } finally {
-//     return tempInvoice;
-//   }
-// };
+export const deleteInvoices = async (deleteData:any) => {
+  let tempInvoice = [];
+  const token=localStorage.getItem('token')
+  if(token){
+  try {
+    await axios({
+      method: "delete",
+      url: `${API_URL}/api/invoice`,
+      data: deleteData,
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      tempInvoice = res.data;
+    });
+  } catch (error:any) {
+    // console.log("can not delete invoice");
+    tempInvoice=error?.response?.data;
+  } finally {
+    return tempInvoice;
+  }}else{
+    return {message:"jwt is not present"}
+  }
+};
 
 export const fetchUsers = async () => {
   const token = localStorage.getItem("token");
