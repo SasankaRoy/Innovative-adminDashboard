@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-// import CreateIcon from "@mui/icons-material/Create";
+// import CreateIcon from '@mui/icons-material/Create';
 // import DeleteIcon from "@mui/icons-material/Delete";
 // import AddIcon from "@mui/icons-material/Add";
 import {
@@ -15,6 +15,7 @@ import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import AddIcon from '@mui/icons-material/Add';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
+import AddImg from '../../images/AddIcon2.jpg'
 
 function QuizTable({ quizAllData }: any) {
   const [quizTemplates, setQuizTemplates] = useState<any[]>(quizAllData);
@@ -939,10 +940,30 @@ function QuizTable({ quizAllData }: any) {
               quizzesCnt.map((_, ind) => (
                 <>
                   <div>
-                    <div className="flex flex-col justify-start items-start gap-3">
+                    <div className='my-3 flex flex-col justify-start items-start gap-3'>
                       <label className="text-lg text-black dark:text-white">
                         {`Q${ind + 1}.`}
                       </label>
+                      <div className="w-full flex justify-center gap-2 shadow-xl items-center flex-col h-36 rounded-md relative overflow-hidden">
+                        <img src={AddImg} alt="Add" className='absolute object-cover w-full h-full'/>
+                        <span className='h-10 w-10 z-10 cursor-pointer rounded-full bg-white flex justify-center items-center'>
+                          <AddRoundedIcon className='text-2xl font-[800]' />
+                        </span>
+                        <h4 className="text-md z-10 text-white">Add Image for Question</h4>
+                      </div>
+                    </div>
+                    <div className="my-5">
+                    <input
+                        type="text"
+                        className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                        placeholder="Enter Image Description ...."
+                        id={`add-question-${ind}`}
+                      />
+                    </div>
+                    <div className="flex flex-col justify-start items-start my-5 gap-3">
+                      {/* <label className="text-lg text-black dark:text-white">
+                        {`Q${ind + 1}.`}
+                      </label> */}
                       <input
                         type="text"
                         className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
