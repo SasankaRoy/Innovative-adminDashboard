@@ -752,93 +752,112 @@ export const fetchQuizTemplates = async () => {
 //   }
 // };
 
-// export const createGallery = async (addData) => {
-//   let tempGallery = [];
-//   try {
-//     // console.log("template data", addData);
+export const createGallery = async (addData:any) => {
+  let tempGallery = [];
+  const token=localStorage.getItem('token')
 
-//     await axios({
-//       method: "post",
-//       url: `${process.env.REACT_APP_BASE_URL}/api/gallery`,
-//       data: addData,
-//       headers: {
-//         "Content-Type": "multipart/form-data",
-//         authorization: `Bearer ${token}`,
-//       },
-//     }).then((res) => {
-//       tempGallery = res.data;
-//     });
-//   } catch (error) {
-//     // console.log("can not create gallery");
-//     tempGallery=error?.response?.data;
-//   } finally {
-//     return tempGallery;
-//   }
-// };
+  if(token){
+  try {
+    // console.log("template data", addData);
 
-// export const fetchGalleries = async () => {
-//   let galleriesData = [];
-//   try {
+    await axios({
+      method: "post",
+      url: `${API_URL}/api/gallery`,
+      data: addData,
+      headers: {
+        "Content-Type": "multipart/form-data",
+        authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      tempGallery = res.data;
+    });
+  } catch (error:any) {
+    // console.log("can not create gallery");
+    tempGallery=error?.response?.data;
+  } finally {
+    return tempGallery;
+  }}else{
+    return {message:"jwt is not present"}
+  }
+};
 
-//     const response = await axios(
-//       {method: "get",
-//       url:`${process.env.REACT_APP_BASE_URL}/api/gallery`,
-//       headers: {
-//         authorization: `Bearer ${token}`
-//       },
-//       }
-//     );
-//     galleriesData = response.data.allGalleryData;
-//   } catch (error) {
-//     // console.log("err", error);
-//     galleriesData = error?.response?.data;
-//   } finally {
-//     return galleriesData;
-//   }
-// };
+export const fetchGalleries = async () => {
+  let galleriesData = [];
+  const token=localStorage.getItem('token')
 
-// export const updateGallery = async (updateData) => {
-//   let tempGalleries = [];
-//   try {
-//     await axios({
-//       method: "put",
-//       url: `${process.env.REACT_APP_BASE_URL}/api/gallery`,
-//       data: updateData,
-//       headers: {
-//         "Content-Type": "multipart/form-data",
-//         authorization: `Bearer ${token}`,
-//       },
-//     }).then((res) => {
-//       tempGalleries = res.data;
-//     });
-//   } catch (error) {
-//     // console.log("can not update galleries");
-//     tempGalleries=error?.response?.data;
-//   } finally {
-//     return tempGalleries;
-//   }
-// };
+  if(token){
+  try {
 
-// export const deleteGallery = async (deleteData) => {
-//   let tempGallery = [];
-//   try {
-//     await axios({
-//       method: "delete",
-//       url: `${process.env.REACT_APP_BASE_URL}/api/gallery`,
-//       data: deleteData,
-//       headers: {
-//         authorization: `Bearer ${token}`,
-//       },
-//     }).then((res) => {
-//       tempGallery = res.data;
-//     });
-//   } catch (error) {
-//     // console.log("can not delete gallery");
-//     tempGallery=error?.response?.data;
-//   } finally {
-//     return tempGallery;
-//   }
-// };
+    const response = await axios(
+      {method: "get",
+      url:`${API_URL}/api/gallery`,
+      headers: {
+        authorization: `Bearer ${token}`
+      },
+      }
+    );
+    galleriesData = response.data.allGalleryData;
+  } catch (error:any) {
+    // console.log("err", error);
+    galleriesData = error?.response?.data;
+  } finally {
+    return galleriesData;
+  }}else{
+    return {message:"jwt is not present"}
+  }
+};
+
+export const updateGallery = async (updateData:any) => {
+  let tempGalleries = [];
+  const token=localStorage.getItem('token')
+
+  if(token){
+  try {
+    await axios({
+      method: "put",
+      url: `${API_URL}/api/gallery`,
+      data: updateData,
+      headers: {
+        "Content-Type": "multipart/form-data",
+        authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      tempGalleries = res.data;
+    });
+  } catch (error:any) {
+    // console.log("can not update galleries");
+    tempGalleries=error?.response?.data;
+  } finally {
+    return tempGalleries;
+  }}else{
+    return {message:"jwt is not present"}
+  }
+};
+
+export const deleteGallery = async (deleteData:any) => {
+  let tempGallery = [];
+  const token=localStorage.getItem('token')
+  if(token){
+  try {
+    await axios({
+      method: "delete",
+      url: `${API_URL}/api/gallery`,
+      data: deleteData,
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      tempGallery = res.data;
+    });
+  } catch (error:any) {
+    // console.log("can not delete gallery");
+    tempGallery=error?.response?.data;
+  } finally {
+    return tempGallery;
+  }}else{
+    return {message:"jwt is not present"}
+  }
+};
 
 // export const createCategories = async (addData) => {
 //   let tempCategory = [];
