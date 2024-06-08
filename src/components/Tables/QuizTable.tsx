@@ -699,7 +699,7 @@ function QuizTable({ quizAllData }: any) {
                 <div className="mt-3">
                   <div className="flex flex-col justify-start items-start gap-3">
                     <label className="text-lg text-black dark:text-white">
-                      Attached Banner
+                      Attached Banner 
                     </label>
                     <img
                       className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
@@ -727,7 +727,7 @@ function QuizTable({ quizAllData }: any) {
                 {dbQuizzes && dbQuizzes.length !== 0 && (
                   <>
                     <label className="text-lg text-black dark:text-white">
-                      Attached Mcqs
+                      Attached Mcqs 
                     </label>
 
                     {dbQuizzes.map((dm: any, ind: any) => (
@@ -940,6 +940,7 @@ function QuizTable({ quizAllData }: any) {
               quizzesCnt.map((_, ind) => (
                 <>
                   <div>
+
                     <div className='my-3 flex flex-col justify-start items-start gap-3'>
                       <label className="text-lg text-black dark:text-white">
                         {`Q${ind + 1}.`}
@@ -971,6 +972,7 @@ function QuizTable({ quizAllData }: any) {
                         id={`add-question-${ind}`}
                       />
                     </div>
+
                     <div className="flex justify-between items-center my-4">
                       <h3 className="text-lg text-black dark:text-white">
                         Options Type
