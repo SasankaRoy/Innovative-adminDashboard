@@ -1,10 +1,5 @@
-import { useState } from 'react';
-// import { BRAND } from '../../types/brand';
-// import BrandOne from '../../images/brand/brand-01.svg';
-// import BrandTwo from '../../images/brand/brand-02.svg';
-// import BrandThree from '../../images/brand/brand-03.svg';
-// import BrandFour from '../../images/brand/brand-04.svg';
-// import BrandFive from '../../images/brand/brand-05.svg';
+import { useEffect, useState } from 'react';
+
 
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
@@ -18,6 +13,7 @@ const TableOne = ({ title, userList }: any) => {
     state: false,
     userDeltails: '',
   });
+  
 
   return (
     <>
@@ -127,12 +123,14 @@ const EditModel = ({ setIsEditShow, userDeltails }: any) => {
 
   const updateUser = async () => {
     try {
-      const saveUpdateUserDeltails = await updateUsers({...updateUserDeltails,user_id:userDeltails?._id});
+      const saveUpdateUserDeltails = await updateUsers({
+        ...updateUserDeltails,
+        user_id: userDeltails?._id,
+      });
       const checkUserSession =
         saveUpdateUserDeltails?.success == 'no' &&
         saveUpdateUserDeltails?.message === 'jwt expired';
-      const successStatus = saveUpdateUserDeltails?.success === 'no'
-
+      const successStatus = saveUpdateUserDeltails?.success === 'no';
 
       if (checkUserSession) {
         alert('Oops ! Session Expired..');
@@ -140,14 +138,20 @@ const EditModel = ({ setIsEditShow, userDeltails }: any) => {
         return;
       }
       if (successStatus) {
-        alert('Oops! update failed try again later')
+        alert('Oops! update failed try again later');
         return;
       }
+
+      alert('Update successfull');
+      setIsEditShow({
+        state: false,
+        userDeltails: '',
+      });
 
       console.log(saveUpdateUserDeltails);
     } catch (err) {
       console.error(err);
-      throw new Error(err)
+      throw new Error(err);
     }
   };
   return (
