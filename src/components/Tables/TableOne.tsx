@@ -10,12 +10,13 @@ import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import { Avatar } from '@mui/material';
-
+import { updateUsers } from '../../api-calls/apicalls';
+import { useNavigate } from 'react-router-dom';
 
 const TableOne = ({ title, userList }: any) => {
   const [isEditShow, setIsEditShow] = useState({
-    state:false,
-    userDeltails:'',
+    state: false,
+    userDeltails: '',
   });
 
   return (
@@ -72,7 +73,9 @@ const TableOne = ({ title, userList }: any) => {
 
                   <div className="flex items-center justify-center gap-2.5 p-2.5  xl:p-5">
                     <button
-                      onClick={() => setIsEditShow({state:true,userDeltails:user})}
+                      onClick={() =>
+                        setIsEditShow({ state: true, userDeltails: user })
+                      }
                       className="h-9 w-9 flex justify-center items-center border-2 border-[#3c50e0] rounded-md hover:text-[#3c50e0] transition-all duration-150 ease-in-out"
                     >
                       <EditRoundedIcon />
@@ -87,29 +90,74 @@ const TableOne = ({ title, userList }: any) => {
           ))}
         </div>
       </div>
-      {isEditShow.state && <EditModel setIsEditShow={setIsEditShow} userDeltails={isEditShow.userDeltails} />}
+      {isEditShow.state && (
+        <EditModel
+          setIsEditShow={setIsEditShow}
+          userDeltails={isEditShow.userDeltails}
+        />
+      )}
     </>
   );
 };
 
 export default TableOne;
 
-const EditModel = ({ setIsEditShow,userDeltails }: any) => {
-  console.log(userDeltails)
-  const [selectedOption, setSelectedOption] = useState<string>('');
+const EditModel = ({ setIsEditShow, userDeltails }: any) => {
+  const [updateUserDeltails, setUpdateUserDeltails] = useState({
+    first_name: userDeltails?.first_name,
+    last_name: userDeltails?.last_name,
+    phone_no: userDeltails?.phone_no,
+    email: userDeltails?.email,
+    role: userDeltails?.role,
+  });
   const [isOptionSelected, setIsOptionSelected] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const changeTextColor = () => {
     setIsOptionSelected(true);
   };
+  const handleOnChangeUpdate = (e: any) => {
+    const { name, value } = e.target;
+    console.log({ name, value }, userDeltails.role);
+    setUpdateUserDeltails({
+      ...updateUserDeltails,
+      [name]: value,
+    });
+  };
+
+  const updateUser = async () => {
+    try {
+      const saveUpdateUserDeltails = await updateUsers({...updateUserDeltails,user_id:userDeltails?._id});
+      const checkUserSession =
+        saveUpdateUserDeltails?.success == 'no' &&
+        saveUpdateUserDeltails?.message === 'jwt expired';
+      const successStatus = saveUpdateUserDeltails?.success === 'no'
+
+
+      if (checkUserSession) {
+        alert('Oops ! Session Expired..');
+        navigate('/');
+        return;
+      }
+      if (successStatus) {
+        alert('Oops! update failed try again later')
+        return;
+      }
+
+      console.log(saveUpdateUserDeltails);
+    } catch (err) {
+      console.error(err);
+      throw new Error(err)
+    }
+  };
   return (
     <>
       <div className="fixed top-0 left-0 EditModelZindex flex justify-center items-center w-full h-full backdrop-blur-md">
-        <div className="shadow-md p-4 w-[50%] h-[85%] rounded-md dark:border-strokedark dark:bg-boxdark border-stroke bg-white">
+        <div className="shadow-md p-4 w-[90%] xl:w-[50%] max-h-[85%] rounded-md dark:border-strokedark dark:bg-boxdark border-stroke bg-white">
           <div className="flex justify-between items-center">
             <h2 className="text-[800] text-3xl ">User update</h2>
             <button
-              onClick={() => setIsEditShow({state:false,userDeltails:''})}
+              onClick={() => setIsEditShow({ state: false, userDeltails: '' })}
               className="hover:text-[#dc3545] transition-all duration-200 ease-in-out"
             >
               <CloseRoundedIcon className="text-6xl" />
@@ -123,9 +171,11 @@ const EditModel = ({ setIsEditShow,userDeltails }: any) => {
               </label>
               <input
                 type="text"
+                name="first_name"
                 className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                 placeholder="Enter First Name ..."
-                value={userDeltails?.first_name}
+                value={updateUserDeltails.first_name}
+                onChange={handleOnChangeUpdate}
               />
             </div>
             <div className="flex flex-col justify-start items-start gap-1">
@@ -134,9 +184,11 @@ const EditModel = ({ setIsEditShow,userDeltails }: any) => {
               </label>
               <input
                 type="text"
+                name="last_name"
                 className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                 placeholder="Enter Last Name ..."
-                value={userDeltails?.last_name}
+                value={updateUserDeltails.last_name}
+                onChange={handleOnChangeUpdate}
               />
             </div>
             <div className="flex flex-col justify-start items-start gap-1">
@@ -147,7 +199,9 @@ const EditModel = ({ setIsEditShow,userDeltails }: any) => {
                 type="tel"
                 className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                 placeholder="Enter Phone Number ..."
-                value={userDeltails?.phone_no}
+                value={updateUserDeltails.phone_no}
+                name="phone_no"
+                onChange={handleOnChangeUpdate}
               />
             </div>
             <div className="flex flex-col justify-start items-start gap-1">
@@ -158,23 +212,24 @@ const EditModel = ({ setIsEditShow,userDeltails }: any) => {
                 type="email"
                 className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                 placeholder="Enter Email ID ..."
-                value={userDeltails?.email}
+                value={updateUserDeltails.email}
+                name="email"
+                onChange={handleOnChangeUpdate}
               />
             </div>
-            
+
             <div className="flex flex-col justify-start items-start gap-1">
               <label className=" block text-black dark:text-white">
                 User Role
               </label>
-              {/* <input
-                className="w-full px-3 py-2 rounded-lg bg-transparent border border-gray-500 outline-none"
-                placeholder="Enter Password ..."
-              /> */}
+
               <select
-                value={selectedOption}
+                value={updateUserDeltails.role}
+                name="role"
                 onChange={(e) => {
-                  setSelectedOption(e.target.value);
+                  handleOnChangeUpdate(e);
                   changeTextColor();
+                  setIsOptionSelected(true);
                 }}
                 className={`relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary ${
                   isOptionSelected ? 'text-black dark:text-white' : ''
@@ -199,7 +254,10 @@ const EditModel = ({ setIsEditShow,userDeltails }: any) => {
             <button className="w-[15%] py-3 bg-[#dc3545] rounded-lg text-white hover:bg-opacity-90">
               Cancel
             </button>
-            <button className="flex w-[15%] justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90">
+            <button
+              onClick={updateUser}
+              className="flex w-[15%] justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90"
+            >
               Update
             </button>
           </div>
