@@ -1,69 +1,22 @@
 import { useState } from 'react';
-import { BRAND } from '../../types/brand';
-import BrandOne from '../../images/brand/brand-01.svg';
+// import { BRAND } from '../../types/brand';
+// import BrandOne from '../../images/brand/brand-01.svg';
 // import BrandTwo from '../../images/brand/brand-02.svg';
-import BrandThree from '../../images/brand/brand-03.svg';
-import BrandFour from '../../images/brand/brand-04.svg';
-import BrandFive from '../../images/brand/brand-05.svg';
+// import BrandThree from '../../images/brand/brand-03.svg';
+// import BrandFour from '../../images/brand/brand-04.svg';
+// import BrandFive from '../../images/brand/brand-05.svg';
 
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import { Avatar } from '@mui/material';
 
-// const brandData: BRAND[] = [
-//   {
-//     logo: BrandOne,
-//     name: 'User-1',
-//     visitors: 1,
-//     revenues: '5,768',
-//     sales: 590,
-//     conversion: 4.8,
-//   },
-//   {
-//     logo: '',
-//     name: 'User-2',
-//     visitors: 2,
-//     revenues: '4,635',
-//     sales: 467,
-//     conversion: 4.3,
-//   },
-//   {
-//     logo: BrandThree,
-//     name: 'User-3',
-//     visitors: 3,
-//     revenues: '4,290',
-//     sales: 420,
-//     conversion: 3.7,
-//   },
-//   {
-//     logo: BrandFour,
-//     name: 'User-4',
-//     visitors: 4,
-//     revenues: '3,580',
-//     sales: 389,
-//     conversion: 2.5,
-//   },
-//   {
-//     logo: BrandFive,
-//     name: 'User-5',
-//     visitors: 5,
-//     revenues: '6,768',
-//     sales: 390,
-//     conversion: 4.2,
-//   },
-//   {
-//     logo: BrandFive,
-//     name: 'User-5',
-//     visitors: 5,
-//     revenues: '6,768',
-//     sales: 390,
-//     conversion: 4.2,
-//   },
-// ];
 
 const TableOne = ({ title, userList }: any) => {
-  const [isEditShow, setIsEditShow] = useState(false);
+  const [isEditShow, setIsEditShow] = useState({
+    state:false,
+    userDeltails:'',
+  });
 
   return (
     <>
@@ -119,7 +72,7 @@ const TableOne = ({ title, userList }: any) => {
 
                   <div className="flex items-center justify-center gap-2.5 p-2.5  xl:p-5">
                     <button
-                      onClick={() => setIsEditShow(true)}
+                      onClick={() => setIsEditShow({state:true,userDeltails:user})}
                       className="h-9 w-9 flex justify-center items-center border-2 border-[#3c50e0] rounded-md hover:text-[#3c50e0] transition-all duration-150 ease-in-out"
                     >
                       <EditRoundedIcon />
@@ -134,14 +87,15 @@ const TableOne = ({ title, userList }: any) => {
           ))}
         </div>
       </div>
-      {isEditShow && <EditModel setIsEditShow={setIsEditShow} />}
+      {isEditShow.state && <EditModel setIsEditShow={setIsEditShow} userDeltails={isEditShow.userDeltails} />}
     </>
   );
 };
 
 export default TableOne;
 
-const EditModel = ({ setIsEditShow }: any) => {
+const EditModel = ({ setIsEditShow,userDeltails }: any) => {
+  console.log(userDeltails)
   const [selectedOption, setSelectedOption] = useState<string>('');
   const [isOptionSelected, setIsOptionSelected] = useState<boolean>(false);
 
@@ -155,7 +109,7 @@ const EditModel = ({ setIsEditShow }: any) => {
           <div className="flex justify-between items-center">
             <h2 className="text-[800] text-3xl ">User update</h2>
             <button
-              onClick={() => setIsEditShow(false)}
+              onClick={() => setIsEditShow({state:false,userDeltails:''})}
               className="hover:text-[#dc3545] transition-all duration-200 ease-in-out"
             >
               <CloseRoundedIcon className="text-6xl" />
@@ -171,6 +125,7 @@ const EditModel = ({ setIsEditShow }: any) => {
                 type="text"
                 className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                 placeholder="Enter First Name ..."
+                value={userDeltails?.first_name}
               />
             </div>
             <div className="flex flex-col justify-start items-start gap-1">
@@ -181,6 +136,7 @@ const EditModel = ({ setIsEditShow }: any) => {
                 type="text"
                 className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                 placeholder="Enter Last Name ..."
+                value={userDeltails?.last_name}
               />
             </div>
             <div className="flex flex-col justify-start items-start gap-1">
@@ -191,6 +147,7 @@ const EditModel = ({ setIsEditShow }: any) => {
                 type="tel"
                 className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                 placeholder="Enter Phone Number ..."
+                value={userDeltails?.phone_no}
               />
             </div>
             <div className="flex flex-col justify-start items-start gap-1">
@@ -201,21 +158,13 @@ const EditModel = ({ setIsEditShow }: any) => {
                 type="email"
                 className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                 placeholder="Enter Email ID ..."
+                value={userDeltails?.email}
               />
             </div>
+            
             <div className="flex flex-col justify-start items-start gap-1">
               <label className=" block text-black dark:text-white">
-                Password
-              </label>
-              <input
-                type="password"
-                className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                placeholder="Enter Password ..."
-              />
-            </div>
-            <div className="flex flex-col justify-start items-start gap-1">
-              <label className=" block text-black dark:text-white">
-                Password
+                User Role
               </label>
               {/* <input
                 className="w-full px-3 py-2 rounded-lg bg-transparent border border-gray-500 outline-none"
