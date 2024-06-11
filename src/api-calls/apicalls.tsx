@@ -881,24 +881,29 @@ export const deleteGallery = async (deleteData:any) => {
 //   }
 // };
 
-// export const fetchCategories = async () => {
-//   let categoriesData = [];
-//   try {
-//     const response = await axios({
-//       method: "get",
-//       url: `${process.env.REACT_APP_BASE_URL}/api/category`,
-//       headers: {
-//         authorization: `Bearer ${token}`,
-//       },
-//     });
-//     categoriesData = response.data.allCategoryData;
-//   } catch (error) {
-//     // console.log("err", error);
-//     categoriesData=error?.response?.data;
-//   } finally {
-//     return categoriesData;
-//   }
-// };
+export const fetchCategories = async () => {
+  const token=localStorage.getItem('token')
+  let categoriesData = [];
+
+  if(token){
+  try {
+    const response = await axios({
+      method: "get",
+      url: `${API_URL}/api/category`,
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+    categoriesData = response.data.allCategoryData;
+  } catch (error:any) {
+    // console.log("err", error);
+    categoriesData=error?.response?.data;
+  } finally {
+    return categoriesData;
+  }}else{
+    return {message:"jwt is not present"}
+  }
+};
 
 // export const updateCategories = async (updateData) => {
 //   let tempCats = [];
@@ -943,91 +948,110 @@ export const deleteGallery = async (deleteData:any) => {
 //   }
 // };
 
-// export const createProducts = async (addData) => {
-//   let tempProducts = [];
-//   try {
-//     // console.log("template data", addData);
+export const createProducts = async (addData:any) => {
+  let tempProducts = [];
+  const token=localStorage.getItem('token')
 
-//     await axios({
-//       method: "post",
-//       url: `${process.env.REACT_APP_BASE_URL}/api/product`,
-//       data: addData,
-//       headers: {
-//         "Content-Type": "multipart/form-data",
-//         authorization: `Bearer ${token}`,
-//       },
-//     }).then((res) => {
-//       tempProducts = res.data;
-//     });
-//   } catch (error) {
-//     // console.log("can not create product");
-//     tempProducts=error?.response?.data;
-//   } finally {
-//     return tempProducts;
-//   }
-// };
+  if(token){
+  try {
+    // console.log("template data", addData);
 
-// export const fetchProducts = async () => {
-//   let productsData = [];
-//   try {
-//     const response = await axios({
-//       method: "get",
-//       url: `${process.env.REACT_APP_BASE_URL}/api/product`,
-//       headers: {
-//         authorization: `Bearer ${token}`,
-//       },
-//     });
-//     productsData = response.data.fetchedData;
-//   } catch (error) {
-//     // console.log("err", error);
-//     productsData=error?.response?.data;
-//   } finally {
-//     return productsData;
-//   }
-// };
+    await axios({
+      method: "post",
+      url: `${API_URL}/api/product`,
+      data: addData,
+      headers: {
+        "Content-Type": "multipart/form-data",
+        authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      tempProducts = res.data;
+    });
+  } catch (error:any) {
+    // console.log("can not create product");
+    tempProducts=error?.response?.data;
+  } finally {
+    return tempProducts;
+  }}else{
+    return {message:"jwt is not present"}
+  }
+};
 
-// export const updateProducts = async (updateData) => {
-//   let tempProds = [];
-//   try {
-//     await axios({
-//       method: "put",
-//       url: `${process.env.REACT_APP_BASE_URL}/api/product`,
-//       data: updateData,
-//       headers: {
-//         "Content-Type": "multipart/form-data",
-//         authorization: `Bearer ${token}`,
-//       },
-//     }).then((res) => {
-//       tempProds = res.data;
-//     });
-//   } catch (error) {
-//     // console.log("can not update products");
-//     tempProds=error?.response?.data;
-//   } finally {
-//     return tempProds;
-//   }
-// };
+export const fetchProducts = async () => {
+  let productsData = [];
+  const token=localStorage.getItem('token')
 
-// export const deleteProducts = async (deleteData) => {
-//   let tempProd = [];
-//   try {
-//     await axios({
-//       method: "delete",
-//       url: `${process.env.REACT_APP_BASE_URL}/api/product`,
-//       data: deleteData,
-//       headers: {
-//         authorization: `Bearer ${token}`,
-//       },
-//     }).then((res) => {
-//       tempProd = res.data;
-//     });
-//   } catch (error) {
-//     // console.log("can not delete product");
-//     tempProd=error?.response?.data;
-//   } finally {
-//     return tempProd;
-//   }
-// };
+  if(token){
+  try {
+    const response = await axios({
+      method: "get",
+      url: `${API_URL}/api/product`,
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+    productsData = response.data.fetchedData;
+  } catch (error:any) {
+    // console.log("err", error);
+    productsData=error?.response?.data;
+  } finally {
+    return productsData;
+  }}else{
+    return {message:"jwt is not present"}
+  }
+};
+
+export const updateProducts = async (updateData:any) => {
+  let tempProds = [];
+  const token=localStorage.getItem('token')
+
+  if(token){
+  try {
+    await axios({
+      method: "put",
+      url: `${API_URL}/api/product`,
+      data: updateData,
+      headers: {
+        "Content-Type": "multipart/form-data",
+        authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      tempProds = res.data;
+    });
+  } catch (error:any) {
+    // console.log("can not update products");
+    tempProds=error?.response?.data;
+  } finally {
+    return tempProds;
+  }}else{
+    return {message:"jwt is not present"}
+  }
+};
+
+export const deleteProducts = async (deleteData:any) => {
+  let tempProd = [];
+  const token=localStorage.getItem('topken')
+  if(token){
+  try {
+    await axios({
+      method: "delete",
+      url: `${API_URL}/api/product`,
+      data: deleteData,
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      tempProd = res.data;
+    });
+  } catch (error:any) {
+    // console.log("can not delete product");
+    tempProd=error?.response?.data;
+  } finally {
+    return tempProd;
+  }}else{
+    return {message:"jwt is not present"}
+  }
+};
 
 // export const createTrainingModules = async (addData) => {
 //   let tempModules = [];

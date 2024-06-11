@@ -483,7 +483,7 @@ const McqTable = ({ mcqAllData }: any) => {
       alert('system error try again leter');
     } else if (updatedData?.success == 'yes') {
       alert('mcq template updated successfully');
-      window.location.reload();
+      // window.location.reload();
     }
   };
 
