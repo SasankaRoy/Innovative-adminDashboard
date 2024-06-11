@@ -41,7 +41,9 @@ function PdfDetails() {
 
     const tempCanvas = document.querySelectorAll('.react-pdf__Page__canvas');
     tempCanvas.forEach((t: any) => {
-      t.style.border = '2px solid #999595';
+      t.style.border = '1px solid #999595';
+      t.style.width = '100%'
+      t.style.margin = '0 auto';
     });
   }
 
@@ -116,6 +118,7 @@ function PdfDetails() {
                   <div ref={downloadRef}>
                     {Array.from({ length: numPages }, (_, index) => (
                       <Page
+                      
                         pageNumber={index + 1}
                         onLoadSuccess={removeTextLayerOffset}
                       >
