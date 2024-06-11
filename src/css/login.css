@@ -1,24 +1,36 @@
-
-
-
-.admin__login_container{
-/* background-color: #161313;
+.admin__login_container {
+  /* background-color: #161313;
 height: 25rem;
 width: 23rem;
 box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 border-radius: 1rem; */
-transition: opacity 1s;
-animation: borderAnimation 3s infinite alternate;
-/* display: inline-flex;
+  transition: opacity 1s;
+  animation: borderAnimation 3s infinite alternate;
+  /* display: inline-flex;
 justify-content: center;
 flex-direction: column; */
 }
 
 @keyframes borderAnimation {
-    0%{
-        border:2px solid  #007bbf               
-    }
-    100%{
-        border:2px solid  #f3eff3               
-    }
+  0% {
+    border: 2px solid #007bbf;
+  }
+  100% {
+    border: 2px solid #f3eff3;
+  }
 }
+
+.loggInBg {
+  background: #000046; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #1cb5e0,
+    #000046
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #1cb5e0,
+    #000046
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+

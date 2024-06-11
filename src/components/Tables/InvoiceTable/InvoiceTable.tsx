@@ -1,45 +1,48 @@
 import { useState, useEffect } from 'react';
-import AddIcon from "@mui/icons-material/Add";
-import { createInvoices, updateInvoices, deleteInvoices } from "../../../api-calls/apicalls";
+import AddIcon from '@mui/icons-material/Add';
+import {
+  createInvoices,
+  updateInvoices,
+  deleteInvoices,
+} from '../../../api-calls/apicalls';
 import { Link, useNavigate } from 'react-router-dom';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import html2pdf from 'html2pdf.js';
-import emailjs from "@emailjs/browser";
-import "./InvoiceTable.css"
+import emailjs from '@emailjs/browser';
+import './InvoiceTable.css';
 
 const InvoiceTable = ({ invoiceAllData }: any) => {
   const [showCreate, setShowCreate] = useState(false);
   const [detailsCnt, setDetailsCnt] = useState<any[]>([]);
-  const [companyName, setCompanyName] = useState("");
-  const [companyAddress, setCompanyAddress] = useState("");
-  const [companyPhoneNo, setCompanyPhoneNo] = useState("");
-  const [companyEmail, setCompanyEmail] = useState("");
-  const [invoiceNo, setInvoiceNo] = useState("");
-  const [date, setDate] = useState("");
-  const [billingAdd, setBillingAdd] = useState("");
-  const [shippingAdd, setShippingAdd] = useState("");
+  const [companyName, setCompanyName] = useState('');
+  const [companyAddress, setCompanyAddress] = useState('');
+  const [companyPhoneNo, setCompanyPhoneNo] = useState('');
+  const [companyEmail, setCompanyEmail] = useState('');
+  const [invoiceNo, setInvoiceNo] = useState('');
+  const [date, setDate] = useState('');
+  const [billingAdd, setBillingAdd] = useState('');
+  const [shippingAdd, setShippingAdd] = useState('');
   const [details, setDetails] = useState([]);
   const [showPdf, setShowPdf] = useState(false);
-  const [receiverEmail, setReceiverEmail] = useState("");
-  const [receiverName, setReceiverName] = useState("");
+  const [receiverEmail, setReceiverEmail] = useState('');
+  const [receiverName, setReceiverName] = useState('');
   const [tax, setTax] = useState<any>();
   const [update, setUpdate] = useState(false);
   const [invoices, setInvoices] = useState<any[]>(invoiceAllData);
-  const [invoiceId, setInvoiceId] = useState("");
+  const [invoiceId, setInvoiceId] = useState('');
   const [dbDetails, setDbDetails] = useState([]);
 
   const navigate = useNavigate();
 
-  useEffect(() => emailjs.init("7tEQNlrYa74GKcgSa"), []);
+  useEffect(() => emailjs.init('7tEQNlrYa74GKcgSa'), []);
 
   const handleGeneratePDF = async () => {
-
-
-    const input: any = document.getElementById("content");
+    const input: any = document.getElementById('content');
     // console.log("vvv", input.offsetHeight)
-    html2pdf().from(input)
+    html2pdf()
+      .from(input)
       .set({
         margin: [0, 0, 0, 0],
         filename: `Invoice-${receiverName}-${invoiceNo}`,
@@ -53,10 +56,12 @@ const InvoiceTable = ({ invoiceAllData }: any) => {
           format: [input.offsetHeight / 35, input.offsetWidth / 40],
         },
       })
-      .save().toPdf().output('datauristring').then(async function (pdfAsString: any) {
-        await handleSend(pdfAsString)
+      .save()
+      .toPdf()
+      .output('datauristring')
+      .then(async function (pdfAsString: any) {
+        await handleSend(pdfAsString);
       });
-
   };
 
   const handleCreateModalClose = () => {
@@ -91,16 +96,16 @@ const InvoiceTable = ({ invoiceAllData }: any) => {
     // }
 
     if (
-      createdData?.success == "no" &&
-      createdData?.message === "jwt expired"
+      createdData?.success == 'no' &&
+      createdData?.message === 'jwt expired'
     ) {
-      return navigate("/");
-    } else if (createdData?.success == "no") {
-      alert("system error try again leter");
-    } else if (createdData?.success == "yes") {
+      return navigate('/');
+    } else if (createdData?.success == 'no') {
+      alert('system error try again leter');
+    } else if (createdData?.success == 'yes') {
       setShowCreate(false);
       setShowPdf(true);
-      alert("file template created successfully");
+      alert('file template created successfully');
       // window.location.reload();
     }
   };
@@ -129,17 +134,17 @@ const InvoiceTable = ({ invoiceAllData }: any) => {
     //   setShowPdf(true)
     // }
     if (
-      updatedData?.success == "no" &&
-      updatedData?.message === "jwt expired"
+      updatedData?.success == 'no' &&
+      updatedData?.message === 'jwt expired'
     ) {
-      return navigate("/");
-    } else if (updatedData?.success == "no") {
-      alert("system error try again leter");
-    } else if (updatedData?.success == "yes") {
+      return navigate('/');
+    } else if (updatedData?.success == 'no') {
+      alert('system error try again leter');
+    } else if (updatedData?.success == 'yes') {
       setDetails(dbDetails.concat(details));
       setShowCreate(false);
       setShowPdf(true);
-      alert("invoice updated successfully");
+      alert('invoice updated successfully');
       // window.location.reload();
     }
   };
@@ -151,13 +156,13 @@ const InvoiceTable = ({ invoiceAllData }: any) => {
 
     const deletedData = await deleteInvoices(deleteData);
     if (
-      deletedData?.success == "no" &&
-      deletedData?.message === "jwt expired"
+      deletedData?.success == 'no' &&
+      deletedData?.message === 'jwt expired'
     ) {
-      return navigate("/");
-    } else if (deletedData?.success == "no") {
-      alert("system error try again leter");
-    } else if (deletedData?.success == "yes") {
+      return navigate('/');
+    } else if (deletedData?.success == 'no') {
+      alert('system error try again leter');
+    } else if (deletedData?.success == 'yes') {
       // let tempTemplates = templates
       // tempTemplates.forEach((temp, ind) => {
       //   if (temp?._id == id) {
@@ -166,26 +171,26 @@ const InvoiceTable = ({ invoiceAllData }: any) => {
       // })
       // setTemplates([...tempTemplates])
 
-      alert("invoice deleted successfully");
+      alert('invoice deleted successfully');
       window.location.reload();
     }
   };
 
   const handleSend = async (pdf: any) => {
     // console.log("pdf", pdf)
-    const serviceId = "service_twmn4of";
-    const customerTemplateId = "template_0ngm4wm";
+    const serviceId = 'service_twmn4of';
+    const customerTemplateId = 'template_0ngm4wm';
     try {
       await emailjs.send(serviceId, customerTemplateId, {
         to_name: receiverName,
         to_email: receiverEmail,
-        message: "hi",
-        content: pdf
+        message: 'hi',
+        content: pdf,
       });
     } catch (error) {
       console.log(error);
     } finally {
-      alert("email send successfully");
+      alert('email send successfully');
       handlePdfModalClose();
       window.location.reload();
     }
@@ -197,7 +202,7 @@ const InvoiceTable = ({ invoiceAllData }: any) => {
     if (!tempDetails[ind]) {
       tempDetails[ind] = {
         quantity: 0,
-        description: "",
+        description: '',
         unit_price: 0,
         total: 0,
       };
@@ -208,7 +213,12 @@ const InvoiceTable = ({ invoiceAllData }: any) => {
     setDetails([...tempDetails]);
   };
 
-  const handleDbDetails = async (operation: any, operation2: any, e: any, ind: any) => {
+  const handleDbDetails = async (
+    operation: any,
+    operation2: any,
+    e: any,
+    ind: any,
+  ) => {
     let tempDbDetails = dbDetails;
 
     document.getElementById(`${operation}-${ind}`).value = e.target.value;
@@ -233,7 +243,7 @@ const InvoiceTable = ({ invoiceAllData }: any) => {
     const setter = async () => {
       let invoicesData = invoices;
       if (invoicesData?.length == 0) {
-        setInvoiceNo("23999");
+        setInvoiceNo('23999');
       }
       invoicesData.forEach((inv: any, ind: number) => {
         if (ind === invoicesData.length - 1) {
@@ -255,7 +265,6 @@ const InvoiceTable = ({ invoiceAllData }: any) => {
     });
   }, [dbDetails]);
 
-
   return (
     <>
       <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -264,10 +273,13 @@ const InvoiceTable = ({ invoiceAllData }: any) => {
         </h2>
 
         <nav className="flex justify-center items-center  gap-5 w-[40%]">
-          <button onClick={() => {
-            setUpdate(false)
-            setShowCreate(true)
-          }} className="flex w-[25%] justify-center rounded-lg bg-primary py-2 font-medium text-gray hover:bg-opacity-90">
+          <button
+            onClick={() => {
+              setUpdate(false);
+              setShowCreate(true);
+            }}
+            className="flex w-[25%] justify-center rounded-lg bg-primary py-2 font-medium text-gray hover:bg-opacity-90"
+          >
             <AddIcon />
             Create
           </button>
@@ -299,68 +311,71 @@ const InvoiceTable = ({ invoiceAllData }: any) => {
               </tr>
             </thead>
             <tbody>
-              {invoices && invoices.length !== 0 && invoices.map((invoice, ind) =>
-              (
-                <tr key={ind}>
+              {invoices &&
+                invoices.length !== 0 &&
+                invoices.map((invoice, ind) => (
+                  <tr key={ind}>
+                    <td className="border-b border-[#eee] py-5 px-2 pl-9 dark:border-strokedark xl:pl-11">
+                      <h5 className="font-medium text-black dark:text-white">
+                        {ind + 1}
+                      </h5>
+                    </td>
 
-                  <td className="border-b border-[#eee] py-5 px-2 pl-9 dark:border-strokedark xl:pl-11">
-                    <h5 className="font-medium text-black dark:text-white">
-                      {ind + 1}
-                    </h5>
-                  </td>
-
-                  <td className="border-b border-[#eee] py-5 px-2 pl-9 dark:border-strokedark xl:pl-11">
-                    <h5 className="font-medium text-black dark:text-white">
-                      {invoice?.invoice_no}
-                    </h5>
-                  </td>
-                  <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                    <div className="flex items-center space-x-3.5">
-                      <button
-                        onClick={() => {
-                          setUpdate(true);
-                          setShowCreate(true);
-                          setInvoiceId(invoice?._id);
-                          setCompanyName(invoice?.company_name);
-                          setCompanyAddress(invoice?.company_address);
-                          setBillingAdd(invoice?.billing_address);
-                          setShippingAdd(invoice?.shipping_address);
-                          setCompanyEmail(invoice?.company_email);
-                          setTax(invoice?.tax);
-                          setCompanyPhoneNo(invoice?.company_phone_no);
-                          setDate(invoice?.invoice_date);
-                          setInvoiceNo(invoice?.invoice_no);
-                          setDbDetails(invoice?.details);
-                          setDetailsCnt([]);
-                        }}
-                        className="h-9 w-9 flex justify-center items-center border border-[#3c50e0] rounded-md hover:text-[#3c50e0] transition-all duration-150 ease-in-out"
-                      >
-                        <EditRoundedIcon />
-                      </button>
-                      <button className="h-9 w-9 flex justify-center items-center border border-[#dc3545] rounded-md hover:text-[#dc3545] transition-all duration-150 ease-in-out" onClick={() => {
-                        handleDelete(invoice?._id)
-                      }}>
-                        <DeleteRoundedIcon />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
+                    <td className="border-b border-[#eee] py-5 px-2 pl-0 dark:border-strokedark xl:pl-3">
+                      <h5 className="font-medium text-black dark:text-white">
+                        {invoice?.invoice_no}
+                      </h5>
+                    </td>
+                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                      <div className="flex items-center space-x-3.5">
+                        <button
+                          onClick={() => {
+                            setUpdate(true);
+                            setShowCreate(true);
+                            setInvoiceId(invoice?._id);
+                            setCompanyName(invoice?.company_name);
+                            setCompanyAddress(invoice?.company_address);
+                            setBillingAdd(invoice?.billing_address);
+                            setShippingAdd(invoice?.shipping_address);
+                            setCompanyEmail(invoice?.company_email);
+                            setTax(invoice?.tax);
+                            setCompanyPhoneNo(invoice?.company_phone_no);
+                            setDate(invoice?.invoice_date);
+                            setInvoiceNo(invoice?.invoice_no);
+                            setDbDetails(invoice?.details);
+                            setDetailsCnt([]);
+                          }}
+                          className="h-9 w-9 flex justify-center items-center border border-[#3c50e0] rounded-md hover:text-[#3c50e0] transition-all duration-150 ease-in-out"
+                        >
+                          <EditRoundedIcon />
+                        </button>
+                        <button
+                          className="h-9 w-9 flex justify-center items-center border border-[#dc3545] rounded-md hover:text-[#dc3545] transition-all duration-150 ease-in-out"
+                          onClick={() => {
+                            handleDelete(invoice?._id);
+                          }}
+                        >
+                          <DeleteRoundedIcon />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>
       </div>
 
-
-      {showCreate &&
-
+      {showCreate && (
         <div className="fixed top-0 left-0 EditModelZindex flex justify-center items-center w-full h-full backdrop-blur-md">
           <div className="shadow-md p-4 w-[50%] rounded-md dark:border-strokedark dark:bg-boxdark border-stroke bg-white overflow-y-auto max-h-full">
             <div className="flex justify-between items-center">
-              <h2 className="text-[800] text-3xl ">{update ? "Update Users" : "Add Users"}</h2>
+              <h2 className="text-[800] text-3xl ">
+                {update ? 'Update Users' : 'Add Users'}
+              </h2>
               <button
                 onClick={() => {
-                  handleCreateModalClose()
+                  handleCreateModalClose();
                 }}
                 className="hover:text-[#dc3545] transition-all duration-200 ease-in-out"
               >
@@ -377,6 +392,7 @@ const InvoiceTable = ({ invoiceAllData }: any) => {
                   type="text"
                   className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   id="company-name "
+                  placeholder="Enter Company Name..."
                   value={companyName}
                   onChange={(e) => {
                     setCompanyName(e.target.value);
@@ -394,7 +410,7 @@ const InvoiceTable = ({ invoiceAllData }: any) => {
                   type="text"
                   className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   id="company-address  "
-
+                  placeholder="Enter Company Address..."
                   value={companyAddress}
                   onChange={(e) => {
                     setCompanyAddress(e.target.value);
@@ -412,6 +428,7 @@ const InvoiceTable = ({ invoiceAllData }: any) => {
                   type="text"
                   className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   value={companyPhoneNo}
+                  placeholder="Enter Company Phone Number..."
                   id="company-phone-no  "
                   onChange={(e) => {
                     setCompanyPhoneNo(e.target.value);
@@ -429,6 +446,7 @@ const InvoiceTable = ({ invoiceAllData }: any) => {
                   type="email"
                   className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   id="company-email  "
+                  placeholder="Enter Company Email...."
                   value={companyEmail}
                   onChange={(e) => {
                     setCompanyEmail(e.target.value);
@@ -440,15 +458,16 @@ const InvoiceTable = ({ invoiceAllData }: any) => {
             <div className="mt-3">
               <div className="flex flex-col justify-start items-start gap-3">
                 <label className="text-lg text-black dark:text-white">
-                  Invoice No
+                  Invoice No.
                 </label>
                 <input
                   type="text"
                   className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   id="invoice-no "
-                  value={parseInt(invoiceNo)+1}
+                  value={parseInt(invoiceNo) + 1}
+                  placeholder="Enter Invoice Number...."
                   // onChange={(e) => {
-                    // setInvoiceNo(e.target.value);
+                  // setInvoiceNo(e.target.value);
                   // }}
                   disabled={true}
                 />
@@ -464,7 +483,7 @@ const InvoiceTable = ({ invoiceAllData }: any) => {
                   type="text"
                   className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   id="invoice-date  "
-
+                  placeholder="Enter Date...."
                   value={date}
                   onChange={(e) => {
                     setDate(e.target.value);
@@ -482,7 +501,7 @@ const InvoiceTable = ({ invoiceAllData }: any) => {
                   type="text"
                   className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   id="billing-address "
-
+                  placeholder="Enter Billing Address...."
                   value={billingAdd}
                   onChange={(e) => {
                     setBillingAdd(e.target.value);
@@ -500,7 +519,7 @@ const InvoiceTable = ({ invoiceAllData }: any) => {
                   type="text"
                   className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   id="shipping-address "
-
+                  placeholder="Enter Shipping Address...."
                   value={shippingAdd}
                   onChange={(e) => {
                     setShippingAdd(e.target.value);
@@ -518,16 +537,14 @@ const InvoiceTable = ({ invoiceAllData }: any) => {
                   type="number"
                   className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   value={tax}
-
+                  placeholder="Enter Tax Amount...."
                   id="tax"
-
                   onChange={(e) => {
                     setTax(e.target.value);
                   }}
                 />
               </div>
             </div>
-
 
             {dbDetails.length !== 0 &&
               dbDetails.map((_, ind) => (
@@ -541,10 +558,10 @@ const InvoiceTable = ({ invoiceAllData }: any) => {
                     <input
                       type="number"
                       id={`db-qty-${ind}`}
-                      className='w-25 rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary'
+                      className="w-25 rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                       placeholder="qty"
                       onChange={(e) => {
-                        handleDbDetails("db-qty", "quantity", e, ind);
+                        handleDbDetails('db-qty', 'quantity', e, ind);
                       }}
                     />
                     <input
@@ -553,7 +570,7 @@ const InvoiceTable = ({ invoiceAllData }: any) => {
                       className="ms-2 rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                       placeholder="description"
                       onChange={(e) => {
-                        handleDbDetails("db-desc", "description", e, ind);
+                        handleDbDetails('db-desc', 'description', e, ind);
                       }}
                     />
                     <input
@@ -562,7 +579,7 @@ const InvoiceTable = ({ invoiceAllData }: any) => {
                       className="ms-2 w-35 rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                       placeholder="unit price"
                       onChange={(e) => {
-                        handleDbDetails("db-unit-price", "unit_price", e, ind);
+                        handleDbDetails('db-unit-price', 'unit_price', e, ind);
                       }}
                     />
                     <input
@@ -571,7 +588,7 @@ const InvoiceTable = ({ invoiceAllData }: any) => {
                       className="ms-2 w-35 rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                       placeholder="total"
                       onChange={(e) => {
-                        handleDbDetails("db-total", "total", e, ind);
+                        handleDbDetails('db-total', 'total', e, ind);
                       }}
                     />
                   </div>
@@ -582,12 +599,7 @@ const InvoiceTable = ({ invoiceAllData }: any) => {
               <div className="flex justify-between">
                 <label className="pb-1">Add Details</label>
                 <button
-                  className="text-dark"
-                  style={{
-                    width: "fit-content",
-                    background: "#cfb0cc",
-                    whiteSpace: "nowrap",
-                  }}
+                  className="flex w-[25%] justify-center rounded-lg bg-primary p-3 font-medium text-gray hover:bg-opacity-90"
                   onClick={() => {
                     const tempDetailsCnt = detailsCnt;
                     tempDetailsCnt.push(detailsCnt.length + 1);
@@ -602,77 +614,85 @@ const InvoiceTable = ({ invoiceAllData }: any) => {
             {detailsCnt.length !== 0 &&
               detailsCnt.map((_, ind) => (
                 <>
-                  <div className="flex mt-2">
-                    <input
-                      type="number"
-                      id={`qty-${ind}`}
-                      className="w-25 rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                      placeholder="qty"
-                      onChange={(e) => {
-                        handleDetails("quantity", e, ind);
-                      }}
-                    />
-                    <input
-                      type="text"
-                      id={`desc-${ind}`}
-                      className="ms-2 rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                      placeholder="description"
-                      onChange={(e) => {
-                        handleDetails("description", e, ind);
-                      }}
-                    />
-                    <input
-                      type="number"
-                      id={`unit-price-${ind}`}
-                      className="ms-2 w-35 rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary "
-                      placeholder="unit price"
-                      onChange={(e) => {
-                        handleDetails("unit_price", e, ind);
-                      }}
-                    />
-                    <input
-                      type="number"
-                      id={`total-${ind}`}
-                      className="ms-2 w-35 rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                      placeholder="total"
-                      onChange={(e) => {
-                        handleDetails("total", e, ind);
-                      }}
-                    />
+                  <div className="grid grid-cols-4 gap-3 my-4">
+                    <div>
+                      <input
+                        type="number"
+                        id={`qty-${ind}`}
+                        className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                        placeholder="Enter Quantity..."
+                        onChange={(e) => {
+                          handleDetails('quantity', e, ind);
+                        }}
+                      />
+                    </div>
+                    <div>
+                      <input
+                        type="text"
+                        id={`desc-${ind}`}
+                        className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                        placeholder="Enter Description..."
+                        onChange={(e) => {
+                          handleDetails('description', e, ind);
+                        }}
+                      />
+                    </div>
+                    <div>
+                      <input
+                        type="number"
+                        id={`unit-price-${ind}`}
+                        className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary "
+                        placeholder="Enter Unit Price..."
+                        onChange={(e) => {
+                          handleDetails('unit_price', e, ind);
+                        }}
+                      />
+                    </div>
+                    <div>
+                      <input
+                        type="number"
+                        id={`total-${ind}`}
+                        className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                        placeholder="Enter Total Amount..."
+                        onChange={(e) => {
+                          handleDetails('total', e, ind);
+                        }}
+                      />
+                    </div>
                   </div>
                 </>
               ))}
 
-
             <div className="flex justify-end items-center gap-4 my-4">
-              <button onClick={() => { handleCreateModalClose() }} className="w-[15%] py-3 bg-[#dc3545] rounded-lg text-white hover:bg-opacity-90">
+              <button
+                onClick={() => {
+                  handleCreateModalClose();
+                }}
+                className="w-[15%] py-3 bg-[#dc3545] rounded-lg text-white hover:bg-opacity-90"
+              >
                 Cancel
               </button>
-              <button className="flex w-[15%] justify-center rounded-lg bg-primary p-3 font-medium text-gray hover:bg-opacity-90"
-
-                onClick={() => { update ? handleUpdate() : handleCreate() }}
+              <button
+                className="flex w-[15%] justify-center rounded-lg bg-primary p-3 font-medium text-gray hover:bg-opacity-90"
+                onClick={() => {
+                  update ? handleUpdate() : handleCreate();
+                }}
               >
-                {update ? "Update" : "Create"}
+                {update ? 'Update' : 'Create'}
               </button>
             </div>
           </div>
         </div>
+      )}
 
-      }
-
-
-
-      {
-
-        showPdf &&
-
+      {showPdf && (
         <div className="fixed top-0 left-0 EditModelZindex flex justify-center items-center w-full h-full backdrop-blur-md">
           <div className="shadow-md p-4 w-[50%] rounded-md dark:border-strokedark dark:bg-boxdark border-stroke bg-white overflow-y-auto max-h-full">
             <div className="flex justify-between items-center">
               <h2 className="text-[800] text-3xl ">Send Invoice As Pdf</h2>
               <button
                 onClick={() => {
-                  handlePdfModalClose()
+                  handlePdfModalClose();
                 }}
                 className="hover:text-[#dc3545] transition-all duration-200 ease-in-out"
               >
@@ -712,8 +732,7 @@ const InvoiceTable = ({ invoiceAllData }: any) => {
               </div>
             </div>
 
-
-            <div id="content" >
+            <div id="content">
               <div className="flex justify-between ms-3 me-3">
                 <div className="flex flex-col">
                   <p className="m-0 font-bold">{companyName}</p>
@@ -726,7 +745,7 @@ const InvoiceTable = ({ invoiceAllData }: any) => {
                   <p
                     className="font-bold"
                     style={{
-                      fontSize: "55px"
+                      fontSize: '55px',
                     }}
                   >
                     INVOICE
@@ -736,22 +755,22 @@ const InvoiceTable = ({ invoiceAllData }: any) => {
               <hr
                 className="mt-3 ms-3 me-3"
                 style={{
-                  border: "1px solid black",
-                  fontWeight: "bold",
+                  border: '1px solid black',
+                  fontWeight: 'bold',
                   opacity: 1,
                 }}
               />
               <div className="flex justify-end ms-3 me-3">
                 <p>
                   Invoice No. <span>{invoiceNo}</span>
-                  &nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;Date:{" "}
-                  <span>{date}</span>{" "}
+                  &nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;Date:{' '}
+                  <span>{date}</span>{' '}
                 </p>
               </div>
 
               <div
                 className="flex justify-start ms-3 me-3 mt-3"
-                style={{ background: "#D3D3D3" }}
+                style={{ background: '#D3D3D3' }}
               >
                 <p className="mb-2">Bill To</p>
                 <p className="mb-2 invoice_ship_to">Ship To</p>
@@ -760,8 +779,8 @@ const InvoiceTable = ({ invoiceAllData }: any) => {
               <hr
                 className="me-3 ms-3 mt-0"
                 style={{
-                  border: "1px solid black",
-                  fontWeight: "bold",
+                  border: '1px solid black',
+                  fontWeight: 'bold',
                   opacity: 1,
                 }}
               />
@@ -784,21 +803,21 @@ const InvoiceTable = ({ invoiceAllData }: any) => {
               <div className="flex justify-center mt-5 ms-3 me-3">
                 <table className="w-full pdf_table">
                   <thead>
-                    <tr style={{ background: "#D3D3D3" }}>
-                      <th className='pdf_th text-bold'>QTY</th>
-                      <th className='pdf_th text-bold'>DESCRIPTION</th>
-                      <th className='pdf_th text-bold'>UNIT PRICE</th>
-                      <th className='pdf_th text-bold'>TOTAL</th>
+                    <tr style={{ background: '#D3D3D3' }}>
+                      <th className="pdf_th text-bold">QTY</th>
+                      <th className="pdf_th text-bold">DESCRIPTION</th>
+                      <th className="pdf_th text-bold">UNIT PRICE</th>
+                      <th className="pdf_th text-bold">TOTAL</th>
                     </tr>
                   </thead>
                   <tbody>
                     {details.length !== 0 &&
                       details.map((d: any, _) => (
                         <tr>
-                          <th className='pdf_th'>{d?.quantity}</th>
-                          <th className='pdf_th'>{d?.description}</th>
-                          <th className='pdf_th'>{d?.unit_price}</th>
-                          <th className='pdf_th'>{d?.total}</th>
+                          <th className="pdf_th">{d?.quantity}</th>
+                          <th className="pdf_th">{d?.description}</th>
+                          <th className="pdf_th">{d?.unit_price}</th>
+                          <th className="pdf_th">{d?.total}</th>
                         </tr>
                       ))}
                   </tbody>
@@ -809,34 +828,36 @@ const InvoiceTable = ({ invoiceAllData }: any) => {
                 <div className=" w-50 flex  justify-center">
                   <p className="invoice_thank_you mt-3">Thank You</p>
                 </div>
-                <table className='w-50 pdf_table'>
+                <table className="w-50 pdf_table">
                   <tbody>
                     <tr>
-                      <th className='text-bold pdf_th'>SUBTOTAL</th>
-                      <th
-                        className='pdf_th'
-                      >{getSubTotal()}</th>
+                      <th className="text-bold pdf_th">SUBTOTAL</th>
+                      <th className="pdf_th">{getSubTotal()}</th>
                     </tr>
                     <tr>
-                      <th className='text-bold pdf_th'>TAX</th>
-                      <th className='pdf_th'>{tax}</th>
+                      <th className="text-bold pdf_th">TAX</th>
+                      <th className="pdf_th">{tax}</th>
                     </tr>
                     <tr>
-                      <th className='text-bold pdf_th'>GRAND TOTAL</th>
-                      <th className='pdf_th'>{getGrandTotal()}</th>
+                      <th className="text-bold pdf_th">GRAND TOTAL</th>
+                      <th className="pdf_th">{getGrandTotal()}</th>
                     </tr>
                   </tbody>
                 </table>
               </div>
             </div>
 
-
             <div className="flex justify-end items-center gap-4 my-4">
-              <button onClick={() => { handlePdfModalClose() }} className="w-[15%] py-3 bg-[#dc3545] rounded-lg text-white hover:bg-opacity-90">
+              <button
+                onClick={() => {
+                  handlePdfModalClose();
+                }}
+                className="w-[15%] py-3 bg-[#dc3545] rounded-lg text-white hover:bg-opacity-90"
+              >
                 Cancel
               </button>
-              <button className="flex w-50 justify-center rounded-lg bg-primary p-3 font-medium text-gray hover:bg-opacity-90"
-
+              <button
+                className="flex w-50 justify-center rounded-lg bg-primary p-3 font-medium text-gray hover:bg-opacity-90"
                 onClick={async () => {
                   await handleGeneratePDF();
                 }}
@@ -846,7 +867,7 @@ const InvoiceTable = ({ invoiceAllData }: any) => {
             </div>
           </div>
         </div>
-      }
+      )}
     </>
   );
 };

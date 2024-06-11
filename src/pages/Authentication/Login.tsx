@@ -57,22 +57,22 @@ function Login() {
   } else if (showNotFound === false) {
     return (
       <div
-        className="flex justify-center items-center h-screen"
-        style={{ backgroundImage: `url(${darkBg})`, backgroundSize: 'cover' }}
+        className="flex justify-center items-center h-screen loggInBg"
+        // style={{ backgroundImage: `url(${darkBg})`, backgroundSize: 'cover' }} bg-[#161313] admin__login_container
       >
-        <div className="admin__login_container flex flex-col justify-center items-center gap-4 h-[55%] bg-[#161313] rounded-2xl w-[40%]">
+        <div className=" flex flex-col justify-center items-center gap-4 h-[55%] bg-[#fff]/20  backdrop-blur-lg rounded-2xl w-[90%] xl:w-[40%] shadow-2xl">
           <div className="flex justify-center mt-3">
             <img alt="dark-logo" src={logoDark} className="w-25 h-25" />
           </div>
-          <div className="flex flex-col  w-[70%] mx-auto">
+          <div className="flex flex-col w-[90%] xl:w-[70%] mx-auto">
             <h2 className="text-center text-2xl font-[600] mt-3 text-white">
               Admin Login
             </h2>
             <div className="mt-5 mb-3 flex justify-center w-full">
               <input
                 type="email"
-                className="rounded-lg bg-[#202020] text-lg w-full py-2 px-3 border border-[#fff6] text-[#ccc] outline-none"
-                placeholder="Enter email"
+                className="rounded-lg bg-[#FFF]/20 backdrop-blur-md font-[500] text-lg w-full py-2 px-3 border border-[#fff6] text-[#000] outline-none placeholder:text-[#000]/60 shadow-lg"
+                placeholder="Enter email...."
                 id="email"
                 name="email"
                 value={email}
@@ -85,8 +85,8 @@ function Login() {
             <div className="mt-3 mb-3 flex justify-center ">
               <input
                 type="password"
-                className="rounded-lg bg-[#202020] text-lg w-full py-2 px-3 border border-[#fff6] text-[#ccc] outline-none"
-                placeholder="Enter password"
+                className="rounded-lg bg-[#FFF]/20 backdrop-blur-md text-lg w-full py-2 px-3 border border-[#fff6] text-[#000] outline-none placeholder:text-[#000]/60 font-[500] shadow-lg"
+                placeholder="Enter password...."
                 id="password"
                 name="password"
                 value={password}
@@ -98,7 +98,7 @@ function Login() {
             </div>
             <div className="mt-3 mb-5 flex justify-center ">
               <button
-                className="bg-blue-700 hover:bg-blue-600 w-[25%] rounded-lg py-2 text-lg font-[500] transition-all duration-200 ease-in-out text-white"
+                className="bg-blue-700 hover:bg-blue-600 w-[25%] rounded-lg py-2 text-lg font-[500] transition-all duration-200 ease-in-out text-white shadow-xl"
                 onClick={handleLogin}
               >
                 Login

@@ -3,19 +3,19 @@
 TailAdmin is a free and open-source admin dashboard template built on **React and Tailwind CSS**, providing developers with everything they need to create a comprehensive, data-driven back-end, 
 dashboard, or admin panel solution for upcoming web projects.
 
-[![tailwind react admin template](https://ucarecdn.com/d2a6daed-eb9c-4c2f-8a95-4419c450e23a/tailadminreact.jpg)](https://react-demo.tailadmin.com/)
+# [![tailwind react admin template](https://ucarecdn.com/d2a6daed-eb9c-4c2f-8a95-4419c450e23a/tailadminreact.jpg)](https://react-demo.tailadmin.com/)
 
 
 With TailAdmin, you get access to all the necessary dashboard UI components, elements, and pages required to build a feature-rich and complete dashboard or admin panel. Whether you're building dashboard or admin panel for a complex web application or a simple website, TailAdmin is the perfect solution to help you get up and running quickly.
 
-### [✨ Visit Website](https://tailadmin.com/)
+### [✨ Visit Website](https://innovative-admin-dashboard.vercel.app/)
 
-### [🚀 PRO Demo](https://react-demo.tailadmin.com/)
-### [🚀 FREE Demo](https://free-react-demo.tailadmin.com/)
+### [🚀 PRO Demo](https://innovative-admin-dashboard.vercel.app/)
+### [🚀 FREE Demo](https://innovative-admin-dashboard.vercel.app/)
 
 ### TailAdmin React PRO vs TailAdmin React FREE Comparison 📊
 
-#### [TailAdmin React PRO](https://react-demo.tailadmin.com/)
+#### [TailAdmin React PRO](https://innovative-admin-dashboard.vercel.app/)
 - 4 Unique Dashboards: Analytics, Ecommerce, Marketing, and CRM (More will be added)
 - 120+ Dashboard UI Components
 - 200+ Total UI Elements
@@ -25,7 +25,7 @@ With TailAdmin, you get access to all the necessary dashboard UI components, ele
 
 ___
 
-#### [TailAdmin React FREE](https://free-react-demo.tailadmin.com/)
+#### [TailAdmin React FREE](https://innovative-admin-dashboard.vercel.app/)
 - 1 Unique Dashboard
 - 30+ Dashboard UI Components
 - 50+ Total UI Elements 

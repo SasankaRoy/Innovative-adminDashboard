@@ -62,6 +62,7 @@ function UserTable({ userAllData }: any) {
 
     if (password !== "") {
       userData.password = password
+      
     }
 
     const updatedData = await updateUsers(userData)
