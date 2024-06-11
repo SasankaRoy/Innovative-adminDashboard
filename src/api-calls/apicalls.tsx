@@ -859,27 +859,31 @@ export const deleteGallery = async (deleteData:any) => {
   }
 };
 
-// export const createCategories = async (addData) => {
-//   let tempCategory = [];
-//   try {
-//     await axios({
-//       method: "post",
-//       url: `${process.env.REACT_APP_BASE_URL}/api/category`,
-//       data: addData,
-//       headers: {
-//         "Content-Type": "multipart/form-data",
-//         authorization: `Bearer ${token}`,
-//       },
-//     }).then((res) => {
-//       tempCategory = res.data;
-//     });
-//   } catch (error) {
-//     // console.log("can not create category");
-//     tempCategory=error?.response?.data;
-//   } finally {
-//     return tempCategory;
-//   }
-// };
+export const createCategories = async (addData:any) => {
+  let tempCategory = [];
+  const token=localStorage.getItem('token')
+  if(token){
+  try {
+    await axios({
+      method: "post",
+      url: `${API_URL}/api/category`,
+      data: addData,
+      headers: {
+        "Content-Type": "multipart/form-data",
+        authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      tempCategory = res.data;
+    });
+  } catch (error:any) {
+    // console.log("can not create category");
+    tempCategory=error?.response?.data;
+  } finally {
+    return tempCategory;
+  }}else{
+    return {message:"jwt is not present"}
+  }
+};
 
 export const fetchCategories = async () => {
   const token=localStorage.getItem('token')
@@ -905,48 +909,56 @@ export const fetchCategories = async () => {
   }
 };
 
-// export const updateCategories = async (updateData) => {
-//   let tempCats = [];
-//   try {
-//     await axios({
-//       method: "put",
-//       url: `${process.env.REACT_APP_BASE_URL}/api/category`,
-//       data: updateData,
-//       headers: {
-//         "Content-Type": "multipart/form-data",
-//         authorization: `Bearer ${token}`,
-//       },
-//     }).then((res) => {
-//       tempCats = res.data;
-//     });
-//   } catch (error) {
-//     // console.log("can not update categories");
-//     tempCats=error?.response?.data;
-//   } finally {
-//     return tempCats;
-//   }
-// };
+export const updateCategories = async (updateData:any) => {
+  let tempCats = [];
+  const token=localStorage.getItem('token')
+  if(token){
+  try {
+    await axios({
+      method: "put",
+      url: `${API_URL}/api/category`,
+      data: updateData,
+      headers: {
+        "Content-Type": "multipart/form-data",
+        authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      tempCats = res.data;
+    });
+  } catch (error:any) {
+    // console.log("can not update categories");
+    tempCats=error?.response?.data;
+  } finally {
+    return tempCats;
+  }}else{
+    return {message:"jwt is not present"}
+  }
+};
 
-// export const deleteCategories = async (deleteData) => {
-//   let tempCat = [];
-//   try {
-//     await axios({
-//       method: "delete",
-//       url: `${process.env.REACT_APP_BASE_URL}/api/category`,
-//       data: deleteData,
-//       headers: {
-//         authorization: `Bearer ${token}`,
-//       },
-//     }).then((res) => {
-//       tempCat = res.data;
-//     });
-//   } catch (error) {
-//     // console.log("can not delete category");
-//     tempCat=error?.response?.data;
-//   } finally {
-//     return tempCat;
-//   }
-// };
+export const deleteCategories = async (deleteData:any) => {
+  let tempCat = [];
+  const token=localStorage.getItem('token')
+  if(token){
+  try {
+    await axios({
+      method: "delete",
+      url: `${API_URL}/api/category`,
+      data: deleteData,
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      tempCat = res.data;
+    });
+  } catch (error:any) {
+    // console.log("can not delete category");
+    tempCat=error?.response?.data;
+  } finally {
+    return tempCat;
+  }}else{
+    return {message:"jwt is not present"}
+  }
+};
 
 export const createProducts = async (addData:any) => {
   let tempProducts = [];
