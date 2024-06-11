@@ -1030,7 +1030,7 @@ export const updateProducts = async (updateData:any) => {
 
 export const deleteProducts = async (deleteData:any) => {
   let tempProd = [];
-  const token=localStorage.getItem('topken')
+  const token=localStorage.getItem('token')
   if(token){
   try {
     await axios({

@@ -174,6 +174,7 @@ function ProductTable({ allProductData, allCategories, allFiles, allQuizzes, all
     }
 
     const handleDelete = async (id: any) => {
+        // console.log("dell")
         const deleteData = { product_id: id }
         const deletedData = await deleteProducts(deleteData)
         if (
