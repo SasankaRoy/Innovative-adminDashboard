@@ -340,7 +340,7 @@ function ProductTable({
 
       {showCreate && (
         <div className="fixed top-0 left-0 EditModelZindex flex justify-center items-center w-full h-full backdrop-blur-md">
-          <div className="shadow-md p-4 w-[50%] rounded-md dark:border-strokedark dark:bg-boxdark border-stroke bg-white overflow-y-auto max-h-full">
+          <div className="shadow-md p-4 w-[95%] xl:w-[50%] rounded-md dark:border-strokedark dark:bg-boxdark border-stroke bg-white overflow-y-auto max-h-full">
             <div className="flex justify-between items-center">
               <h2 className="text-[800] text-3xl ">
                 {update ? 'Update Products' : 'Add Products'}
@@ -760,12 +760,12 @@ function ProductTable({
                 onClick={() => {
                   handleClose();
                 }}
-                className="w-[15%] py-3 bg-[#dc3545] rounded-lg text-white hover:bg-opacity-90"
+                className="xl:w-[15%] w-[25%] py-3 bg-[#dc3545] rounded-lg text-white hover:bg-opacity-90"
               >
                 Cancel
               </button>
               <button
-                className="flex w-[15%] justify-center rounded-lg bg-primary p-3 font-medium text-gray hover:bg-opacity-90"
+                className="flex xl:w-[15%] w-[25%] justify-center rounded-lg bg-primary p-3 font-medium text-gray hover:bg-opacity-90"
                 onClick={() => {
                   update ? handleUpdate() : handleCreate();
                 }}
