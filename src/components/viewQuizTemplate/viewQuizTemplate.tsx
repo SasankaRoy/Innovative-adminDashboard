@@ -180,83 +180,6 @@ function ViewQuizTemplate() {
 
         <div className="w-full h-full overflow-y-auto p-4 ">
           {showAns ? (
-            // <>
-
-            //   {templateData.quizzes.map((quiz: any, index: number) => (
-            //     <div className="flex justify-start items-start View_quiz_template_quiz p-4 mt-3 flex-col">
-            //       <div className="flex">
-            //         <h5
-            //           className=" text-black text-2xl  font-[500] capitalize"
-            //           style={{ whiteSpace: 'nowrap' }}
-            //         >
-            //           <span className="text-lg">{(QustionCounter = +1)}</span> .{' '}
-            //           {quiz?.question}
-            //         </h5>
-            //         {ansSigns[index] === 'correct' ? (
-            //           <img
-            //             src={correct}
-            //             className="mt-3 ms-3"
-            //             alt="correct"
-            //             style={{ height: '2%', width: '2%' }}
-            //           />
-            //         ) : (
-            //           <img
-            //             className="mt-3 ms-3"
-            //             style={{ height: '2%', width: '2%' }}
-            //             src={incorrect}
-            //             alt="incorrect"
-            //           />
-            //         )}
-            //       </div>
-            //       {ans[index] === 'unattempted' ? (
-            //         <p className="text-red-600 font-[600] text-center my-3 text-lg">
-            //           Not Attempted
-            //         </p>
-            //       ) : (
-            //         <div className="flex justify-center">
-            //           <div className=" grid grid-cols-1 gap-5 my-3   ">
-            //             {quiz.options.map((op: any, ind: number) => (
-            //               <div
-            //                 className={`flex justify-start items-start ${quiz.answer === op && 'bg-green-400/40'} ${ans[index] === ind && quiz.answer != op && 'bg-red-400/40'}  px-4 py-3`}
-            //               >
-            //                 {quiz?.options_type === 'image' ? (
-            //                   <>
-            //                     <p>{`${ALPHABET[ind]}.`}</p>
-            //                     <img
-            //                       className="h-28 w-28 object-cover"
-            //                       id={`img-option-${ind}`}
-            //                       src={op}
-            //                       alt="op-img"
-            //                       style={{
-            //                         cursor: 'pointer',
-            //                       }}
-            //                     />
-            //                   </>
-            //                 ) : (
-            //                   <div className="flex justify-start relative items-center gap-3 py-3 px-4 rounded-md">
-            //                     <p
-            //                       className={`text-lg font-[500] ${quiz.answer === op && 'text-green-600'} ${ans[index] === ind && quiz.answer != op && 'text-red-600'}`}
-            //                     >{`${ALPHABET[ind]}.`}</p>
-            //                     <h2
-            //                       className={`text-black text-xl font-[600] ${quiz.answer === op && 'text-green-600'} ${ans[index] === ind && quiz.answer != op && 'text-red-600'} capitalize`}
-            //                       id={`text-option-${ind}`}
-            //                       style={{
-            //                         cursor: 'pointer',
-            //                       }}
-            //                     >
-            //                       {op}
-            //                     </h2>
-            //                   </div>
-            //                 )}
-            //               </div>
-            //             ))}
-            //           </div>
-            //         </div>
-            //       )}
-            //     </div>
-            //   ))}
-
-            // </>
             <>
               <Link
                 to="/quiz-template-editor"
@@ -269,13 +192,13 @@ function ViewQuizTemplate() {
                   key={quizeId}
                   className="w-full   flex justify-center items-center"
                 >
-                  <div className="max-w-[90%] min-w-[70%] my-5 py-5 px-7 backdrop-blur-lg bg-[#FFF]/10 rounded-xl shadow-lg">
-                    <div className="flex flex-col justify-center items-center gap-8">
+                  <div className="w-[70%] my-5 py-5 px-7 backdrop-blur-lg bg-[#FFF]/10 rounded-xl shadow-lg">
+                    <div className="flex flex-col justify-start items-start gap-8">
                       <div
-                        className={`border-4 customBorder border-[#FFF]/50 px-6 py-4 rounded-full  `}
+                        className={` px-6 py-4 rounded-full  `}
                       >
                         <h2
-                          className={`text-white font-bold text-2xl text-center `}
+                          className={`text-white font-[500] text-2xl text-center `}
                         >
                           <span>{quizeId + 1} .</span> {currQuize?.question}
                         </h2>
@@ -297,9 +220,9 @@ function ViewQuizTemplate() {
                                     {/* IF THE OPTIONS ARE IMAGE'S */}
                                     <div
                                       key={optID}
-                                      className={`flex items-center border-4 border-[#FFF]/50 rounded-full text-white px-4 py-3 cursor-pointer ${currQuize?.answer === currOpt && 'bg-[#22C55E]'} ${ans[quizeId] === optID && currQuize.answer != currOpt && 'bg-red-500/40'}`}
+                                      className={`flex items-center border-2 border-[#FFF]/50 rounded-full text-white px-4 py-3 cursor-pointer ${currQuize?.answer === currOpt && 'bg-[#22C55E]'} ${ans[quizeId] === optID && currQuize.answer != currOpt && 'bg-red-500/40'}`}
                                     >
-                                      <span className="font-semibold text-lg justify-self-start">
+                                      <span className="font-[400] text-lg justify-self-start">
                                         {ALPHABET[optID]} .
                                       </span>
                                       <img
@@ -314,12 +237,12 @@ function ViewQuizTemplate() {
                                     {/* IF THE OPTIONS ARE TEXT */}
                                     <div
                                       key={'optID'}
-                                      className={`flex items-center border-4 border-[#FFF]/50 rounded-full text-white px-4 py-3  ${currQuize?.answer === currOpt && 'bg-[#22C55E]'} ${ans[quizeId] === optID && currQuize.answer != currOpt && 'bg-red-500/40'}`}
+                                      className={`flex items-center border-2 border-[#FFF]/50 rounded-full text-white px-4 py-3  ${currQuize?.answer === currOpt && 'bg-[#22C55E]'} ${ans[quizeId] === optID && currQuize.answer != currOpt && 'bg-red-500/40'}`}
                                     >
-                                      <span className="font-semibold text-lg justify-self-start">
+                                      <span className="font-[400] text-lg justify-self-start">
                                         {ALPHABET[optID]} .
                                       </span>
-                                      <h2 className="font-semibold capitalize text-xl mx-auto">
+                                      <h2 className="font-[500] capitalize text-xl mx-auto">
                                         {currOpt}
                                       </h2>
                                     </div>
@@ -399,80 +322,6 @@ function ViewQuizTemplate() {
                 </div>
               )}
 
-              {/* <h3 className="mt-5 mb-3">
-              Qustion {pageNumber} of {templateData.quizzes.length}
-            </h3> */}
-
-              {/* NO MATTER WHAT DO NOT DELETE THIS CODE */}
-
-              {/* <div className="flex justify-start View_quiz_template_quiz mt-3 flex-column p-5">
-              {templateData &&
-                templateData?.quizzes?.length !== 0 &&
-                templateData.quizzes.map((quiz: any, quizInd: any) => (
-                  <>
-                    {quizInd + 1 === pageNumber && (
-                      <div>
-                        <div className="flex">
-                          <h5
-                            className=" text-black font-[500] text-2xl capitalize"
-                            style={{ whiteSpace: 'nowrap' }}
-                          >
-                            <span className="text-xl">
-                              {(QustionCounter += 1)}
-                            </span>{' '}
-                            . {quizInd + 1 === pageNumber ? quiz?.question : ''}
-                          </h5>
-                        </div>
-                        <div className="flex justify-center">
-                          <div className="grid grid-cols-1 gap-5 my-3">
-                            {quiz.options.map((op: any, ind: any) => (
-                              <div className="min-w-[40%] py-2">
-                                {quiz?.options_type === 'image' ? (
-                                  <div
-                                    id={`main-div-img-option-${ind}`}
-                                    className="w-full flex justify-start items-start gap-3 cursor-pointer p-3 rounded-xl"
-                                    onClick={() => {
-                                      handleClickedOption('img', ind);
-                                    }}
-                                  >
-                                    <p className="text-lg font-[500]">{`${ALPHABET[ind]}.`}</p>
-
-                                    <img
-                                      className="h-32 w-32 object-contain"
-                                      id={`img-option-${ind}`}
-                                      src={op}
-                                      alt="op-img"
-                                    />
-                                  </div>
-                                ) : (
-                                  <div
-                                    id={`main-div-text-option-${ind}`}
-                                    className="flex justify-start items-center gap-3 p-2 rounded-lg w-full cursor-pointer"
-                                    onClick={() => {
-                                      handleClickedOption('text', ind);
-                                    }}
-                                  >
-                                    <p className="text-lg font-[500]">{`${ALPHABET[ind]} .`}</p>
-                                    <h2
-                                      className="text-2xl font-[500] text-black"
-                                      id={`text-option-${ind}`}
-                                    >
-                                      {op}
-                                    </h2>
-                                  </div>
-                                )}
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                  </>
-                ))}
-            </div> */}
-
-              {/* NO MATTER WHAT DO NOT DELETE THIS CODE */}
-
               {templateData &&
                 templateData?.quizzes?.length !== 0 &&
                 templateData.quizzes.map((currQus: any, quizeId: any) => (
@@ -482,12 +331,23 @@ function ViewQuizTemplate() {
                         key={quizeId}
                         className="w-full   flex justify-center items-center"
                       >
-                        <div className="max-w-[90%] min-w-[70%] my-5 py-5 px-7 backdrop-blur-lg bg-[#FFF]/10 rounded-xl shadow-lg">
+                        <div className="w-[80%]  my-5 py-5 px-7 backdrop-blur-lg bg-[#FFF]/10 rounded-xl shadow-lg">
                           <div className="flex flex-col justify-center items-center gap-8">
-                            <div className="border-4 customBorder border-[#FFF]/50 px-6 py-4 rounded-full">
-                              <h2 className="text-white font-bold text-2xl text-center">
-                                <span>{quizeId + 1} .</span> {currQus?.question}
-                              </h2>
+                            <div className="p-2 flex justify-center items-center w-full">
+                              <div className='w-[85%] p-3'>
+                                <h2 className="text-white font-[500] text-2xl text-left">
+                                  <span>{quizeId + 1} .</span>{' '}
+                                  {currQus?.question}
+                                </h2>
+                              </div>
+                              <button
+                                onClick={() => {
+                                  handleSaveAndNext();
+                                }}
+                                className="text-white font-semibold text-lg  w-[10%] py-1 rounded-full border border-[#FFF]/50 hoverEffect__QuizeNextBTN"
+                              >
+                                Next
+                              </button>
                             </div>
 
                             {/* OPTIONS */}
@@ -506,7 +366,7 @@ function ViewQuizTemplate() {
                                           }}
                                           className="flex items-center border-4 border-[#FFF]/50 rounded-full text-white px-4 py-3 cursor-pointer"
                                         >
-                                          <span className="font-semibold text-lg justify-self-start">
+                                          <span className="font-[400] text-lg justify-self-start">
                                             {ALPHABET[optID]} .
                                           </span>
                                           <img
@@ -525,12 +385,12 @@ function ViewQuizTemplate() {
                                           onClick={() => {
                                             handleClickedOption('text', optID);
                                           }}
-                                          className="flex items-center border-4 border-[#FFF]/50 rounded-full text-white px-4 py-3 cursor-pointer hover:scale-110 transition-all duration-200 ease-in-out"
+                                          className="flex items-center border-2 border-[#FFF]/50 rounded-full text-white px-4 py-3 cursor-pointer hover:scale-110 transition-all duration-200 ease-in-out"
                                         >
-                                          <span className="font-semibold text-lg justify-self-start">
+                                          <span className="font-[400] text-lg justify-self-start">
                                             {ALPHABET[optID]} .
                                           </span>
-                                          <h2 className="font-semibold capitalize text-xl mx-auto">
+                                          <h2 className="font-[500] capitalize text-xl mx-auto">
                                             {currOpt}
                                           </h2>
                                         </div>
@@ -541,14 +401,14 @@ function ViewQuizTemplate() {
                               )}
                             </div>
 
-                            <button
+                            {/* <button
                               onClick={() => {
                                 handleSaveAndNext();
                               }}
                               className="text-white font-semibold text-lg  w-[15%] py-2 rounded-full border-4 border-[#FFF]/50 hoverEffect__QuizeNextBTN"
                             >
                               Next
-                            </button>
+                            </button> */}
                           </div>
                         </div>
                       </div>
