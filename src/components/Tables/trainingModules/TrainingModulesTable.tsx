@@ -36,7 +36,7 @@ export const TrainingModulesTable = ({ pagetitle, pageName }: any) => {
 
   useEffect(() => {
     getTrainingModuleList();
-  }, [showUpdateAndCreateModel,confirmDeleteModel]);
+  }, [showUpdateAndCreateModel, confirmDeleteModel]);
   return (
     <>
       <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -241,6 +241,8 @@ const UpdateAndCreateModel = ({
 
     // code to create new module....
 
+    setIsLoading(true);
+
     const createModuleData = new FormData();
     createModuleData.append('name', moduleDetails.name);
     createModuleData.append('trainingModule', rawFileData);
@@ -260,11 +262,14 @@ const UpdateAndCreateModel = ({
       requestForCreateModule?.message === 'jwt expired'
     ) {
       toast.error('Session Expired !!');
+      setIsLoading(false);
       navigate('/');
     } else if (requestForCreateModule?.success === 'no') {
       toast.error('system error try again leter');
+      setIsLoading(false);
     } else if (requestForCreateModule?.success === 'yes') {
       toast.success('training module created successfully');
+      setIsLoading(false);
       setShowUpdateAndCreateModel({
         state: false,
         for: '',
@@ -455,18 +460,43 @@ const DeleteConfirmModel = ({
   confirmDeleteModel,
   setConfirmDeleteModel,
 }: any) => {
+  const [isLoadingDele, setIsLoadingDele] = useState(false);
+
+  const navigate = useNavigate();
+
   const handleModuleDelete = async (moduleID: any) => {
+    setIsLoadingDele(true);
     const requestForDeleteModule = await deleteTrainingModules({
       module_id: moduleID,
     });
-    console.log(requestForDeleteModule);
+
+    if (
+      requestForDeleteModule?.success === 'no' &&
+      requestForDeleteModule?.message === 'jwt expired'
+    ) {
+      toast.error('Opps! you session expiered !!');
+      setIsLoadingDele(false);
+      navigate('/');
+    } else if (requestForDeleteModule?.success === 'no') {
+      toast.error('system error try again leter');
+      setIsLoadingDele(false);
+    } else if (requestForDeleteModule?.success === 'yes') {
+      toast.success('Module Deleted successfully');
+      setIsLoadingDele(false);
+      setConfirmDeleteModel({
+        state: false,
+        moduleID: '',
+      });
+    }
   };
   return (
     <>
       <div className="fixed top-0 left-0 EditModelZindex flex justify-center items-center w-full h-full backdrop-blur-md">
         <div className="shadow-md p-4 w-[95%] xl:w-[40%] rounded-md dark:border-strokedark dark:bg-boxdark border-stroke bg-white overflow-y-auto max-h-full">
           <div className="flex justify-between items-center">
-            <h2 className="text-[800] text-3xl ">Confirm Delete <span className='text-red-500'>!!!!</span></h2>
+            <h2 className="text-[800] text-3xl ">
+              Confirm Delete <span className="text-red-500">!!!!</span>
+            </h2>
             <button
               onClick={() => {
                 // handleClose();
@@ -480,7 +510,7 @@ const DeleteConfirmModel = ({
               <CloseRoundedIcon className="text-6xl" />
             </button>
           </div>
-          <p className=''>
+          <p className="">
             You are sure you want to delete {confirmDeleteModel.module_id}
           </p>
           <div className="flex justify-end items-center gap-5">
@@ -489,7 +519,6 @@ const DeleteConfirmModel = ({
                 setConfirmDeleteModel({
                   state: false,
                   moduleID: '',
-                  
                 });
               }}
               className="w-[15%] py-2 bg-[#FFF] rounded-lg text-black hover:bg-opacity-90"
@@ -500,7 +529,11 @@ const DeleteConfirmModel = ({
               onClick={() => handleModuleDelete(confirmDeleteModel.moduleID)}
               className="flex w-[15%] justify-center rounded-lg bg-[#dc3545] py-2 font-medium text-gray hover:bg-opacity-90"
             >
-              Delete
+              {isLoadingDele ? (
+                <CircularProgress className="text-base" color="inherit" />
+              ) : (
+                'Delete'
+              )}
             </button>
           </div>
         </div>
