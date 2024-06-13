@@ -207,7 +207,7 @@ function ViewQuizTemplate() {
                       {/* OPTIONS */}
 
                       {ans[quizeId] === 'unattempted' ? (
-                        <p className="text-white font-semibold text-xl">
+                        <p className="text-white font-[500] text-xl">
                           No Attempted this question
                         </p>
                       ) : (
