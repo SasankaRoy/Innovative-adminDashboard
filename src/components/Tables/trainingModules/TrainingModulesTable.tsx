@@ -7,6 +7,7 @@ import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import AddIcon from '@mui/icons-material/Add';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import CircularProgress from '@mui/material/CircularProgress';
 import {
   createTrainingModules,
   fetchTrainingModules,
@@ -151,7 +152,7 @@ const UpdateAndCreateModel = ({
     hoverDescription:
       showUpdateAndCreateModel.needToUpdateData.hover_description,
   });
-  const [isLoading,setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -179,7 +180,7 @@ const UpdateAndCreateModel = ({
     if (checkfor === 'Update') {
       // code to update the existing data.....
 
-      setIsLoading(true)
+      setIsLoading(true);
       const updateModuleData = new FormData();
 
       updateModuleData.append(
@@ -204,10 +205,12 @@ const UpdateAndCreateModel = ({
       ) {
         setIsLoading(false);
         navigate('/');
-        return
+        return;
       } else if (requestToUpdate?.success == 'no') {
+        setIsLoading(false);
         toast.error('Opps! System error try again leter');
       } else if (requestToUpdate?.success == 'yes') {
+        setIsLoading(false);
         toast.success('Trainng module updated successfully!');
         setShowUpdateAndCreateModel({
           state: false,
@@ -410,9 +413,15 @@ const UpdateAndCreateModel = ({
               onClick={() => handelClick(showUpdateAndCreateModel.for)}
               className="flex w-[15%] justify-center rounded-lg bg-primary p-3 font-medium text-gray hover:bg-opacity-90"
             >
-              {showUpdateAndCreateModel.for === 'Update'
-                ? showUpdateAndCreateModel.for
-                : 'Create'}
+              {isLoading ? (
+                <CircularProgress color="inherit" />
+              ) : (
+                <>
+                  {showUpdateAndCreateModel.for === 'Update'
+                    ? showUpdateAndCreateModel.for
+                    : 'Create'}
+                </>
+              )}
             </button>
           </div>
         </div>
