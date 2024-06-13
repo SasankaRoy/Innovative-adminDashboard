@@ -1,5 +1,5 @@
-import { useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 import AddImgBg from '../../../images/AddIcon2.jpg';
 
@@ -7,12 +7,25 @@ import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import AddIcon from '@mui/icons-material/Add';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import { fetchTrainingModules, updateTrainingModules } from '../../../api-calls/apicalls';
 
 export const TrainingModulesTable = ({ pagetitle, pageName }: any) => {
   const [showUpdateAndCreateModel, setShowUpdateAndCreateModel] = useState({
     state: false,
     for: '',
+    needToUpdateData: '',
   });
+  const [trainingModuleList, setTrainingModuleList] = useState([]);
+
+  const getTrainingModuleList = async () => {
+    const moduleList = await fetchTrainingModules();
+
+    setTrainingModuleList([...moduleList]);
+  };
+
+  useEffect(() => {
+    getTrainingModuleList();
+  }, []);
   return (
     <>
       <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -23,7 +36,11 @@ export const TrainingModulesTable = ({ pagetitle, pageName }: any) => {
         <nav className="flex justify-center items-center  gap-5 w-[40%]">
           <button
             onClick={() =>
-              setShowUpdateAndCreateModel({ state: true, for: 'Create' })
+              setShowUpdateAndCreateModel({
+                state: true,
+                for: 'Create',
+                needToUpdateData: '',
+              })
             }
             className="flex w-[25%] justify-center rounded-lg bg-primary py-2 font-medium text-gray hover:bg-opacity-90"
           >
@@ -66,41 +83,43 @@ export const TrainingModulesTable = ({ pagetitle, pageName }: any) => {
             </div>
           </div>
 
-          {/* {userList.map((user: any, key: any) => ( */}
-          <>
-            {/* {user?.email !== 'admin@gmail.com' && ( */}
-            <div
-              className={`grid grid-cols-3 sm:grid-cols-3  'border-b border-stroke dark:border-strokedark'
+          {trainingModuleList.map((cur: any, key: any) => (
+            <>
+              <div
+                className={`grid grid-cols-3 sm:grid-cols-3  'border-b border-stroke dark:border-strokedark'
                   `}
-              //   key={key}
-            >
-              <div className="flex items-center justify-start p-2.5 xl:p-5">
-                <p className="text-black  dark:text-white">{'key'}</p>
-              </div>
+                key={key}
+              >
+                <div className="flex items-center justify-start p-2.5 xl:p-5">
+                  <p className="text-black  dark:text-white">{key + 1}</p>
+                </div>
 
-              <div className="flex items-center gap-3 p-2.5 xl:p-5">
-                <p className="hidden text-black dark:text-white sm:block">
-                  {'user.first_name'} {'user?.last_name'}
-                </p>
-              </div>
+                <div className="flex items-center gap-3 p-2.5 xl:p-5">
+                  <p className="hidden text-black dark:text-white sm:block">
+                    {cur.name}
+                  </p>
+                </div>
 
-              <div className="flex items-center justify-center gap-2.5 p-2.5  xl:p-5">
-                <button
-                  onClick={() =>
-                    setShowUpdateAndCreateModel({ state: true, for: 'Update' })
-                  }
-                  className="h-9 w-9 flex justify-center items-center border-2 border-[#3c50e0] rounded-md hover:text-[#3c50e0] transition-all duration-150 ease-in-out"
-                >
-                  <EditRoundedIcon />
-                </button>
-                <button className="h-9 w-9 flex justify-center items-center border-2 border-[#dc3545] rounded-md hover:text-[#dc3545] transition-all duration-150 ease-in-out">
-                  <DeleteRoundedIcon />
-                </button>
+                <div className="flex items-center justify-center gap-2.5 p-2.5  xl:p-5">
+                  <button
+                    onClick={() =>
+                      setShowUpdateAndCreateModel({
+                        state: true,
+                        for: 'Update',
+                        needToUpdateData: cur,
+                      })
+                    }
+                    className="h-9 w-9 flex justify-center items-center border-2 border-[#3c50e0] rounded-md hover:text-[#3c50e0] transition-all duration-150 ease-in-out"
+                  >
+                    <EditRoundedIcon />
+                  </button>
+                  <button className="h-9 w-9 flex justify-center items-center border-2 border-[#dc3545] rounded-md hover:text-[#dc3545] transition-all duration-150 ease-in-out">
+                    <DeleteRoundedIcon />
+                  </button>
+                </div>
               </div>
-            </div>
-            {/* )} */}
-          </>
-          {/* ))} */}
+            </>
+          ))}
         </div>
         {showUpdateAndCreateModel.state && (
           <UpdateAndCreateModel
@@ -119,8 +138,18 @@ const UpdateAndCreateModel = ({
 }: any) => {
   const [rawFileData, setRawFileData] = useState();
   const [previewFile, setPreviewFile] = useState('');
-  const uploadFileRef = useRef<HTMLInputElement>(null);
+  const [moduleDetails, setModuleDetails] = useState({
+    name: showUpdateAndCreateModel.needToUpdateData.name,
+    title: showUpdateAndCreateModel.needToUpdateData.title,
+    description: showUpdateAndCreateModel.needToUpdateData.description,
+    hoverTitle: showUpdateAndCreateModel.needToUpdateData.hover_title,
+    hoverDescription: showUpdateAndCreateModel.needToUpdateData.hover_description,
+  });
 
+  const navigate = useNavigate();
+
+  //  this code below is for preview of the selected image...
+  const uploadFileRef = useRef<HTMLInputElement>(null);
   const handelPreviewImage = (file: any) => {
     const previewImage = new FileReader();
 
@@ -131,6 +160,52 @@ const UpdateAndCreateModel = ({
         setPreviewFile(result.target.result);
       }
     };
+  };
+
+  //   receiving the input value and setting in the useState (moduleDetails)....
+  const handleOnChange = (e: any) => {
+    const { name, value } = e.target;
+    setModuleDetails({ ...moduleDetails, [name]: value });
+  };
+
+  const handelClick = async (checkfor: any) => {
+    if (checkfor === 'Update') {
+      // code to update the existing data.....
+
+      const updateModuleData = new FormData();
+
+      updateModuleData.append(
+        'module_id',
+        showUpdateAndCreateModel.needToUpdateData._id,
+      );
+      updateModuleData.append('name', moduleDetails.name);
+      updateModuleData.append('trainingModule', rawFileData);
+      updateModuleData.append('title', moduleDetails.title);
+      updateModuleData.append('description', moduleDetails.description);
+      updateModuleData.append('hover_title', moduleDetails.hoverTitle);
+      updateModuleData.append(
+        'hover_description',
+        moduleDetails.hoverDescription,
+      );
+
+      
+
+      const requestToUpdate = await updateTrainingModules(updateModuleData);
+      console.log(requestToUpdate);
+      // if (
+      //   updatedData?.success == 'no' &&
+      //   updatedData?.message === 'jwt expired'
+      // ) {
+      //   return navigate('/');
+      // } else if (updatedData?.success == 'no') {
+      //   alert('system error try again leter');
+      // } else if (updatedData?.success == 'yes') {
+      //   alert('trainng module updated successfully');
+      //   window.location.reload();
+      // }
+    }
+
+    // code to create new module....
   };
 
   return (
@@ -147,7 +222,11 @@ const UpdateAndCreateModel = ({
             <button
               onClick={() => {
                 // handleClose();
-                setShowUpdateAndCreateModel({ state: false, for: '' });
+                setShowUpdateAndCreateModel({
+                  state: false,
+                  for: '',
+                  needToUpdateData: '',
+                });
               }}
               className="hover:text-[#dc3545] transition-all duration-200 ease-in-out"
             >
@@ -162,6 +241,9 @@ const UpdateAndCreateModel = ({
                 <input
                   type="text"
                   placeholder="Enter Name ..."
+                  name="name"
+                  value={moduleDetails.name}
+                  onChange={handleOnChange}
                   className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                 />
               </div>
@@ -212,6 +294,9 @@ const UpdateAndCreateModel = ({
                 <input
                   type="text"
                   placeholder="Enter Title..."
+                  name="title"
+                  value={moduleDetails.title}
+                  onChange={handleOnChange}
                   className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                 />
               </div>
@@ -225,6 +310,9 @@ const UpdateAndCreateModel = ({
                 <input
                   type="text"
                   placeholder="Enter Description..."
+                  name="description"
+                  value={moduleDetails.description}
+                  onChange={handleOnChange}
                   className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                 />
               </div>
@@ -238,6 +326,9 @@ const UpdateAndCreateModel = ({
                 <input
                   type="text"
                   placeholder="Enter Hover Title..."
+                  name="hoverTitle"
+                  value={moduleDetails.hoverTitle}
+                  onChange={handleOnChange}
                   className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                 />
               </div>
@@ -251,16 +342,31 @@ const UpdateAndCreateModel = ({
                 <input
                   type="text"
                   placeholder="Enter Hover Description..."
+                  name="hoverDescription"
+                  value={moduleDetails.hoverDescription}
+                  onChange={handleOnChange}
                   className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                 />
               </div>
             </div>
           </div>
           <div className="flex justify-end items-center gap-5">
-            <button className="w-[15%] py-3 bg-[#dc3545] rounded-lg text-white hover:bg-opacity-90">
+            <button
+              onClick={() => {
+                setShowUpdateAndCreateModel({
+                  state: false,
+                  for: '',
+                  needToUpdateData: '',
+                });
+              }}
+              className="w-[15%] py-3 bg-[#dc3545] rounded-lg text-white hover:bg-opacity-90"
+            >
               Cancel
             </button>
-            <button className="flex w-[15%] justify-center rounded-lg bg-primary p-3 font-medium text-gray hover:bg-opacity-90">
+            <button
+              onClick={() => handelClick(showUpdateAndCreateModel.for)}
+              className="flex w-[15%] justify-center rounded-lg bg-primary p-3 font-medium text-gray hover:bg-opacity-90"
+            >
               {showUpdateAndCreateModel.for === 'Update'
                 ? showUpdateAndCreateModel.for
                 : 'Create'}
