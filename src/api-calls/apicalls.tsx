@@ -1224,6 +1224,36 @@ export const fetchCus = async () => {
   }
 };
 
+// create new choose us data...
+
+export const createCus = async (faqData) => {
+  let tempCus = [];
+  const token = localStorage.getItem('token');
+  if (token) {
+    try {
+      // console.log("userData", userData);
+
+      await axios({
+        method: 'post',
+        url: `${API_URL}/api/choose-us`,
+        data: faqData,
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: `Bearer ${token}`,
+        },
+      }).then((res) => {
+        tempCus = res.data;
+      });
+    } catch (error) {
+      // console.log("can not save cus");
+      tempCus = error?.response?.data;
+    } finally {
+      return tempCus;
+    }
+  } else {
+    return { message: 'jwt is not present' };
+  }
+};
 
 // choose us end....
 
