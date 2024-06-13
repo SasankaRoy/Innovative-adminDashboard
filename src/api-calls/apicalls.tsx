@@ -1197,6 +1197,36 @@ export const deleteTrainingModules = async (deleteData: any) => {
 
 // training modules all api routes and calls end.....
 
+// choose us start....
+
+// get all choose us data...
+export const fetchCus = async () => {
+  let cusData = [];
+  const token = localStorage.getItem('token');
+  if (token) {
+    try {
+      const response = await axios({
+        method: 'get',
+        url: `${API_URL}/api/choose-us`,
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+      cusData = response.data.allCusData;
+    } catch (error) {
+      // console.log("err", error);
+      cusData = error?.response?.data;
+    } finally {
+      return cusData;
+    }
+  } else {
+    return { message: 'jwt is not present' };
+  }
+};
+
+
+// choose us end....
+
 // export const createTrainingModules = async (addData) => {
 //   let tempModules = [];
 //   try {
