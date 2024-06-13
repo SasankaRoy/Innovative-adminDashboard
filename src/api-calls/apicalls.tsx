@@ -1092,65 +1092,80 @@ export const deleteProducts = async (deleteData: any) => {
   }
 };
 
-
-
-
 // training modules all api routes and calls start.....
 
 // get all modules here...
-  export const fetchTrainingModules = async () => {
-    let moduleData = [];
-    const token = localStorage.getItem('token');
-    if (token) {
-      try {
-        const response = await axios({
-          method: 'get',
-          url: `${API_URL}/api/training-module`,
-          headers: {
-            authorization: `Bearer ${token}`,
-          },
-        });
-        moduleData = response.data.fetchedData;
-      } catch (error) {
-        moduleData = error?.response?.data;
-      } finally {
-        return moduleData;
-      }
-    } else {
-      return { message: 'jwt is not present' };
-    }
-  };
-
-  // update modules here...
-  export const updateTrainingModules = async (updateData:any) => {
-    let tempModules = [];
-    const token = localStorage.getItem('token');
+export const fetchTrainingModules = async () => {
+  let moduleData = [];
+  const token = localStorage.getItem('token');
+  if (token) {
     try {
-      await axios({
-        method: "put",
+      const response = await axios({
+        method: 'get',
         url: `${API_URL}/api/training-module`,
-        data: updateData,
         headers: {
-          "Content-Type": "multipart/form-data",
           authorization: `Bearer ${token}`,
         },
-      }).then((res) => {
-        tempModules = res.data;
       });
+      moduleData = response.data.fetchedData;
     } catch (error) {
-      // console.log("can not update training modules");
-      tempModules=error?.response?.data;
+      moduleData = error?.response?.data;
     } finally {
-      return tempModules;
+      return moduleData;
     }
-  };
+  } else {
+    return { message: 'jwt is not present' };
+  }
+};
+
+// create modules here...
+export const createTrainingModules = async (addData:any) => {
+  let tempModules = [];
+  const token = localStorage.getItem('token');
+  try {
+    await axios({
+      method: 'post',
+      url: `${API_URL}/api/training-module`,
+      data: addData,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      tempModules = res.data;
+    });
+  } catch (error) {
+    tempModules = error?.response?.data;
+  } finally {
+    return tempModules;
+  }
+};
+
+// update modules here...
+export const updateTrainingModules = async (updateData: any) => {
+  let tempModules = [];
+  const token = localStorage.getItem('token');
+  try {
+    await axios({
+      method: 'put',
+      url: `${API_URL}/api/training-module`,
+      data: updateData,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      tempModules = res.data;
+    });
+  } catch (error) {
+    // console.log("can not update training modules");
+    tempModules = error?.response?.data;
+  } finally {
+    return tempModules;
+  }
+};
 
 // training modules all api routes and calls end.....
-
-
-
-
-
 
 // export const createTrainingModules = async (addData) => {
 //   let tempModules = [];

@@ -8,6 +8,7 @@ import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import AddIcon from '@mui/icons-material/Add';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import {
+  createTrainingModules,
   fetchTrainingModules,
   updateTrainingModules,
 } from '../../../api-calls/apicalls';
@@ -150,6 +151,7 @@ const UpdateAndCreateModel = ({
     hoverDescription:
       showUpdateAndCreateModel.needToUpdateData.hover_description,
   });
+  const [isLoading,setIsLoading] = useState(false)
 
   const navigate = useNavigate();
 
@@ -177,6 +179,7 @@ const UpdateAndCreateModel = ({
     if (checkfor === 'Update') {
       // code to update the existing data.....
 
+      setIsLoading(true)
       const updateModuleData = new FormData();
 
       updateModuleData.append(
@@ -199,7 +202,9 @@ const UpdateAndCreateModel = ({
         requestToUpdate?.success == 'no' &&
         requestToUpdate?.message === 'jwt expired'
       ) {
-        return navigate('/');
+        setIsLoading(false);
+        navigate('/');
+        return
       } else if (requestToUpdate?.success == 'no') {
         toast.error('Opps! System error try again leter');
       } else if (requestToUpdate?.success == 'yes') {
@@ -213,6 +218,37 @@ const UpdateAndCreateModel = ({
     }
 
     // code to create new module....
+
+    const createModuleData = new FormData();
+    createModuleData.append('name', moduleDetails.name);
+    createModuleData.append('trainingModule', rawFileData);
+    createModuleData.append('title', moduleDetails.title);
+    createModuleData.append('description', moduleDetails.description);
+    createModuleData.append('hover_title', moduleDetails.hoverTitle);
+    createModuleData.append(
+      'hover_description',
+      moduleDetails.hoverDescription,
+    );
+
+    const requestForCreateModule =
+      await createTrainingModules(createModuleData);
+
+    if (
+      requestForCreateModule?.success === 'no' &&
+      requestForCreateModule?.message === 'jwt expired'
+    ) {
+      toast.error('Session Expired !!');
+      navigate('/');
+    } else if (requestForCreateModule?.success === 'no') {
+      toast.error('system error try again leter');
+    } else if (requestForCreateModule?.success === 'yes') {
+      toast.success('training module created successfully');
+      setShowUpdateAndCreateModel({
+        state: false,
+        for: '',
+        needToUpdateData: '',
+      });
+    }
   };
 
   return (
