@@ -7,7 +7,11 @@ import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import AddIcon from '@mui/icons-material/Add';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
-import { fetchTrainingModules, updateTrainingModules } from '../../../api-calls/apicalls';
+import {
+  fetchTrainingModules,
+  updateTrainingModules,
+} from '../../../api-calls/apicalls';
+import { toast } from 'react-hot-toast';
 
 export const TrainingModulesTable = ({ pagetitle, pageName }: any) => {
   const [showUpdateAndCreateModel, setShowUpdateAndCreateModel] = useState({
@@ -25,7 +29,7 @@ export const TrainingModulesTable = ({ pagetitle, pageName }: any) => {
 
   useEffect(() => {
     getTrainingModuleList();
-  }, []);
+  }, [showUpdateAndCreateModel]);
   return (
     <>
       <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -143,7 +147,8 @@ const UpdateAndCreateModel = ({
     title: showUpdateAndCreateModel.needToUpdateData.title,
     description: showUpdateAndCreateModel.needToUpdateData.description,
     hoverTitle: showUpdateAndCreateModel.needToUpdateData.hover_title,
-    hoverDescription: showUpdateAndCreateModel.needToUpdateData.hover_description,
+    hoverDescription:
+      showUpdateAndCreateModel.needToUpdateData.hover_description,
   });
 
   const navigate = useNavigate();
@@ -188,21 +193,23 @@ const UpdateAndCreateModel = ({
         moduleDetails.hoverDescription,
       );
 
-      
-
       const requestToUpdate = await updateTrainingModules(updateModuleData);
-      console.log(requestToUpdate);
-      // if (
-      //   updatedData?.success == 'no' &&
-      //   updatedData?.message === 'jwt expired'
-      // ) {
-      //   return navigate('/');
-      // } else if (updatedData?.success == 'no') {
-      //   alert('system error try again leter');
-      // } else if (updatedData?.success == 'yes') {
-      //   alert('trainng module updated successfully');
-      //   window.location.reload();
-      // }
+
+      if (
+        requestToUpdate?.success == 'no' &&
+        requestToUpdate?.message === 'jwt expired'
+      ) {
+        return navigate('/');
+      } else if (requestToUpdate?.success == 'no') {
+        toast.error('Opps! System error try again leter');
+      } else if (requestToUpdate?.success == 'yes') {
+        toast.success('Trainng module updated successfully!');
+        setShowUpdateAndCreateModel({
+          state: false,
+          for: '',
+          needToUpdateData: '',
+        });
+      }
     }
 
     // code to create new module....

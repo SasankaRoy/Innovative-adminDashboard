@@ -7,16 +7,17 @@ import './css/satoshi.css';
 import 'jsvectormap/dist/css/jsvectormap.css';
 import 'flatpickr/dist/flatpickr.min.css';
 import { LoginProvider } from './context/loginContext';
-
+import { Toaster } from 'react-hot-toast';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   // <React.StrictMode>
 
   <LoginProvider>
     <Router>
+      <Toaster />
       <App />
     </Router>
-  </LoginProvider>
+  </LoginProvider>,
 
   // </React.StrictMode>,
 );
