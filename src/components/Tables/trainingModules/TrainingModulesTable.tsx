@@ -10,6 +10,7 @@ import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import CircularProgress from '@mui/material/CircularProgress';
 import {
   createTrainingModules,
+  deleteTrainingModules,
   fetchTrainingModules,
   updateTrainingModules,
 } from '../../../api-calls/apicalls';
@@ -22,6 +23,10 @@ export const TrainingModulesTable = ({ pagetitle, pageName }: any) => {
     needToUpdateData: '',
   });
   const [trainingModuleList, setTrainingModuleList] = useState([]);
+  const [confirmDeleteModel, setConfirmDeleteModel] = useState({
+    state: false,
+    moduleID: '',
+  });
 
   const getTrainingModuleList = async () => {
     const moduleList = await fetchTrainingModules();
@@ -31,7 +36,7 @@ export const TrainingModulesTable = ({ pagetitle, pageName }: any) => {
 
   useEffect(() => {
     getTrainingModuleList();
-  }, [showUpdateAndCreateModel]);
+  }, [showUpdateAndCreateModel,confirmDeleteModel]);
   return (
     <>
       <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -119,7 +124,12 @@ export const TrainingModulesTable = ({ pagetitle, pageName }: any) => {
                   >
                     <EditRoundedIcon />
                   </button>
-                  <button className="h-9 w-9 flex justify-center items-center border-2 border-[#dc3545] rounded-md hover:text-[#dc3545] transition-all duration-150 ease-in-out">
+                  <button
+                    onClick={() =>
+                      setConfirmDeleteModel({ state: true, moduleID: cur._id })
+                    }
+                    className="h-9 w-9 flex justify-center items-center border-2 border-[#dc3545] rounded-md hover:text-[#dc3545] transition-all duration-150 ease-in-out"
+                  >
                     <DeleteRoundedIcon />
                   </button>
                 </div>
@@ -127,17 +137,24 @@ export const TrainingModulesTable = ({ pagetitle, pageName }: any) => {
             </>
           ))}
         </div>
-        {showUpdateAndCreateModel.state && (
-          <UpdateAndCreateModel
-            showUpdateAndCreateModel={showUpdateAndCreateModel}
-            setShowUpdateAndCreateModel={setShowUpdateAndCreateModel}
-          />
-        )}
       </div>
+      {showUpdateAndCreateModel.state && (
+        <UpdateAndCreateModel
+          showUpdateAndCreateModel={showUpdateAndCreateModel}
+          setShowUpdateAndCreateModel={setShowUpdateAndCreateModel}
+        />
+      )}
+      {confirmDeleteModel.state && (
+        <DeleteConfirmModel
+          confirmDeleteModel={confirmDeleteModel}
+          setConfirmDeleteModel={setConfirmDeleteModel}
+        />
+      )}
     </>
   );
 };
 
+// create and update model.....
 const UpdateAndCreateModel = ({
   showUpdateAndCreateModel,
   setShowUpdateAndCreateModel,
@@ -176,6 +193,7 @@ const UpdateAndCreateModel = ({
     setModuleDetails({ ...moduleDetails, [name]: value });
   };
 
+  //  this code below is for creating  and updateing the module....
   const handelClick = async (checkfor: any) => {
     if (checkfor === 'Update') {
       // code to update the existing data.....
@@ -218,6 +236,7 @@ const UpdateAndCreateModel = ({
           needToUpdateData: '',
         });
       }
+      return;
     }
 
     // code to create new module....
@@ -414,7 +433,7 @@ const UpdateAndCreateModel = ({
               className="flex w-[15%] justify-center rounded-lg bg-primary p-3 font-medium text-gray hover:bg-opacity-90"
             >
               {isLoading ? (
-                <CircularProgress color="inherit" />
+                <CircularProgress className="text-base" color="inherit" />
               ) : (
                 <>
                   {showUpdateAndCreateModel.for === 'Update'
@@ -422,6 +441,66 @@ const UpdateAndCreateModel = ({
                     : 'Create'}
                 </>
               )}
+            </button>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+// delete comfirm model....
+
+const DeleteConfirmModel = ({
+  confirmDeleteModel,
+  setConfirmDeleteModel,
+}: any) => {
+  const handleModuleDelete = async (moduleID: any) => {
+    const requestForDeleteModule = await deleteTrainingModules({
+      module_id: moduleID,
+    });
+    console.log(requestForDeleteModule);
+  };
+  return (
+    <>
+      <div className="fixed top-0 left-0 EditModelZindex flex justify-center items-center w-full h-full backdrop-blur-md">
+        <div className="shadow-md p-4 w-[95%] xl:w-[40%] rounded-md dark:border-strokedark dark:bg-boxdark border-stroke bg-white overflow-y-auto max-h-full">
+          <div className="flex justify-between items-center">
+            <h2 className="text-[800] text-3xl ">Confirm Delete <span className='text-red-500'>!!!!</span></h2>
+            <button
+              onClick={() => {
+                // handleClose();
+                setConfirmDeleteModel({
+                  state: false,
+                  moduleID: '',
+                });
+              }}
+              className="hover:text-[#dc3545] transition-all duration-200 ease-in-out"
+            >
+              <CloseRoundedIcon className="text-6xl" />
+            </button>
+          </div>
+          <p className=''>
+            You are sure you want to delete {confirmDeleteModel.module_id}
+          </p>
+          <div className="flex justify-end items-center gap-5">
+            <button
+              onClick={() => {
+                setConfirmDeleteModel({
+                  state: false,
+                  moduleID: '',
+                  
+                });
+              }}
+              className="w-[15%] py-2 bg-[#FFF] rounded-lg text-black hover:bg-opacity-90"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={() => handleModuleDelete(confirmDeleteModel.moduleID)}
+              className="flex w-[15%] justify-center rounded-lg bg-[#dc3545] py-2 font-medium text-gray hover:bg-opacity-90"
+            >
+              Delete
             </button>
           </div>
         </div>

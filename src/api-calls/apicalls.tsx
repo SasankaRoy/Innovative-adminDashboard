@@ -1119,25 +1119,29 @@ export const fetchTrainingModules = async () => {
 };
 
 // create modules here...
-export const createTrainingModules = async (addData:any) => {
+export const createTrainingModules = async (addData: any) => {
   let tempModules = [];
   const token = localStorage.getItem('token');
-  try {
-    await axios({
-      method: 'post',
-      url: `${API_URL}/api/training-module`,
-      data: addData,
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        authorization: `Bearer ${token}`,
-      },
-    }).then((res) => {
-      tempModules = res.data;
-    });
-  } catch (error) {
-    tempModules = error?.response?.data;
-  } finally {
-    return tempModules;
+  if (token) {
+    try {
+      await axios({
+        method: 'post',
+        url: `${API_URL}/api/training-module`,
+        data: addData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          authorization: `Bearer ${token}`,
+        },
+      }).then((res) => {
+        tempModules = res.data;
+      });
+    } catch (error) {
+      tempModules = error?.response?.data;
+    } finally {
+      return tempModules;
+    }
+  } else {
+    return { message: 'jwt is not present' };
   }
 };
 
@@ -1162,6 +1166,32 @@ export const updateTrainingModules = async (updateData: any) => {
     tempModules = error?.response?.data;
   } finally {
     return tempModules;
+  }
+};
+
+export const deleteTrainingModules = async (deleteData: any) => {
+  let tempModules = [];
+  const token = localStorage.getItem('token');
+  if (token) {
+    try {
+      await axios({
+        method: 'delete',
+        url: `${API_URL}/api/training-module`,
+        data: deleteData,
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      }).then((res) => {
+        tempModules = res.data;
+      });
+    } catch (error) {
+      // console.log("can not delete training modules");
+      tempModules = error?.response?.data;
+    } finally {
+      return tempModules;
+    }
+  } else {
+    return { message: 'jwt is not present' };
   }
 };
 
