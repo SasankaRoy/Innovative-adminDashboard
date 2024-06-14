@@ -6,7 +6,7 @@ import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import AddIcon from '@mui/icons-material/Add';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import CircularProgress from '@mui/material/CircularProgress';
-import { createPartners, fetchPartners } from '../../../api-calls/apicalls';
+import { createPartners, fetchPartners, updatePartners } from '../../../api-calls/apicalls';
 import AddImgBg from '../../../images/AddIcon2.jpg';
 import toast from 'react-hot-toast';
 
@@ -37,7 +37,7 @@ export const PartnerTable = ({ pagetitle, pageName }: any) => {
         <nav className="flex justify-center items-center  gap-5 w-[40%]">
           <button
             onClick={() =>
-                setCreateUpdateModel({
+              setCreateUpdateModel({
                 state: true,
                 for: 'Create',
                 needToUpdate: '',
@@ -104,13 +104,13 @@ export const PartnerTable = ({ pagetitle, pageName }: any) => {
 
                 <div className="flex items-center justify-center gap-2.5 p-2.5  xl:p-5">
                   <button
-                    // onClick={() =>
-                    //   setIsCreateAndUpdateModel({
-                    //     state: true,
-                    //     for: 'Update',
-                    //     needToUpdate: cur,
-                    //   })
-                    // }
+                    onClick={() =>
+                        setCreateUpdateModel({
+                        state: true,
+                        for: 'Update',
+                        needToUpdate: cur,
+                      })
+                    }
                     className="h-9 w-9 flex justify-center items-center border-2 border-[#3c50e0] rounded-md hover:text-[#3c50e0] transition-all duration-150 ease-in-out"
                   >
                     <EditRoundedIcon />
@@ -147,10 +147,11 @@ const CreateAndUpdateModel = ({
   createUpdateModel,
   setCreateUpdateModel,
 }: any) => {
+    
   const [isLoading, setIsLoading] = useState(false);
   const [rawImgFile, setRawImgFile] = useState();
-  const [partnerName, setPartnerName] = useState();
-  const [imagPreview, setImgPreview] = useState();
+  const [partnerName, setPartnerName] = useState(createUpdateModel.needToUpdate?.name);
+  const [imagPreview, setImgPreview] = useState(createUpdateModel.needToUpdate?.image);
   const navigate = useNavigate();
 
   //   Code below is for preview choosen image....
@@ -170,6 +171,34 @@ const CreateAndUpdateModel = ({
     if (createUpdateModel.for === 'Update') {
       // code to update the existing partner....
       setIsLoading(true);
+
+      const formData = new FormData();
+      formData.append('name', partnerName);
+      formData.append('partner', rawImgFile);
+      formData.append('partner_id', createUpdateModel.needToUpdate?._id);
+
+      const requestToUpdateParnter = await updatePartners(formData);
+
+      if (
+        requestToUpdateParnter?.success === 'no' &&
+        requestToUpdateParnter?.message === 'jwt expired'
+      ) {
+        setIsLoading(false);
+        toast.error('Oops! Session Expired');
+        navigate('/');
+        return;
+      } else if (requestToUpdateParnter?.success === 'no') {
+        setIsLoading(false);
+        toast.error('system error try again leter');
+      } else if (requestToUpdateParnter?.success === 'yes') {
+        toast.success('partner Updated successfully');
+        setIsLoading(false);
+        setCreateUpdateModel({
+          state: false,
+          for: '',
+          needToUpdate: '',
+        });
+      }
 
       return;
     }

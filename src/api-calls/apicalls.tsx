@@ -1367,6 +1367,38 @@ export const createPartners = async (partnerData:any) => {
     return { message: 'jwt is not present' };
   }
 };
+
+// update partner...
+
+export const updatePartners = async (faqData:any) => {
+  let tempPartner = [];
+  const token = localStorage.getItem('token');
+  if(token){
+    try {
+      await axios({
+        method: "put",
+        url: `${API_URL}/api/partner/`,
+        data: faqData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+          authorization: `Bearer ${token}`,
+        },
+      }).then((res) => {
+        tempPartner = res.data;
+      });
+    } catch (error) {
+      // console.log("can not update partner");
+      tempPartner=error?.response?.data;
+    } finally {
+      return tempPartner;
+    }
+  }else{
+    return { message: 'jwt is not present' };
+  }
+};
+
+
+
 // partner management end.....
 
 // export const createTrainingModules = async (addData) => {
