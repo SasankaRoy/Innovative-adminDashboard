@@ -5,7 +5,12 @@ import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import CircularProgress from '@mui/material/CircularProgress';
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { createCus, fetchCus, updateCus } from '../../../api-calls/apicalls';
+import {
+  createCus,
+  deleteCus,
+  fetchCus,
+  updateCus,
+} from '../../../api-calls/apicalls';
 import toast from 'react-hot-toast';
 
 export const ChooseUsTable = ({ pageName, pagetitle }: any) => {
@@ -15,7 +20,12 @@ export const ChooseUsTable = ({ pageName, pagetitle }: any) => {
     for: '',
     needToUpdate: '',
   });
+  const [confirmDeleteModel, setConfirmDeleteModel] = useState({
+    state: false,
+    isDeletedID: '',
+  });
 
+  // getting all the choose us data here....
   const getChooseUsList = async () => {
     const requestChooseUsData = await fetchCus();
 
@@ -24,7 +34,7 @@ export const ChooseUsTable = ({ pageName, pagetitle }: any) => {
 
   useEffect(() => {
     getChooseUsList();
-  }, [isCreateAndUpdateModel]);
+  }, [isCreateAndUpdateModel,confirmDeleteModel]);
 
   return (
     <>
@@ -114,9 +124,12 @@ export const ChooseUsTable = ({ pageName, pagetitle }: any) => {
                     <EditRoundedIcon />
                   </button>
                   <button
-                    // onClick={() =>
-                    //   setConfirmDeleteModel({ state: true, moduleID: cur._id })
-                    // }
+                    onClick={() =>
+                      setConfirmDeleteModel({
+                        state: true,
+                        isDeletedID: cur._id,
+                      })
+                    }
                     className="h-9 w-9 flex justify-center items-center border-2 border-[#dc3545] rounded-md hover:text-[#dc3545] transition-all duration-150 ease-in-out"
                   >
                     <DeleteRoundedIcon />
@@ -132,6 +145,13 @@ export const ChooseUsTable = ({ pageName, pagetitle }: any) => {
         <CreateAndUpdateModel
           isCreateAndUpdateModel={isCreateAndUpdateModel}
           setIsCreateAndUpdateModel={setIsCreateAndUpdateModel}
+        />
+      )}
+
+      {confirmDeleteModel.state && (
+        <ConfirmDeleteModel
+          confirmDeleteModel={confirmDeleteModel}
+          setConfirmDeleteModel={setConfirmDeleteModel}
         />
       )}
     </>
@@ -326,6 +346,96 @@ const CreateAndUpdateModel = ({
                     ? isCreateAndUpdateModel.for
                     : 'Create'}
                 </>
+              )}
+            </button>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+// delete confirm popUp or model ......
+
+const ConfirmDeleteModel = ({
+  confirmDeleteModel,
+  setConfirmDeleteModel,
+}: any) => {
+  const [isLoadingDele, setIsLoadingDele] = useState(false);
+  const navigate = useNavigate();
+
+  const handleModuleDelete = async () => {
+    setIsLoadingDele(true);
+
+    const requestToDeleteData = await deleteCus({
+      cus_id: confirmDeleteModel.isDeletedID,
+    });
+
+    if (
+      requestToDeleteData?.success == 'no' &&
+      requestToDeleteData?.message === 'jwt expired'
+    ) {
+      toast.error('Opps! Session expired !');
+      setIsLoadingDele(false);
+      navigate('/');
+      return;
+    } else if (requestToDeleteData?.success == 'no') {
+      toast.error('system error try again leter');
+      setIsLoadingDele(false);
+    } else if (requestToDeleteData?.success == 'yes') {
+      toast.success('choose us item deleted successfully');
+      setIsLoadingDele(false);
+      setConfirmDeleteModel({
+        state: false,
+        isDeletedID: '',
+      });
+    }
+  };
+  return (
+    <>
+      <div className="fixed top-0 left-0 EditModelZindex flex justify-center items-center w-full h-full backdrop-blur-md">
+        <div className="shadow-md p-4 rounded-md w-[95%] xl:w-[50%] dark:border-strokedark dark:bg-boxdark border-stroke bg-white overflow-y-auto max-h-full">
+          <div className="flex justify-between items-center">
+            <h2 className="text-[800] text-3xl ">
+              Confirm Delete <span className="text-red-500">!!!!</span>
+            </h2>
+            <button
+              onClick={() => {
+                setConfirmDeleteModel({
+                  state: false,
+                  isDeletedID: '',
+                });
+              }}
+              className="hover:text-[#dc3545] transition-all duration-200 ease-in-out"
+            >
+              <CloseRoundedIcon className="text-6xl" />
+            </button>
+          </div>
+
+          <p className=" text-lg text-black dark:text-white my-5">
+            You are sure you want to delete
+          </p>
+
+          <div className="flex justify-end items-center gap-5">
+            <button
+              onClick={() => {
+                setConfirmDeleteModel({
+                  state: false,
+                  isDeletedID: '',
+                });
+              }}
+              className="w-[15%] py-2 bg-[#FFF] rounded-lg text-black hover:bg-opacity-90"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={() => handleModuleDelete(confirmDeleteModel.isDeletedID)}
+              className="flex w-[15%] justify-center rounded-lg bg-[#dc3545] py-2 font-medium text-gray hover:bg-opacity-90"
+            >
+              {isLoadingDele ? (
+                <CircularProgress className="text-base" color="inherit" />
+              ) : (
+                'Delete'
               )}
             </button>
           </div>

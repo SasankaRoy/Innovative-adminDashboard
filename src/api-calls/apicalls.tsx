@@ -1254,7 +1254,7 @@ export const createCus = async (faqData: any) => {
   }
 };
 
-// update new choose us data....
+// update choose us data....
 
 export const updateCus = async (faqData: any) => {
   let tempCus = [];
@@ -1280,6 +1280,50 @@ export const updateCus = async (faqData: any) => {
     }
   } else {
     return { message: 'jwt is not present' };
+  }
+};
+
+// delete choose us data....
+
+export const deleteCus = async (deleteData: any) => {
+  let tempCus = [];
+  const token = localStorage.getItem('token');
+  if (token) {
+    try {
+      await axios({
+        method: 'delete',
+        url: `${API_URL}/api/choose-us`,
+        data: deleteData,
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      }).then((res) => {
+        tempCus = res.data;
+      });
+    } catch (error) {
+      tempCus = error?.response?.data;
+    } finally {
+      return tempCus;
+    }
+  } else {
+    return { message: 'jwt is not present' };
+  }
+  try {
+    await axios({
+      method: 'delete',
+      url: `${process.env.REACT_APP_BASE_URL}/api/choose-us`,
+      data: deleteData,
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      tempCus = res.data;
+    });
+  } catch (error) {
+    // console.log("can not delete cus");
+    tempCus = error?.response?.data;
+  } finally {
+    return tempCus;
   }
 };
 
