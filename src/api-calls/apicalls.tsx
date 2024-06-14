@@ -1308,26 +1308,66 @@ export const deleteCus = async (deleteData: any) => {
   } else {
     return { message: 'jwt is not present' };
   }
-  try {
-    await axios({
-      method: 'delete',
-      url: `${process.env.REACT_APP_BASE_URL}/api/choose-us`,
-      data: deleteData,
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
-    }).then((res) => {
-      tempCus = res.data;
-    });
-  } catch (error) {
-    // console.log("can not delete cus");
-    tempCus = error?.response?.data;
-  } finally {
-    return tempCus;
-  }
 };
 
 // choose us end....
+
+// partner management start.....
+
+// get all partner...
+export const fetchPartners = async () => {
+  let partnersData = [];
+  const token = localStorage.getItem('token');
+  if (token) {
+    try {
+      const response = await axios({
+        method: 'get',
+        url: `${API_URL}/api/partner`,
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+      partnersData = response.data.allPartnerData;
+    } catch (error) {
+      // console.log("err", error);
+      partnersData = error?.response?.data;
+    } finally {
+      return partnersData;
+    }
+  } else {
+    return { message: 'jwt is not present' };
+  }
+};
+
+// create new partner...
+export const createPartners = async (partnerData:any) => {
+  let tempPartner = [];
+  const token = localStorage.getItem('token');
+
+  if (token) {
+    try {
+      await axios({
+        method: 'post',
+        url: `${API_URL}/api/partner`,
+        data: partnerData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          authorization: `Bearer ${token}`,
+        },
+      }).then((res) => {
+        tempPartner = res.data;
+      });
+    } catch (error) {
+      // console.log("can not save partner");
+      tempPartner = error?.response?.data;
+    } finally {
+      return tempPartner;
+    }
+  }else{
+    return { message: 'jwt is not present' };
+  }
+};
+// partner management end.....
 
 // export const createTrainingModules = async (addData) => {
 //   let tempModules = [];

@@ -1,14 +1,16 @@
-import React from 'react'
+
 import DefaultLayout from '../layout/DefaultLayout'
-import Breadcrumb from '../components/Breadcrumbs/Breadcrumb'
-import TableThree from '../components/Tables/McqTable'
+// import Breadcrumb from '../components/Breadcrumbs/Breadcrumb'
+
+import { PartnerTable } from '../components/Tables/PartnerTable/PartnerTable'
 
 export const PartnersManagement = () => {
   return (
     <DefaultLayout>
-        <Breadcrumb pageName='Partners Management' />
+        {/* <Breadcrumb pageName='Partners Management' /> */}
         <div className='flex flex-col gap-10'>
-            <TableThree pagetitle='Partner'/>
+            {/* <TableThree pagetitle='Partner'/> */}
+            <PartnerTable pagetitle='Partner' pageName='Partners Management'/>
         </div>
     </DefaultLayout>
   )

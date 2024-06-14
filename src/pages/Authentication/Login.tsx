@@ -11,8 +11,10 @@ function Login() {
   );
   const [password, setPassword] = useState<string>();
   const [email, setEmail] = useState<string>();
-
   const navigate = useNavigate();
+
+ 
+
 
   const handleLogin = async () => {
     const loginData = await logIn({ email: email, password: password });
@@ -93,6 +95,7 @@ function Login() {
                 autoComplete="off"
                 onChange={(e) => {
                   setPassword(e.target.value);
+                  
                 }}
               />
             </div>
