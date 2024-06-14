@@ -1197,6 +1197,94 @@ export const deleteTrainingModules = async (deleteData: any) => {
 
 // training modules all api routes and calls end.....
 
+// choose us start....
+
+// get all choose us data...
+export const fetchCus = async () => {
+  let cusData = [];
+  const token = localStorage.getItem('token');
+  if (token) {
+    try {
+      const response = await axios({
+        method: 'get',
+        url: `${API_URL}/api/choose-us`,
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+      cusData = response.data.allCusData;
+    } catch (error) {
+      // console.log("err", error);
+      cusData = error?.response?.data;
+    } finally {
+      return cusData;
+    }
+  } else {
+    return { message: 'jwt is not present' };
+  }
+};
+
+// create new choose us data...
+export const createCus = async (faqData: any) => {
+  let tempCus = [];
+  const token = localStorage.getItem('token');
+  if (token) {
+    try {
+      // console.log("userData", userData);
+
+      await axios({
+        method: 'post',
+        url: `${API_URL}/api/choose-us`,
+        data: faqData,
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: `Bearer ${token}`,
+        },
+      }).then((res) => {
+        tempCus = res.data;
+      });
+    } catch (error) {
+      // console.log("can not save cus");
+      tempCus = error?.response?.data;
+    } finally {
+      return tempCus;
+    }
+  } else {
+    return { message: 'jwt is not present' };
+  }
+};
+
+// update new choose us data....
+
+export const updateCus = async (faqData: any) => {
+  let tempCus = [];
+  const token = localStorage.getItem('token');
+  if (token) {
+    try {
+      await axios({
+        method: 'put',
+        url: `${API_URL}/api/choose-us`,
+        data: faqData,
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: `Bearer ${token}`,
+        },
+      }).then((res) => {
+        tempCus = res.data;
+      });
+    } catch (error) {
+      // console.log("can not update cus");
+      tempCus = error?.response?.data;
+    } finally {
+      return tempCus;
+    }
+  } else {
+    return { message: 'jwt is not present' };
+  }
+};
+
+// choose us end....
+
 // export const createTrainingModules = async (addData) => {
 //   let tempModules = [];
 //   try {
