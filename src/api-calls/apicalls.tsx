@@ -1340,7 +1340,7 @@ export const fetchPartners = async () => {
 };
 
 // create new partner...
-export const createPartners = async (partnerData:any) => {
+export const createPartners = async (partnerData: any) => {
   let tempPartner = [];
   const token = localStorage.getItem('token');
 
@@ -1363,24 +1363,24 @@ export const createPartners = async (partnerData:any) => {
     } finally {
       return tempPartner;
     }
-  }else{
+  } else {
     return { message: 'jwt is not present' };
   }
 };
 
 // update partner...
 
-export const updatePartners = async (faqData:any) => {
+export const updatePartners = async (faqData: any) => {
   let tempPartner = [];
   const token = localStorage.getItem('token');
-  if(token){
+  if (token) {
     try {
       await axios({
-        method: "put",
+        method: 'put',
         url: `${API_URL}/api/partner/`,
         data: faqData,
         headers: {
-          "Content-Type": "multipart/form-data",
+          'Content-Type': 'multipart/form-data',
           authorization: `Bearer ${token}`,
         },
       }).then((res) => {
@@ -1388,23 +1388,23 @@ export const updatePartners = async (faqData:any) => {
       });
     } catch (error) {
       // console.log("can not update partner");
-      tempPartner=error?.response?.data;
+      tempPartner = error?.response?.data;
     } finally {
       return tempPartner;
     }
-  }else{
+  } else {
     return { message: 'jwt is not present' };
   }
 };
 
 // delete partner...
-export const deletePartners = async (deleteData:any) => {
+export const deletePartners = async (deleteData: any) => {
   let tempPartner = [];
   const token = localStorage.getItem('token');
-  if(token){
+  if (token) {
     try {
       await axios({
-        method: "delete",
+        method: 'delete',
         url: `${API_URL}/api/partner`,
         data: deleteData,
         headers: {
@@ -1415,18 +1415,45 @@ export const deletePartners = async (deleteData:any) => {
       });
     } catch (error) {
       // console.log("can not delete partner");
-      tempPartner=error?.response?.data;
+      tempPartner = error?.response?.data;
     } finally {
       return tempPartner;
     }
-  }else{
+  } else {
     return { message: 'jwt is not present' };
   }
 };
 
-
-
 // partner management end.....
+
+// services management start....
+
+// get all services data...
+export const fetchServices = async () => {
+  let serviceData = [];
+  const token = localStorage.getItem('token');
+  if (token) {
+    try {
+      const response = await axios({
+        method: 'get',
+        url: `${API_URL}/api/service`,
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+      serviceData = response.data.fetchedData;
+    } catch (error) {
+      // console.log("err", error);
+      serviceData = error?.response?.data;
+    } finally {
+      return serviceData;
+    }
+  } else {
+    return { message: 'jwt is not present' };
+  }
+};
+
+// services management end....
 
 // export const createTrainingModules = async (addData) => {
 //   let tempModules = [];
