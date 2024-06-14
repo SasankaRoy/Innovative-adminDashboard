@@ -1397,6 +1397,33 @@ export const updatePartners = async (faqData:any) => {
   }
 };
 
+// delete partner...
+export const deletePartners = async (deleteData:any) => {
+  let tempPartner = [];
+  const token = localStorage.getItem('token');
+  if(token){
+    try {
+      await axios({
+        method: "delete",
+        url: `${API_URL}/api/partner`,
+        data: deleteData,
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      }).then((res) => {
+        tempPartner = res.data;
+      });
+    } catch (error) {
+      // console.log("can not delete partner");
+      tempPartner=error?.response?.data;
+    } finally {
+      return tempPartner;
+    }
+  }else{
+    return { message: 'jwt is not present' };
+  }
+};
+
 
 
 // partner management end.....

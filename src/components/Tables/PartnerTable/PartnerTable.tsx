@@ -6,13 +6,22 @@ import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import AddIcon from '@mui/icons-material/Add';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import CircularProgress from '@mui/material/CircularProgress';
-import { createPartners, fetchPartners, updatePartners } from '../../../api-calls/apicalls';
+import {
+  createPartners,
+  deletePartners,
+  fetchPartners,
+  updatePartners,
+} from '../../../api-calls/apicalls';
 import AddImgBg from '../../../images/AddIcon2.jpg';
 import toast from 'react-hot-toast';
 
 export const PartnerTable = ({ pagetitle, pageName }: any) => {
   const [allPartnerData, setAllPartnerData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [confirmDeleteModel, setConfirmDeleteModel] = useState({
+    state: false,
+    isDeletedID: '',
+  });
   const [createUpdateModel, setCreateUpdateModel] = useState({
     state: false,
     for: '',
@@ -26,7 +35,7 @@ export const PartnerTable = ({ pagetitle, pageName }: any) => {
 
   useEffect(() => {
     getAllPartnersData();
-  }, [createUpdateModel]);
+  }, [createUpdateModel,confirmDeleteModel]);
   return (
     <>
       <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -105,7 +114,7 @@ export const PartnerTable = ({ pagetitle, pageName }: any) => {
                 <div className="flex items-center justify-center gap-2.5 p-2.5  xl:p-5">
                   <button
                     onClick={() =>
-                        setCreateUpdateModel({
+                      setCreateUpdateModel({
                         state: true,
                         for: 'Update',
                         needToUpdate: cur,
@@ -116,12 +125,12 @@ export const PartnerTable = ({ pagetitle, pageName }: any) => {
                     <EditRoundedIcon />
                   </button>
                   <button
-                    // onClick={() =>
-                    //   setConfirmDeleteModel({
-                    //     state: true,
-                    //     isDeletedID: cur._id,
-                    //   })
-                    // }
+                    onClick={() =>
+                      setConfirmDeleteModel({
+                        state: true,
+                        isDeletedID: cur._id,
+                      })
+                    }
                     className="h-9 w-9 flex justify-center items-center border-2 border-[#dc3545] rounded-md hover:text-[#dc3545] transition-all duration-150 ease-in-out"
                   >
                     <DeleteRoundedIcon />
@@ -139,6 +148,13 @@ export const PartnerTable = ({ pagetitle, pageName }: any) => {
           setCreateUpdateModel={setCreateUpdateModel}
         />
       )}
+
+      {confirmDeleteModel.state && (
+        <ConfirmDeleteModel
+          confirmDeleteModel={confirmDeleteModel}
+          setConfirmDeleteModel={setConfirmDeleteModel}
+        />
+      )}
     </>
   );
 };
@@ -147,11 +163,14 @@ const CreateAndUpdateModel = ({
   createUpdateModel,
   setCreateUpdateModel,
 }: any) => {
-    
   const [isLoading, setIsLoading] = useState(false);
   const [rawImgFile, setRawImgFile] = useState();
-  const [partnerName, setPartnerName] = useState(createUpdateModel.needToUpdate?.name);
-  const [imagPreview, setImgPreview] = useState(createUpdateModel.needToUpdate?.image);
+  const [partnerName, setPartnerName] = useState(
+    createUpdateModel.needToUpdate?.name,
+  );
+  const [imagPreview, setImgPreview] = useState(
+    createUpdateModel.needToUpdate?.image,
+  );
   const navigate = useNavigate();
 
   //   Code below is for preview choosen image....
@@ -334,5 +353,88 @@ const CreateAndUpdateModel = ({
         </div>
       </div>
     </div>
+  );
+};
+
+const ConfirmDeleteModel = ({
+  confirmDeleteModel,
+  setConfirmDeleteModel,
+}: any) => {
+  const [isLoadingDele, setIsLoadingDele] = useState(false);
+  const navigate = useNavigate();
+  const handleModuleDelete = async (id: any) => {
+    const requestToDelete = await deletePartners({ partner_id: id });
+
+    if (
+        requestToDelete?.success == 'no' &&
+        requestToDelete?.message === 'jwt expired'
+      ) {
+        toast.error('Opps! Session expired !');
+        setIsLoadingDele(false);
+        navigate('/');
+        return;
+      } else if (requestToDelete?.success == 'no') {
+        toast.error('system error try again leter');
+        setIsLoadingDele(false);
+      } else if (requestToDelete?.success == 'yes') {
+        toast.success('choose us item deleted successfully');
+        setIsLoadingDele(false);
+        setConfirmDeleteModel({
+          state: false,
+          isDeletedID: '',
+        });
+      }
+  };
+  return (
+    <>
+      <div className="fixed top-0 left-0 EditModelZindex flex justify-center items-center w-full h-full backdrop-blur-md">
+        <div className="shadow-md p-4 rounded-md w-[95%] xl:w-[50%] dark:border-strokedark dark:bg-boxdark border-stroke bg-white overflow-y-auto max-h-full">
+          <div className="flex justify-between items-center">
+            <h2 className="text-[800] text-3xl ">
+              Confirm Delete <span className="text-red-500">!!!!</span>
+            </h2>
+            <button
+              onClick={() => {
+                setConfirmDeleteModel({
+                  state: false,
+                  isDeletedID: '',
+                });
+              }}
+              className="hover:text-[#dc3545] transition-all duration-200 ease-in-out"
+            >
+              <CloseRoundedIcon className="text-6xl" />
+            </button>
+          </div>
+
+          <p className=" text-lg text-black dark:text-white my-5">
+            You are sure you want to delete
+          </p>
+
+          <div className="flex justify-end items-center gap-5">
+            <button
+              onClick={() => {
+                setConfirmDeleteModel({
+                  state: false,
+                  isDeletedID: '',
+                });
+              }}
+              className="w-[15%] py-2 bg-[#FFF] rounded-lg text-black hover:bg-opacity-90"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={() => handleModuleDelete(confirmDeleteModel.isDeletedID)}
+              className="flex w-[15%] justify-center rounded-lg bg-[#dc3545] py-2 font-medium text-gray hover:bg-opacity-90"
+            >
+              {isLoadingDele ? (
+                <CircularProgress className="text-base" color="inherit" />
+              ) : (
+                'Delete'
+              )}
+            </button>
+          </div>
+        </div>
+      </div>
+    </>
   );
 };
