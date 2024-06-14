@@ -467,7 +467,7 @@ const DeleteConfirmModel = ({
         <div className="shadow-md p-4 w-[95%] xl:w-[40%] rounded-md dark:border-strokedark dark:bg-boxdark border-stroke bg-white overflow-y-auto max-h-full">
           <div className="flex justify-between items-center">
             <h2 className="text-[800] text-3xl ">Confirm Delete <span className='text-red-500'>!!!!</span></h2>
-            <button
+            <button 
               onClick={() => {
                 // handleClose();
                 setConfirmDeleteModel({
