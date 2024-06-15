@@ -37,6 +37,7 @@ import AboutUsManagement from './pages/AboutUsManagement';
 import OurVisionManagement from './pages/OurVisionManagement';
 import OurMissionTable from './components/Tables/ourMssion/OurMissionTable';
 import OurMissionManagement from './pages/OurMssionManagement';
+import TestimonialManagement from './pages/TestimonialManagement';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -134,6 +135,16 @@ function App() {
             <>
               <PageTitle title="Our Mission Management" />
               <OurMissionManagement />
+            </>
+          }
+        />
+
+<Route
+          path="/testimonial"
+          element={
+            <>
+              <PageTitle title="Testimonial Management" />
+              <TestimonialManagement />
             </>
           }
         />

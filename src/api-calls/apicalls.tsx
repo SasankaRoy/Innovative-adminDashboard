@@ -1774,6 +1774,88 @@ export const updateOurVision = async (ovData:any) => {
   }
 };
 
+export const createTestimonials = async (addData:any) => {
+  let tempMons = [];
+  const token=localStorage.getItem('token')
+
+  if(token){
+  try {
+    // console.log("template data", addData);
+
+    await axios({
+      method: "post",
+      url: `${process.env.REACT_APP_BASE_URL}/api/testimonial`,
+      data: addData,
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      tempMons = res.data;
+    });
+  } catch (error:any) {
+    // console.log("can not create testimonials");
+    tempMons=error?.response?.data;
+  } finally {
+    return tempMons;
+  }}else {
+    return { message: 'jwt is not present' }
+  }
+};
+
+export const fetchTestimonials = async () => {
+  let testimonialData = [];
+const token=localStorage.getItem('token')
+  if(token){
+  try {
+    const response = await axios({
+      method: "get",
+
+      url: `${API_URL}/api/testimonial`,
+
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+    testimonialData = response.data.fetchedData;
+  } catch (error:any) {
+    // console.log("err", error);
+    testimonialData=error?.response?.data;
+  } finally {
+    return testimonialData;
+  }}else {
+    return { message: 'jwt is not present' }
+  }
+};
+
+export const updateTestimonials = async (updateData:any) => {
+  let tempMons = [];
+  const token=localStorage.getItem('token')
+  
+  if(token){
+  try {
+    await axios({
+      method: "put",
+      url: `${API_URL}/api/testimonial`,
+      data: updateData,
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      tempMons = res.data;
+    });
+  } catch (error:any) {
+    // console.log("can not update testimonials");
+    tempMons=error?.response?.data;
+  } finally {
+    return tempMons;
+  }}else {
+    return { message: 'jwt is not present' }
+  }
+};
+
+
 
 export const logIn = async (userData: any) => {
   let tempUsers = [];
