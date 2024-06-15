@@ -1502,6 +1502,35 @@ export const createServices = async (addData:any) => {
   }
 };
 
+// update service...
+
+export const updateServices = async (updateData:any) => {
+  let serviceData = [];
+  const token = localStorage.getItem('token');
+  if(token){
+    try {
+      await axios({
+        method: "put",
+        url: `${API_URL}/api/service`,
+        data: updateData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+          authorization: `Bearer ${token}`,
+        },
+      }).then((res) => {
+        serviceData = res.data;
+      });
+    } catch (error) {
+      // console.log("can not update services");
+      serviceData=error?.response?.data;
+    } finally {
+      return serviceData;
+    }
+  }else{
+    return {message:'jwt is not present'}
+  }
+};
+
 // services management end....
 
 // export const createTrainingModules = async (addData) => {

@@ -5,7 +5,7 @@ import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import AddIcon from '@mui/icons-material/Add';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import CircularProgress from '@mui/material/CircularProgress';
-import { createServices, fetchServices } from '../../../api-calls/apicalls';
+import { createServices, fetchServices, updateServices } from '../../../api-calls/apicalls';
 import AddImgBg from '../../../images/AddIcon2.jpg';
 import toast from 'react-hot-toast';
 export const ServicesTable = ({ pagetitle, pageName }: any) => {
@@ -102,13 +102,13 @@ export const ServicesTable = ({ pagetitle, pageName }: any) => {
 
                 <div className="flex items-center justify-center gap-2.5 p-2.5  xl:p-5">
                   <button
-                    // onClick={() =>
-                    //   setIsCreateAndUpdateModel({
-                    //     state: true,
-                    //     for: 'Update',
-                    //     needToUpdate: cur,
-                    //   })
-                    // }
+                    onClick={() =>
+                      setCreateAndUpdateModel({
+                        state: true,
+                        for: 'Update',
+                        needToUpdate: cur,
+                      })
+                    }
                     className="h-9 w-9 flex justify-center items-center border-2 border-[#3c50e0] rounded-md hover:text-[#3c50e0] transition-all duration-150 ease-in-out"
                   >
                     <EditRoundedIcon />
@@ -149,11 +149,11 @@ const CreateAndUpdateModel = ({
   const [rawFileData,setRawFileData] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [servicesDetails,setServicesDetails] = useState({
-    name:'',
-    title:'',
-    description:'',
-    hoverTitle:'',
-    hoverDescription:'',
+    name:createAndUpdateModel.needToUpdate.name,
+    title:createAndUpdateModel.needToUpdate.title,
+    description:createAndUpdateModel.needToUpdate.description,
+    hoverTitle:createAndUpdateModel.needToUpdate.hover_title,
+    hoverDescription:createAndUpdateModel.needToUpdate.hover_description,
   });
 
   const navigate = useNavigate();
@@ -181,6 +181,45 @@ const CreateAndUpdateModel = ({
   const handleClick = async(checkFor:any)=>{
     if(checkFor === 'Update'){
       // code for update service...
+      setIsLoading(true);
+
+      const formData = new FormData();
+
+      formData.append('name',servicesDetails.name),
+      formData.append('title',servicesDetails.title),
+      formData.append('description',servicesDetails.description),
+      formData.append('hover_title',servicesDetails.hoverTitle),
+      formData.append('hover_description',servicesDetails.hoverDescription),
+      formData.append('service',rawFileData);
+      formData.append("service_id", createAndUpdateModel.needToUpdate._id)
+
+      const requestToUpdateService = await updateServices(formData);
+
+      if (
+        requestToUpdateService?.success === "no" &&
+        requestToUpdateService?.message === "jwt expired"
+      ) {
+        toast.error('Oopps ! Session expired');
+        setIsLoading(false)
+        navigate("/");
+        return
+      } else if (requestToUpdateService?.success === "no") {
+        toast.error("system error try again leter");
+        setIsLoading(false)
+        setCreateAndUpdateModel({
+          state: false,
+          for: '',
+          needToUpdate: '',
+        });
+      } else if (requestToUpdateService?.success === "yes") {
+        toast.success("service created successfully")
+        setIsLoading(false)
+        setCreateAndUpdateModel({
+          state: false,
+          for: '',
+          needToUpdate: '',
+        });
+      }
 
       return;
     }
