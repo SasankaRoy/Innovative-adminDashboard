@@ -1614,6 +1614,167 @@ export const updateAboutUs = async (aboutUsData: any) => {
 };
 
 
+export const createOurMission = async (omData:any) => {
+  let tempOurMission = [];
+
+  const token=localStorage.getItem('token')
+
+  if(token){
+  try {
+    // console.log("userData", userData);
+
+    await axios({
+      method: "post",
+      url: `${API_URL}/api/our-mission`,
+      data: omData,
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      tempOurMission = res.data;
+    });
+  } catch (error:any) {
+    tempOurMission = error?.response?.data;
+  } finally {
+    return tempOurMission;
+  }}else {
+    return { message: 'jwt is not present' }
+  }
+};
+
+export const fetchOurMission  = async () => {
+  let tempOurMission = [];
+  const token=localStorage.getItem('token')
+
+  if(token){
+  try {
+    const response = await axios({
+      method: "get",
+      url: `${API_URL}/api/our-mission`,
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+    tempOurMission = response.data.allOmData;
+  } catch (error:any) {
+    tempOurMission = error?.response?.data;
+  } finally {
+    return tempOurMission;
+  }}else {
+    return { message: 'jwt is not present' }
+  }
+};
+
+export const updateOurMission = async (omData:any) => {
+  let tempOurMission = [];
+  const token=localStorage.getItem('token')
+
+  if(token){
+  try {
+    // console.log("userData", userData);
+
+    await axios({
+      method: "put",
+      url: `${API_URL}/api/our-mission/`,
+      data: omData,
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      tempOurMission = res.data;
+    });
+  } catch (error:any) {
+    tempOurMission = error?.response?.data;
+  } finally {
+    return tempOurMission;
+  }}else {
+    return { message: 'jwt is not present' }
+  }
+};
+
+export const createOurVision = async (ovData:any) => {
+  let tempOurVision = [];
+  const token=localStorage.getItem('token')
+
+  if(token){
+  try {
+    // console.log("userData", userData);
+
+    await axios({
+      method: "post",
+      url: `${API_URL}/api/our-vision`,
+      data: ovData,
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      tempOurVision = res.data;
+    });
+  } catch (error:any) {
+    tempOurVision = error?.response?.data;
+  } finally {
+    return tempOurVision;
+  }}else {
+    return { message: 'jwt is not present' }
+  }
+};
+
+export const fetchOurVision  = async () => {
+  let tempOurVision = [];
+
+  const token=localStorage.getItem('token')
+  
+  if(token){
+  try {
+    const response = await axios({
+      method: "get",
+      url: `${API_URL}/api/our-vision`,
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+    tempOurVision = response.data.allOvData;
+  } catch (error:any) {
+    tempOurVision = error?.response?.data;
+  } finally {
+    return tempOurVision;
+  }}else {
+    return { message: 'jwt is not present' }
+  }
+};
+
+export const updateOurVision = async (ovData:any) => {
+  let tempOurVision = [];
+  const token=localStorage.getItem('token')
+
+  if(token){
+  try {
+    // console.log("userData", userData);
+
+    await axios({
+      method: "put",
+      url: `${API_URL}/api/our-vision/`,
+      data: ovData,
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      tempOurVision = res.data;
+    });
+  } catch (error:any) {
+    tempOurVision = error?.response?.data;
+  } finally {
+    return tempOurVision;
+  }}else {
+    return { message: 'jwt is not present' }
+  }
+};
+
+
 export const logIn = async (userData: any) => {
   let tempUsers = [];
   try {

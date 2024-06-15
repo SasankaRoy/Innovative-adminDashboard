@@ -534,6 +534,30 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                 </NavLink>
               </li>
 
+              <li>
+                <NavLink
+                  to="/our-vision"
+                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                    pathname.includes('our-vision') && 'bg-graydark dark:bg-meta-4'
+                  }`}
+                >
+                  
+                Our Vision Management
+                </NavLink>
+              </li>
+
+              <li>
+                <NavLink
+                  to="/our-mission"
+                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                    pathname.includes('our-mission') && 'bg-graydark dark:bg-meta-4'
+                  }`}
+                >
+                  
+                Our Mission Management
+                </NavLink>
+              </li>
+
 
               {/* <!-- Menu Item Profile --> */}
 

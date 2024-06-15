@@ -1,25 +1,23 @@
 import { useNavigate } from 'react-router-dom';
 import DefaultLayout from '../layout/DefaultLayout';
 import { useEffect, useState } from 'react';
-import { fetchAboutUs } from '../api-calls/apicalls';
-import AboutUsTable from '../components/Tables/aboutUs/AboutUsTable';
+import { fetchOurMission } from '../api-calls/apicalls';
+import OurMissionTable from '../components/Tables/ourMssion/OurMissionTable';
 
-
-function AboutUsManagement() {
+function OurMissionManagement() {
   
-
-    const [aboutUs, setAboutUs] = useState<any[]|undefined>(undefined);
+    const [ourMission, setOurMission] = useState<any[]|undefined>(undefined);
 
     const navigate = useNavigate();
   
     useEffect(() => {
       const fetcher = async () => {
-        let ausData = await fetchAboutUs();
+        let omData = await fetchOurMission();
         // console.log("27", usersData)
-        if (ausData?.message === "jwt expired") {
+        if (omData?.message === "jwt expired") {
           return navigate("/");
         } else {
-          setAboutUs([...ausData]);
+          setOurMission([...omData]);
         }
       };
   
@@ -27,18 +25,17 @@ function AboutUsManagement() {
   
     }, [])
   
-    if(aboutUs)
+    if(ourMission)
       {
     return (
       <DefaultLayout>
         {/* <Breadcrumb pageName="Category Management" /> */}
   
         <div className="flex flex-col gap-10">
-          <AboutUsTable pagetitle="AboutUs" aboutUsData={aboutUs} />
+          <OurMissionTable pagetitle="OurMission" ourMissionData={ourMission} />
         </div>
       </DefaultLayout>
     );}
-  
 }
 
-export default AboutUsManagement
+export default OurMissionManagement

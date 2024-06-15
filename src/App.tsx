@@ -34,6 +34,9 @@ import PdfDetails from './components/viewFileTemplate/pdfDetails';
 import { InvoiceManagement } from './pages/InvoiceManagement';
 import PurchaseOrderManagement from './pages/PurchaseOrderManagement';
 import AboutUsManagement from './pages/AboutUsManagement';
+import OurVisionManagement from './pages/OurVisionManagement';
+import OurMissionTable from './components/Tables/ourMssion/OurMissionTable';
+import OurMissionManagement from './pages/OurMssionManagement';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -121,6 +124,26 @@ function App() {
             <>
               <PageTitle title="About Us Management" />
               <AboutUsManagement />
+            </>
+          }
+        />
+
+        <Route
+          path="/our-mission"
+          element={
+            <>
+              <PageTitle title="Our Mission Management" />
+              <OurMissionManagement />
+            </>
+          }
+        />
+
+<Route
+          path="/our-vision"
+          element={
+            <>
+              <PageTitle title="Our Vision Management" />
+              <OurVisionManagement />
             </>
           }
         />
