@@ -32,6 +32,7 @@ import FileTemplateEditor from './pages/FileUploadTemplateEditor';
 import ViewFileTemplate from './components/viewFileTemplate/viewFileTemplate';
 import PdfDetails from './components/viewFileTemplate/pdfDetails';
 import { InvoiceManagement } from './pages/InvoiceManagement';
+import PurchaseOrderManagement from './pages/PurchaseOrderManagement';
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
   const { pathname } = useLocation();
@@ -91,6 +92,15 @@ function App() {
             <>
               <PageTitle title="View File Template" />
               <ViewFileTemplate />
+            </>
+          }
+        />
+          <Route
+          path="/purchase-order-management"
+          element={
+            <>
+              <PageTitle title="Purchase Order Template" />
+              <PurchaseOrderManagement />
             </>
           }
         />

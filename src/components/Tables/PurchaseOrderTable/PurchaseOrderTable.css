@@ -1,0 +1,22 @@
+.Purchase_order_logo_container{
+    width: 30%; 
+    height: 30%; 
+    overflow: hidden; 
+  }
+  
+  .Purchase_order_logo_container img {
+      width: 50%; 
+      height: auto;
+    }
+
+    .pdf_table { 
+      /* width: 100%;  */
+      border: 1px solid #100808; 
+  } 
+  
+  .pdf_th, 
+  .pdf_td { 
+      border: 1px solid #5f5f5f; 
+      padding: 10px; 
+      text-align: center; 
+  } 
