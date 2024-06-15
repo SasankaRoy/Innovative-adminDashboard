@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import AddIcon from '@mui/icons-material/Add';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import CircularProgress from '@mui/material/CircularProgress';
-import { fetchServices } from '../../../api-calls/apicalls';
+import { createServices, fetchServices } from '../../../api-calls/apicalls';
 import AddImgBg from '../../../images/AddIcon2.jpg';
+import toast from 'react-hot-toast';
 export const ServicesTable = ({ pagetitle, pageName }: any) => {
   const [servicesAllData, setServiceAllData] = useState([]);
   const [createAndUpdateModel, setCreateAndUpdateModel] = useState({
@@ -23,7 +24,7 @@ export const ServicesTable = ({ pagetitle, pageName }: any) => {
 
   useEffect(() => {
     getAllServicesData();
-  }, []);
+  }, [createAndUpdateModel]);
   return (
     <>
       <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -145,7 +146,17 @@ const CreateAndUpdateModel = ({
   setCreateAndUpdateModel,
 }: any) => {
   const [previewImage, setPreviewImage] = useState();
+  const [rawFileData,setRawFileData] = useState();
   const [isLoading, setIsLoading] = useState(false);
+  const [servicesDetails,setServicesDetails] = useState({
+    name:'',
+    title:'',
+    description:'',
+    hoverTitle:'',
+    hoverDescription:'',
+  });
+
+  const navigate = useNavigate();
 
   // for choosen image preview........
   const imageRef = useRef<HTMLInputElement>(null);
@@ -159,6 +170,64 @@ const CreateAndUpdateModel = ({
       setPreviewImage(result.target?.result);
     };
   };
+
+
+  // get and set the user inputs...
+  const handleOnChange = (e:any)=>{
+    const {name,value} = e.target;
+    setServicesDetails({...servicesDetails,[name]:value})
+  }
+
+  const handleClick = async(checkFor:any)=>{
+    if(checkFor === 'Update'){
+      // code for update service...
+
+      return;
+    }
+
+    // code to create a new service........
+    setIsLoading(true);
+    const formData  = new FormData();
+
+    formData.append('name',servicesDetails.name);
+    formData.append('title',servicesDetails.title);
+    formData.append('description',servicesDetails.description);
+    formData.append('hover_title',servicesDetails.hoverTitle);
+    formData.append('hover_description',servicesDetails.hoverDescription);
+    formData.append('service',rawFileData);
+
+    const requestToCreateService = await createServices(formData);
+
+    if (
+      requestToCreateService?.success === "no" &&
+      requestToCreateService?.message === "jwt expired"
+    ) {
+      toast.error('Oopps ! Session expired');
+      setIsLoading(false)
+      navigate("/");
+      return
+    } else if (requestToCreateService?.success === "no") {
+      toast.error("system error try again leter");
+      setIsLoading(false)
+      setCreateAndUpdateModel({
+        state: false,
+        for: '',
+        needToUpdate: '',
+      });
+    } else if (requestToCreateService?.success === "yes") {
+      toast.success("service created successfully")
+      setIsLoading(false)
+      setCreateAndUpdateModel({
+        state: false,
+        for: '',
+        needToUpdate: '',
+      });
+    }
+      
+    
+
+  }
+
   return (
     <>
       <div className="flex justify-center items-center fixed top-0 left-0 w-full h-full backdrop-blur-md EditModelZindex">
@@ -191,6 +260,9 @@ const CreateAndUpdateModel = ({
               <div className="w-full">
                 <input
                   type="text"
+                  name='name'
+                  value={servicesDetails.name}
+                  onChange={handleOnChange}
                   className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   placeholder="Enter Name...."
                 />
@@ -204,7 +276,9 @@ const CreateAndUpdateModel = ({
               <div className="relative w-full h-44 rounded-md overflow-hidden">
                 <input
                   ref={imageRef}
-                  onChange={(e: any) => handelPreviewImg(e.target.files[0])}
+                  onChange={(e: any) =>{ handelPreviewImg(e.target.files[0]);
+                    setRawFileData(e.target.files[0])
+                  }}
                   type="file"
                   hidden
                 />
@@ -230,6 +304,9 @@ const CreateAndUpdateModel = ({
               </label>
               <div className="w-full">
                 <input
+                name='title'
+                value={servicesDetails.title}
+                onChange={handleOnChange}
                   type="text"
                   className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   placeholder="Enter Title..."
@@ -244,6 +321,9 @@ const CreateAndUpdateModel = ({
               <div className="w-full">
                 <input
                   type="text"
+                  name='description'
+                  value={servicesDetails.description}
+                  onChange={handleOnChange}
                   className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   placeholder="Enter Description..."
                 />
@@ -257,6 +337,9 @@ const CreateAndUpdateModel = ({
               <div className="w-full">
                 <input
                   type="text"
+                  name='hoverTitle'
+                  value={servicesDetails.hoverTitle}
+                  onChange={handleOnChange}
                   className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   placeholder="Enter Hover Title..."
                 />
@@ -270,6 +353,9 @@ const CreateAndUpdateModel = ({
               <div className="w-full">
                 <input
                   type="text"
+                  name='hoverDescription'
+                  value={servicesDetails.hoverDescription}
+                  onChange={handleOnChange}
                   className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   placeholder="Enter Hover Description..."
                 />
@@ -291,7 +377,7 @@ const CreateAndUpdateModel = ({
               Cancel
             </button>
             <button
-              //onClick={() => handleOnClick(isCreateAndUpdateModel.for)}
+              onClick={() => handleClick(createAndUpdateModel.for)}
               className="flex w-[15%] justify-center rounded-lg bg-primary p-3 font-medium text-gray hover:bg-opacity-90"
             >
               {isLoading ? (
