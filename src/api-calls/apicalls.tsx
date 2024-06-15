@@ -1453,6 +1453,40 @@ export const fetchServices = async () => {
   }
 };
 
+
+// create services ................
+
+export const createServices = async (addData:any) => {
+  let tempServices = [];
+  const token = localStorage.getItem('token');
+
+  if(token){
+    try {
+      // console.log("template data", addData);
+  
+      await axios({
+        method: "post",
+        url: `${API_URL}/api/service`,
+        data: addData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+          authorization: `Bearer ${token}`,
+        },
+      }).then((res) => {
+        tempServices = res.data;
+      });
+    } catch (error) {
+      // console.log("can not create service");
+      tempServices=error?.response?.data;
+    } finally {
+      return tempServices;
+    }
+
+  }else{
+    return {message:'jwt is not present'}
+  }
+};
+
 // services management end....
 
 // export const createTrainingModules = async (addData) => {
