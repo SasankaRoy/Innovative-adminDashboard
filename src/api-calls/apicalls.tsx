@@ -480,29 +480,34 @@ export const deleteUsers = async (deleteData: any) => {
   }
 };
 
-// export const createPurchaseOrders = async (addData) => {
-//   let tempPurchaseOrders = [];
-//   try {
-//     // console.log("po data", addData);
+export const createPurchaseOrders = async (addData:any) => {
+  let tempPurchaseOrders = [];
+  const token =localStorage.getItem('token')
 
-//     await axios({
-//       method: "post",
-//       url: `${process.env.REACT_APP_BASE_URL}/api/purchase-order`,
-//       data: addData,
-//       headers: {
-//         "Content-Type": "multipart/form-data",
-//         authorization: `Bearer ${token}`,
-//       },
-//     }).then((res) => {
-//       tempPurchaseOrders = res.data;
-//     });
-//   } catch (error) {
-//     // console.log("can not create purchase order");
-//     tempPurchaseOrders=error?.response?.data;
-//   } finally {
-//     return tempPurchaseOrders;
-//   }
-// };
+  if(token){
+  try {
+    // console.log("po data", addData);
+
+    await axios({
+      method: "post",
+      url: `${API_URL}/api/purchase-order`,
+      data: addData,
+      headers: {
+        "Content-Type": "multipart/form-data",
+        authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      tempPurchaseOrders = res.data;
+    });
+  } catch (error:any) {
+    // console.log("can not create purchase order");
+    tempPurchaseOrders=error?.response?.data;
+  } finally {
+    return tempPurchaseOrders;
+  }}else {
+    return { message: 'jwt is not present' };
+  }
+};
 
 export const fetchPurchaseOrders = async () => {
   let tempPurchaseOrders = [];
@@ -529,48 +534,58 @@ export const fetchPurchaseOrders = async () => {
   }
 };
 
-// export const updatePurchaseOrders = async (updateData) => {
-//   let poData = [];
-//   try {
-//     await axios({
-//       method: "put",
-//       url: `${process.env.REACT_APP_BASE_URL}/api/purchase-order`,
-//       data: updateData,
-//       headers: {
-//         "Content-Type": "multipart/form-data",
-//         authorization: `Bearer ${token}`,
-//       },
-//     }).then((res) => {
-//       poData = res.data;
-//     });
-//   } catch (error) {
-//     // console.log("can not update purchase orders");
-//     poData=error?.response?.data;
-//   } finally {
-//     return poData;
-//   }
-// };
+export const updatePurchaseOrders = async (updateData:any) => {
+  let poData = [];
+  const token=localStorage.getItem('token')
 
-// export const deletePurchaseOrders = async (deleteData) => {
-//   let tempPurchaseOrders = [];
-//   try {
-//     await axios({
-//       method: "delete",
-//       url: `${process.env.REACT_APP_BASE_URL}/api/purchase-order`,
-//       data: deleteData,
-//       headers: {
-//         authorization: `Bearer ${token}`,
-//       },
-//     }).then((res) => {
-//       tempPurchaseOrders = res.data;
-//     });
-//   } catch (error) {
-//     // console.log("can not delete purchase orders");
-//     tempPurchaseOrders=error?.response?.data;
-//   } finally {
-//     return tempPurchaseOrders;
-//   }
-// };
+  if(token){
+  try {
+    await axios({
+      method: "put",
+      url: `${API_URL}/api/purchase-order`,
+      data: updateData,
+      headers: {
+        "Content-Type": "multipart/form-data",
+        authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      poData = res.data;
+    });
+  } catch (error:any) {
+    // console.log("can not update purchase orders");
+    poData=error?.response?.data;
+  } finally {
+    return poData;
+  }}else {
+    return { message: 'jwt is not present' };
+  }
+};
+
+export const deletePurchaseOrders = async (deleteData:any) => {
+  let tempPurchaseOrders = [];
+  const token=localStorage.getItem('token')
+
+  if(token){
+  try {
+    await axios({
+      method: "delete",
+      url: `${API_URL}/api/purchase-order`,
+      data: deleteData,
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      tempPurchaseOrders = res.data;
+    });
+  } catch (error:any) {
+    // console.log("can not delete purchase orders");
+    tempPurchaseOrders=error?.response?.data;
+  } finally {
+    return tempPurchaseOrders;
+  }}else {
+    return { message: 'jwt is not present' };
+  }
+};
 
 export const createQuizTemplates = async (addData: any) => {
   let tempTemplates = [];
@@ -1108,7 +1123,7 @@ export const fetchTrainingModules = async () => {
         },
       });
       moduleData = response.data.fetchedData;
-    } catch (error) {
+    } catch (error:any) {
       moduleData = error?.response?.data;
     } finally {
       return moduleData;
@@ -1135,7 +1150,7 @@ export const createTrainingModules = async (addData: any) => {
       }).then((res) => {
         tempModules = res.data;
       });
-    } catch (error) {
+    } catch (error:any) {
       tempModules = error?.response?.data;
     } finally {
       return tempModules;
@@ -1158,7 +1173,7 @@ export const updateTrainingModules = async (updateData: any) => {
         'Content-Type': 'multipart/form-data',
         authorization: `Bearer ${token}`,
       },
-    }).then((res) => {
+    }).then((res:any) => {
       tempModules = res.data;
     });
   } catch (error) {
@@ -1184,7 +1199,7 @@ export const deleteTrainingModules = async (deleteData: any) => {
       }).then((res) => {
         tempModules = res.data;
       });
-    } catch (error) {
+    } catch (error:any) {
       // console.log("can not delete training modules");
       tempModules = error?.response?.data;
     } finally {
@@ -1213,7 +1228,7 @@ export const fetchCus = async () => {
         },
       });
       cusData = response.data.allCusData;
-    } catch (error) {
+    } catch (error:any) {
       // console.log("err", error);
       cusData = error?.response?.data;
     } finally {
@@ -1243,7 +1258,7 @@ export const createCus = async (faqData: any) => {
       }).then((res) => {
         tempCus = res.data;
       });
-    } catch (error) {
+    } catch (error:any) {
       // console.log("can not save cus");
       tempCus = error?.response?.data;
     } finally {

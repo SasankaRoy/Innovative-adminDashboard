@@ -29,7 +29,7 @@ export const TrainingModulesTable = ({ pagetitle, pageName }: any) => {
   });
 
   const getTrainingModuleList = async () => {
-    const moduleList = await fetchTrainingModules();
+    const moduleList:any = await fetchTrainingModules();
 
     setTrainingModuleList([...moduleList]);
   };
