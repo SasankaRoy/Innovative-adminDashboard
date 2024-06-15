@@ -468,6 +468,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
                     pathname.includes('training') && 'bg-graydark dark:bg-meta-4'
                   }`}
+                  style={{whiteSpace:"nowrap"}}
                 >
                   
                   Training Module Management
@@ -512,13 +513,27 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                 <NavLink
                   to="/purchase-order-management"
                   className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                    pathname.includes('training') && 'bg-graydark dark:bg-meta-4'
+                    pathname.includes('purchase-order-management') && 'bg-graydark dark:bg-meta-4'
                   }`}
+                  style={{whiteSpace:"nowrap"}}
                 >
                   
                   Purchase Order Management
                 </NavLink>
               </li>
+
+              <li>
+                <NavLink
+                  to="/about-us"
+                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                    pathname.includes('about-us') && 'bg-graydark dark:bg-meta-4'
+                  }`}
+                >
+                  
+                  About Us Management
+                </NavLink>
+              </li>
+
 
               {/* <!-- Menu Item Profile --> */}
 

@@ -33,6 +33,8 @@ import ViewFileTemplate from './components/viewFileTemplate/viewFileTemplate';
 import PdfDetails from './components/viewFileTemplate/pdfDetails';
 import { InvoiceManagement } from './pages/InvoiceManagement';
 import PurchaseOrderManagement from './pages/PurchaseOrderManagement';
+import AboutUsManagement from './pages/AboutUsManagement';
+
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
   const { pathname } = useLocation();
@@ -95,7 +97,7 @@ function App() {
             </>
           }
         />
-          <Route
+        <Route
           path="/purchase-order-management"
           element={
             <>
@@ -110,6 +112,15 @@ function App() {
             <>
               <PageTitle title="Pdf Details" />
               <PdfDetails />
+            </>
+          }
+        />
+        <Route
+          path="/about-us"
+          element={
+            <>
+              <PageTitle title="About Us Management" />
+              <AboutUsManagement />
             </>
           }
         />

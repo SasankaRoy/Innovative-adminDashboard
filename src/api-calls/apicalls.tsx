@@ -1531,443 +1531,88 @@ export const updateServices = async (updateData:any) => {
   }
 };
 
-// services management end....
 
-// export const createTrainingModules = async (addData) => {
-//   let tempModules = [];
-//   try {
-//     // console.log("template data", addData);
 
-//     await axios({
-//       method: "post",
-//       url: `${process.env.REACT_APP_BASE_URL}/api/training-module`,
-//       data: addData,
-//       headers: {
-//         "Content-Type": "multipart/form-data",
-//         authorization: `Bearer ${token}`,
-//       },
-//     }).then((res) => {
-//       tempModules = res.data;
-//     });
-//   } catch (error) {
-//     // console.log("can not create training modules");
-//     tempModules=error?.response?.data;
-//   } finally {
-//     return tempModules;
-//   }
-// };
+export const createAboutUs = async (aboutUsData: any) => {
+  let tempAboutUsData = [];
+  const token = localStorage.getItem('token')
+  if (token) {
+    try {
+      // console.log("userData", userData);
 
-// export const fetchTrainingModules = async () => {
-//   let moduleData = [];
-//   try {
-//     const response = await axios({
-//       method: "get",
-//       url: `${process.env.REACT_APP_BASE_URL}/api/training-module`,
-//       headers: {
-//         authorization: `Bearer ${token}`,
-//       },
-//     });
-//     moduleData = response.data.fetchedData;
-//   } catch (error) {
-//     // console.log("err", error);
-//     moduleData=error?.response?.data;
-//   } finally {
-//     return moduleData;
-//   }
-// };
+      await axios({
+        method: "post",
+        url: `${API_URL}/api/about-us`,
+        data: aboutUsData,
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      }).then((res) => {
+        tempAboutUsData = res.data;
+      });
+    } catch (error: any) {
+      tempAboutUsData = error?.response?.data;
+    } finally {
+      return tempAboutUsData;
+    }
+  } else {
+    return { message: 'jwt is not present' }
+  }
+};
 
-// export const updateTrainingModules = async (updateData) => {
-//   let tempModules = [];
-//   try {
-//     await axios({
-//       method: "put",
-//       url: `${process.env.REACT_APP_BASE_URL}/api/training-module`,
-//       data: updateData,
-//       headers: {
-//         "Content-Type": "multipart/form-data",
-//         authorization: `Bearer ${token}`,
-//       },
-//     }).then((res) => {
-//       tempModules = res.data;
-//     });
-//   } catch (error) {
-//     // console.log("can not update training modules");
-//     tempModules=error?.response?.data;
-//   } finally {
-//     return tempModules;
-//   }
-// };
+export const fetchAboutUs = async () => {
+  let tempAboutUsData = [];
+  const token = localStorage.getItem('token')
 
-// export const deleteTrainingModules = async (deleteData) => {
-//   let tempModules = [];
-//   try {
-//     await axios({
-//       method: "delete",
-//       url: `${process.env.REACT_APP_BASE_URL}/api/training-module`,
-//       data: deleteData,
-//       headers: {
-//         authorization: `Bearer ${token}`,
-//       },
-//     }).then((res) => {
-//       tempModules = res.data;
-//     });
-//   } catch (error) {
-//     // console.log("can not delete training modules");
-//     tempModules=error?.response?.data;
-//   } finally {
-//     return tempModules;
-//   }
-// };
+  if (token) {
+    try {
+      const response = await axios({
+        method: "get",
+        url: `${API_URL}/api/about-us`,
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+      tempAboutUsData = response.data.allAboutUsData;
+    } catch (error: any) {
+      tempAboutUsData = error?.response?.data;
+    } finally {
+      return tempAboutUsData;
+    }
+  } else {
+    return { message: 'jwt is not present' }
+  }
+};
 
-// export const createCus = async (faqData) => {
-//   let tempCus = [];
-//   try {
-//     // console.log("userData", userData);
+export const updateAboutUs = async (aboutUsData: any) => {
+  let tempAboutUsData = [];
+  const token = localStorage.getItem('token')
+  if (token) {
+    try {
+      // console.log("userData", userData);
 
-//     await axios({
-//       method: "post",
-//       url: `${process.env.REACT_APP_BASE_URL}/api/choose-us`,
-//       data: faqData,
-//       headers: {
-//         "Content-Type": "application/json",
-//         authorization: `Bearer ${token}`,
-//       },
-//     }).then((res) => {
-//       tempCus = res.data;
-//     });
-//   } catch (error) {
-//     // console.log("can not save cus");
-//     tempCus=error?.response?.data;
-//   } finally {
-//     return tempCus;
-//   }
-// };
+      await axios({
+        method: "put",
+        url: `${API_URL}/api/about-us/`,
+        data: aboutUsData,
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      }).then((res) => {
+        tempAboutUsData = res.data;
+      });
+    } catch (error: any) {
+      tempAboutUsData = error?.response?.data;
+    } finally {
+      return tempAboutUsData;
+    }
+  } else {
+    return { message: 'jwt is not present' }
+  }
+};
 
-// export const fetchCus = async () => {
-//   let cusData = [];
-//   try {
-//     const response = await axios({
-//       method: "get",
-//       url: `${process.env.REACT_APP_BASE_URL}/api/choose-us`,
-//       headers: {
-//         authorization: `Bearer ${token}`,
-//       },
-//     });
-//     cusData = response.data.allCusData;
-//   } catch (error) {
-//     // console.log("err", error);
-//     cusData=error?.response?.data;
-//   } finally {
-//     return cusData;
-//   }
-// };
-
-// export const updateCus = async (faqData) => {
-//   let tempCus = [];
-//   try {
-//     // console.log("userData", userData);
-
-//     await axios({
-//       method: "put",
-//       url: `${process.env.REACT_APP_BASE_URL}/api/choose-us`,
-//       data: faqData,
-//       headers: {
-//         "Content-Type": "application/json",
-//         authorization: `Bearer ${token}`,
-//       },
-//     }).then((res) => {
-//       tempCus = res.data;
-//     });
-//   } catch (error) {
-//     // console.log("can not update cus");
-//     tempCus=error?.response?.data;
-//   } finally {
-//     return tempCus;
-//   }
-// };
-
-// export const deleteCus = async (deleteData) => {
-//   let tempCus = [];
-//   try {
-//     await axios({
-//       method: "delete",
-//       url: `${process.env.REACT_APP_BASE_URL}/api/choose-us`,
-//       data: deleteData,
-//       headers: {
-//         authorization: `Bearer ${token}`,
-//       },
-//     }).then((res) => {
-//       tempCus = res.data;
-//     });
-//   } catch (error) {
-//     // console.log("can not delete cus");
-//     tempCus=error?.response?.data;
-//   } finally {
-//     return tempCus;
-//   }
-// };
-
-// export const createTestimonials = async (addData) => {
-//   let tempMons = [];
-//   try {
-//     // console.log("template data", addData);
-
-//     await axios({
-//       method: "post",
-//       url: `${process.env.REACT_APP_BASE_URL}/api/testimonial`,
-//       data: addData,
-//       headers: {
-//         "Content-Type": "application/json",
-//         authorization: `Bearer ${token}`,
-//       },
-//     }).then((res) => {
-//       tempMons = res.data;
-//     });
-//   } catch (error) {
-//     // console.log("can not create testimonials");
-//     tempMons=error?.response?.data;
-//   } finally {
-//     return tempMons;
-//   }
-// };
-
-// export const fetchTestimonials = async () => {
-//   let testimonialData = [];
-//   try {
-//     const response = await axios({
-//       method: "get",
-
-//       url: `${process.env.REACT_APP_BASE_URL}/api/testimonial`,
-
-//       headers: {
-//         authorization: `Bearer ${token}`,
-//       },
-//     });
-//     testimonialData = response.data.fetchedData;
-//   } catch (error) {
-//     // console.log("err", error);
-//     testimonialData=error?.response?.data;
-//   } finally {
-//     return testimonialData;
-//   }
-// };
-
-// export const updateTestimonials = async (updateData) => {
-//   let tempMons = [];
-//   try {
-//     await axios({
-//       method: "put",
-//       url: `${process.env.REACT_APP_BASE_URL}/api/testimonial`,
-//       data: updateData,
-//       headers: {
-//         "Content-Type": "application/json",
-//         authorization: `Bearer ${token}`,
-//       },
-//     }).then((res) => {
-//       tempMons = res.data;
-//     });
-//   } catch (error) {
-//     // console.log("can not update testimonials");
-//     tempMons=error?.response?.data;
-//   } finally {
-//     return tempMons;
-//   }
-// };
-
-// export const deleteTestimonials = async (deleteData) => {
-//   let tempMons = [];
-//   try {
-//     await axios({
-//       method: "delete",
-//       url: `${process.env.REACT_APP_BASE_URL}/api/testimonial`,
-//       data: deleteData,
-//       headers: {
-//         authorization: `Bearer ${token}`,
-//       },
-//     }).then((res) => {
-//       tempMons = res.data;
-//     });
-//   } catch (error) {
-//     // console.log("can not delete testimonial");
-//     tempMons=error?.response?.data;
-//   } finally {
-//     return tempMons;
-//   }
-// };
-
-// export const createServices = async (addData) => {
-//   let tempServices = [];
-//   try {
-//     // console.log("template data", addData);
-
-//     await axios({
-//       method: "post",
-//       url: `${process.env.REACT_APP_BASE_URL}/api/service`,
-//       data: addData,
-//       headers: {
-//         "Content-Type": "multipart/form-data",
-//         authorization: `Bearer ${token}`,
-//       },
-//     }).then((res) => {
-//       tempServices = res.data;
-//     });
-//   } catch (error) {
-//     // console.log("can not create service");
-//     tempServices=error?.response?.data;
-//   } finally {
-//     return tempServices;
-//   }
-// };
-
-// export const fetchServices = async () => {
-//   let serviceData = [];
-//   try {
-//     const response = await axios({
-//       method: "get",
-//       url: `${process.env.REACT_APP_BASE_URL}/api/service`,
-//       headers: {
-//         authorization: `Bearer ${token}`,
-//       },
-//     });
-//     serviceData = response.data.fetchedData;
-//   } catch (error) {
-//     // console.log("err", error);
-//     serviceData=error?.response?.data;
-//   } finally {
-//     return serviceData;
-//   }
-// };
-
-// export const updateServices = async (updateData) => {
-//   let serviceData = [];
-//   try {
-//     await axios({
-//       method: "put",
-//       url: `${process.env.REACT_APP_BASE_URL}/api/service`,
-//       data: updateData,
-//       headers: {
-//         "Content-Type": "multipart/form-data",
-//         authorization: `Bearer ${token}`,
-//       },
-//     }).then((res) => {
-//       serviceData = res.data;
-//     });
-//   } catch (error) {
-//     // console.log("can not update services");
-//     serviceData=error?.response?.data;
-//   } finally {
-//     return serviceData;
-//   }
-// };
-
-// export const deleteServices = async (deleteData) => {
-//   let serviceData = [];
-//   try {
-//     await axios({
-//       method: "delete",
-//       url: `${process.env.REACT_APP_BASE_URL}/api/service`,
-//       data: deleteData,
-//       headers: {
-//         authorization: `Bearer ${token}`,
-//       },
-//     }).then((res) => {
-//       serviceData = res.data;
-//     });
-//   } catch (error) {
-//     // console.log("can not delete services");
-//     serviceData=error?.response?.data;
-//   } finally {
-//     return serviceData;
-//   }
-// };
-
-// export const createPartners = async (partnerData) => {
-//   let tempPartner = [];
-//   try {
-//     // console.log("userData", userData);
-
-//     await axios({
-//       method: "post",
-//       url: `${process.env.REACT_APP_BASE_URL}/api/partner`,
-//       data: partnerData,
-//       headers: {
-//         "Content-Type": "multipart/form-data",
-//         authorization: `Bearer ${token}`,
-//       },
-//     }).then((res) => {
-//       tempPartner = res.data;
-//     });
-//   } catch (error:any) {
-//     // console.log("can not save partner");
-//     tempPartner=error?.response?.data;
-//   } finally {
-//     return tempPartner;
-//   }
-// };
-
-// export const fetchPartners = async () => {
-//   let partnersData = [];
-//   try {
-//     const response = await axios({
-//       method: "get",
-//       url: `${process.env.REACT_APP_BASE_URL}/api/partner`,
-//       headers: {
-//         authorization: `Bearer ${token}`,
-//       },
-//     });
-//     partnersData = response.data.allPartnerData;
-//   } catch (error:any) {
-//     // console.log("err", error);
-//     partnersData=error?.response?.data;
-//   } finally {
-//     return partnersData;
-//   }
-// };
-
-// export const updatePartners = async (faqData:any) => {
-//   let tempPartner = [];
-//   try {
-//     // console.log("userData", userData);
-
-//     await axios({
-//       method: "put",
-//       url: `${process.env.REACT_APP_BASE_URL}/api/partner/`,
-//       data: faqData,
-//       headers: {
-//         "Content-Type": "multipart/form-data",
-//         authorization: `Bearer ${token}`,
-//       },
-//     }).then((res) => {
-//       tempPartner = res.data;
-//     });
-//   } catch (error:any) {
-//     // console.log("can not update partner");
-//     tempPartner=error?.response?.data;
-//   } finally {
-//     return tempPartner;
-//   }
-// };
-
-// export const deletePartners  = async (deleteData:any) => {
-//   let tempPartner = [];
-//   try {
-//     await axios({
-//       method: "delete",
-//       url: `${process.env.REACT_APP_BASE_URL}/api/partner`,
-//       data: deleteData,
-//       headers: {
-//         authorization: `Bearer ${token}`,
-//       },
-//     }).then((res) => {
-//       tempPartner = res.data;
-//     });
-//   } catch (error:any) {
-//     // console.log("can not delete partner");
-//     tempPartner=error?.response?.data;
-//   } finally {
-//     return tempPartner;
-//   }
-// };
 
 export const logIn = async (userData: any) => {
   let tempUsers = [];
@@ -2015,3 +1660,6 @@ export const verifyToken = async () => {
     return { message: 'jwt is not present' };
   }
 };
+
+
+
