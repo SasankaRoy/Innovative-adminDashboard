@@ -39,16 +39,17 @@ const InvoiceTable = ({ invoiceAllData }: any) => {
   useEffect(() => emailjs.init('7tEQNlrYa74GKcgSa'), []);
 
   const handleGeneratePDF = async () => {
-    const input: any = document.getElementById('content');
-    // console.log("vvv", input.offsetHeight)
+    
+   
+        const input: any = document.getElementById('content');
     html2pdf()
-      .from(input)
       .set({
         margin: [0, 0, 0, 0],
         filename: `Invoice-${receiverName}-${invoiceNo}`,
         html2canvas: {
           dpi: 192,
           letterRendering: true,
+          scale: 2
         },
         jsPDF: {
           orientation: 'portrait',
@@ -56,6 +57,7 @@ const InvoiceTable = ({ invoiceAllData }: any) => {
           format: [input.offsetHeight / 35, input.offsetWidth / 40],
         },
       })
+      .from(input)
       .save()
       .toPdf()
       .output('datauristring')
@@ -733,7 +735,7 @@ const InvoiceTable = ({ invoiceAllData }: any) => {
             </div>
 
             <div id="content">
-              <div className="flex justify-between ms-3 me-3">
+              <div className="mt-4 flex justify-between ms-3 me-3">
                 <div className="flex flex-col">
                   <p className="m-0 font-bold">{companyName}</p>
                   <p className="m-0">Address</p>
@@ -824,28 +826,43 @@ const InvoiceTable = ({ invoiceAllData }: any) => {
                 </table>
               </div>
 
-              <div className="flex justify-between mt-3 ms-3 me-3 mb-3">
-                <div className=" w-50 flex  justify-center">
-                  <p className="invoice_thank_you mt-3">Thank You</p>
+
+              <div style={{marginTop:"4rem"}}>
+                <div className="flex justify-between mt-3 ms-3 me-3">
+                  <div className=" w-50 flex flex-col justify-center">
+                    <p className="invoice_thank_you">Thank You</p>
+                  </div>
+                  <table className="w-50 pdf_table">
+                    <tbody>
+                      <tr>
+                        <th className="text-bold pdf_th">SUBTOTAL</th>
+                        <th className="pdf_th">{getSubTotal()}</th>
+                      </tr>
+                      <tr>
+                        <th className="text-bold pdf_th">TAX</th>
+                        <th className="pdf_th">{tax}</th>
+                      </tr>
+                      <tr>
+                        <th className="text-bold pdf_th">GRAND TOTAL</th>
+                        <th className="pdf_th">{getGrandTotal()}</th>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
-                <table className="w-50 pdf_table">
-                  <tbody>
-                    <tr>
-                      <th className="text-bold pdf_th">SUBTOTAL</th>
-                      <th className="pdf_th">{getSubTotal()}</th>
-                    </tr>
-                    <tr>
-                      <th className="text-bold pdf_th">TAX</th>
-                      <th className="pdf_th">{tax}</th>
-                    </tr>
-                    <tr>
-                      <th className="text-bold pdf_th">GRAND TOTAL</th>
-                      <th className="pdf_th">{getGrandTotal()}</th>
-                    </tr>
-                  </tbody>
-                </table>
+
+
+                <div className='flex justify-end mb-2'>
+                  <div className='w-50 flex justify-center'>
+                    <b style={{ color: "#02ff02" }}>PAID</b>
+                  </div>
+
+
+                </div>
               </div>
+
+
             </div>
+
 
             <div className="flex justify-end items-center gap-4 my-4">
               <button

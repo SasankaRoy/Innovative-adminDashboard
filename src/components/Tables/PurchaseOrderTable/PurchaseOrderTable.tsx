@@ -90,6 +90,7 @@ function PurchaseOrderTable({ orderAllData }: any) {
         html2canvas: {
           dpi: 192,
           letterRendering: true,
+          scale:2
         },
         jsPDF: {
           orientation: 'portrait',
