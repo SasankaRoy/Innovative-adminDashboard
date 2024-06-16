@@ -33,6 +33,7 @@ export const ServicesTable = ({ pagetitle, pageName }: any) => {
 
   useEffect(() => {
     getAllServicesData();
+    // test
   }, [createAndUpdateModel,confirmDeleteModel]);
   return (
     <>
