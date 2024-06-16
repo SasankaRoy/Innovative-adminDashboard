@@ -1531,7 +1531,7 @@ export const updateServices = async (updateData:any) => {
   }
 };
 
-<<<<<<< HEAD
+
 // delete service...
 
 export const deleteServices = async (deleteData:any) => {
@@ -1557,8 +1557,7 @@ export const deleteServices = async (deleteData:any) => {
 };
 
 // services management end....
-=======
->>>>>>> ff24b40887e75d3b549d035a435c91ff3e4a52c7
+
 
 
 export const createAboutUs = async (aboutUsData: any) => {
