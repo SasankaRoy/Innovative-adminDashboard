@@ -1619,6 +1619,35 @@ export const createEmailUs = async (callUsData:any) => {
   }
 };
 
+// update email...
+export const updateEmailUs = async (emailUsData:any) => {
+  let tempEmailUsData = [];
+  const token = localStorage.getItem('token');
+  if(token){
+    try {
+      // console.log("userData", userData);
+  
+      await axios({
+        method: "put",
+        url: `${API_URL}/api/email-us/`,
+        data: emailUsData,
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      }).then((res) => {
+        tempEmailUsData = res.data;
+      });
+    } catch (error) {
+      tempEmailUsData = error?.response?.data;
+    } finally {
+      return tempEmailUsData;
+    }
+  }else{
+    return {message:'jtw is not present'}
+  }
+};
+
 // email us end...
 
 export const createAboutUs = async (aboutUsData: any) => {

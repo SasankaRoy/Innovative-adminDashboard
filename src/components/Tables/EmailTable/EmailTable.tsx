@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
-import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
+// import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import AddIcon from '@mui/icons-material/Add';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import CircularProgress from '@mui/material/CircularProgress';
-import { createEmailUs, fetchEmailUs } from '../../../api-calls/apicalls';
+import { createEmailUs, fetchEmailUs, updateEmailUs } from '../../../api-calls/apicalls';
 import toast from 'react-hot-toast';
 
 export const EmailTable = ({ pageName, pagetitle }: any) => {
@@ -109,13 +109,13 @@ export const EmailTable = ({ pageName, pagetitle }: any) => {
 
                 <div className="flex items-center justify-center gap-2.5 p-2.5  xl:p-5">
                   <button
-                    // onClick={() =>
-                    //   setIsCreateAndUpdateModel({
-                    //     state: true,
-                    //     for: 'Update',
-                    //     needToUpdate: cur,
-                    //   })
-                    // }
+                    onClick={() =>
+                      setCreateAndUpdateModel({
+                        state: true,
+                        for: 'Update',
+                        needToUpdate: cur,
+                      })
+                    }
                     className="h-9 w-9 flex justify-center items-center border-2 border-[#3c50e0] rounded-md hover:text-[#3c50e0] transition-all duration-150 ease-in-out"
                   >
                     <EditRoundedIcon />
@@ -154,9 +154,9 @@ const CreateAndUpdateModel = ({
 }: any) => {
   const [isLoading, setIsLoading] = useState(false);
   const [emailDetails, setEmailDetails] = useState({
-    name: '',
-    email: '',
-    description: '',
+    name: createAndUpdateModel.needToUpdate.name,
+    email:createAndUpdateModel.needToUpdate.email,
+    description: createAndUpdateModel.needToUpdate.description,
   });
   const navigate = useNavigate();
 
@@ -169,6 +169,35 @@ const CreateAndUpdateModel = ({
   const handleClick = async (checkFor: any) => {
     if (checkFor === 'Update') {
       // code to update the email........
+      setIsLoading(true);
+
+      const requestToUpdateEmail = await updateEmailUs({...emailDetails,email_us_id:createAndUpdateModel.needToUpdate._id});
+
+      if (
+        requestToUpdateEmail?.success == 'no' &&
+        requestToUpdateEmail?.message === 'jwt expired'
+      ) {
+        toast.error('Oopps! Session expired');
+        setIsLoading(false);
+        navigate('/');
+        return;
+      } else if (requestToUpdateEmail?.success == 'no') {
+        toast.error('system error try again leter');
+        setIsLoading(false);
+        setCreateAndUpdateModel({
+          state: false,
+          for: '',
+          needToUpdate: '',
+        });
+      } else if (requestToUpdateEmail?.success == 'yes') {
+        toast.success('email us updated successfully');
+        setIsLoading(false);
+        setCreateAndUpdateModel({
+          state: false,
+          for: '',
+          needToUpdate: '',
+        });
+      }
 
       return;
     }
