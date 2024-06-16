@@ -1531,6 +1531,30 @@ export const updateServices = async (updateData:any) => {
   }
 };
 
+// delete service...
+
+export const deleteServices = async (deleteData:any) => {
+  let serviceData = [];
+  const token = localStorage.getItem('token');
+  try {
+    await axios({
+      method: "delete",
+      url: `${API_URL}/api/service`,
+      data: deleteData,
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      serviceData = res.data;
+    });
+  } catch (error) {
+    // console.log("can not delete services");
+    serviceData=error?.response?.data;
+  } finally {
+    return serviceData;
+  }
+};
+
 // services management end....
 
 // export const createTrainingModules = async (addData) => {
