@@ -4,7 +4,11 @@ import AddIcon from '@mui/icons-material/Add';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useEffect, useState } from 'react';
-import { createCallUs, fetchCallUs } from '../../../api-calls/apicalls';
+import {
+  createCallUs,
+  fetchCallUs,
+  updateCallUs,
+} from '../../../api-calls/apicalls';
 import toast from 'react-hot-toast';
 
 export const CallusTable = ({ pageName, pagetitle }: any) => {
@@ -162,6 +166,39 @@ const CreateAndUpdateModel = ({
     {
       if (checkFor === 'Update') {
         // code to update the existing call data...
+        setIsLoading(true);
+
+        const requestToUpdate = await updateCallUs({
+          ...callDetails,
+          call_us_id: createAndUpdateModel.needToUpdate._id,
+        });
+
+        if (
+          requestToUpdate?.success == 'no' &&
+          requestToUpdate?.message === 'jwt expired'
+        ) {
+          toast.error('Oops! Session expired');
+          setIsLoading(false);
+          navigate('/');
+          return;
+        } else if (requestToUpdate?.success == 'no') {
+          toast.error('system error try again leter');
+          setIsLoading(false);
+          setCreateAndUpdateModel({
+            state: false,
+            for: '',
+            needToUpdate: '',
+          });
+        } else if (requestToUpdate?.success == 'yes') {
+          toast.success('call us updated successfully');
+          setIsLoading(false);
+
+          setCreateAndUpdateModel({
+            state: false,
+            for: '',
+            needToUpdate: '',
+          });
+        }
 
         return;
       }

@@ -1705,6 +1705,36 @@ export const createCallUs = async (callUsData:any) => {
   }
 };
 
+// update call ....
+
+export const updateCallUs = async (callUsData:any) => {
+  let tempCallUsData = [];
+  const token = localStorage.getItem('token');
+
+  if(token){
+    try {
+      await axios({
+        method: "put",
+        url: `${API_URL}/api/call-us/`,
+        data: callUsData,
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      }).then((res) => {
+        tempCallUsData = res.data;
+      });
+    } catch (error) {
+      tempCallUsData = error?.response?.data;
+    } finally {
+      return tempCallUsData;
+    }
+  }else{
+    return {message:'jwt is not present'};
+  }
+
+};
+
 // call us management end...
 export const createAboutUs = async (aboutUsData: any) => {
   let tempAboutUsData = [];
