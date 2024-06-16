@@ -480,31 +480,32 @@ export const deleteUsers = async (deleteData: any) => {
   }
 };
 
-export const createPurchaseOrders = async (addData:any) => {
+export const createPurchaseOrders = async (addData: any) => {
   let tempPurchaseOrders = [];
-  const token =localStorage.getItem('token')
+  const token = localStorage.getItem('token');
 
-  if(token){
-  try {
-    // console.log("po data", addData);
+  if (token) {
+    try {
+      // console.log("po data", addData);
 
-    await axios({
-      method: "post",
-      url: `${API_URL}/api/purchase-order`,
-      data: addData,
-      headers: {
-        "Content-Type": "multipart/form-data",
-        authorization: `Bearer ${token}`,
-      },
-    }).then((res) => {
-      tempPurchaseOrders = res.data;
-    });
-  } catch (error:any) {
-    // console.log("can not create purchase order");
-    tempPurchaseOrders=error?.response?.data;
-  } finally {
-    return tempPurchaseOrders;
-  }}else {
+      await axios({
+        method: 'post',
+        url: `${API_URL}/api/purchase-order`,
+        data: addData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          authorization: `Bearer ${token}`,
+        },
+      }).then((res) => {
+        tempPurchaseOrders = res.data;
+      });
+    } catch (error: any) {
+      // console.log("can not create purchase order");
+      tempPurchaseOrders = error?.response?.data;
+    } finally {
+      return tempPurchaseOrders;
+    }
+  } else {
     return { message: 'jwt is not present' };
   }
 };
@@ -534,55 +535,57 @@ export const fetchPurchaseOrders = async () => {
   }
 };
 
-export const updatePurchaseOrders = async (updateData:any) => {
+export const updatePurchaseOrders = async (updateData: any) => {
   let poData = [];
-  const token=localStorage.getItem('token')
+  const token = localStorage.getItem('token');
 
-  if(token){
-  try {
-    await axios({
-      method: "put",
-      url: `${API_URL}/api/purchase-order`,
-      data: updateData,
-      headers: {
-        "Content-Type": "multipart/form-data",
-        authorization: `Bearer ${token}`,
-      },
-    }).then((res) => {
-      poData = res.data;
-    });
-  } catch (error:any) {
-    // console.log("can not update purchase orders");
-    poData=error?.response?.data;
-  } finally {
-    return poData;
-  }}else {
+  if (token) {
+    try {
+      await axios({
+        method: 'put',
+        url: `${API_URL}/api/purchase-order`,
+        data: updateData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          authorization: `Bearer ${token}`,
+        },
+      }).then((res) => {
+        poData = res.data;
+      });
+    } catch (error: any) {
+      // console.log("can not update purchase orders");
+      poData = error?.response?.data;
+    } finally {
+      return poData;
+    }
+  } else {
     return { message: 'jwt is not present' };
   }
 };
 
-export const deletePurchaseOrders = async (deleteData:any) => {
+export const deletePurchaseOrders = async (deleteData: any) => {
   let tempPurchaseOrders = [];
-  const token=localStorage.getItem('token')
+  const token = localStorage.getItem('token');
 
-  if(token){
-  try {
-    await axios({
-      method: "delete",
-      url: `${API_URL}/api/purchase-order`,
-      data: deleteData,
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
-    }).then((res) => {
-      tempPurchaseOrders = res.data;
-    });
-  } catch (error:any) {
-    // console.log("can not delete purchase orders");
-    tempPurchaseOrders=error?.response?.data;
-  } finally {
-    return tempPurchaseOrders;
-  }}else {
+  if (token) {
+    try {
+      await axios({
+        method: 'delete',
+        url: `${API_URL}/api/purchase-order`,
+        data: deleteData,
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      }).then((res) => {
+        tempPurchaseOrders = res.data;
+      });
+    } catch (error: any) {
+      // console.log("can not delete purchase orders");
+      tempPurchaseOrders = error?.response?.data;
+    } finally {
+      return tempPurchaseOrders;
+    }
+  } else {
     return { message: 'jwt is not present' };
   }
 };
@@ -1123,7 +1126,7 @@ export const fetchTrainingModules = async () => {
         },
       });
       moduleData = response.data.fetchedData;
-    } catch (error:any) {
+    } catch (error: any) {
       moduleData = error?.response?.data;
     } finally {
       return moduleData;
@@ -1150,7 +1153,7 @@ export const createTrainingModules = async (addData: any) => {
       }).then((res) => {
         tempModules = res.data;
       });
-    } catch (error:any) {
+    } catch (error: any) {
       tempModules = error?.response?.data;
     } finally {
       return tempModules;
@@ -1173,7 +1176,7 @@ export const updateTrainingModules = async (updateData: any) => {
         'Content-Type': 'multipart/form-data',
         authorization: `Bearer ${token}`,
       },
-    }).then((res:any) => {
+    }).then((res: any) => {
       tempModules = res.data;
     });
   } catch (error) {
@@ -1199,7 +1202,7 @@ export const deleteTrainingModules = async (deleteData: any) => {
       }).then((res) => {
         tempModules = res.data;
       });
-    } catch (error:any) {
+    } catch (error: any) {
       // console.log("can not delete training modules");
       tempModules = error?.response?.data;
     } finally {
@@ -1228,7 +1231,7 @@ export const fetchCus = async () => {
         },
       });
       cusData = response.data.allCusData;
-    } catch (error:any) {
+    } catch (error: any) {
       // console.log("err", error);
       cusData = error?.response?.data;
     } finally {
@@ -1258,7 +1261,7 @@ export const createCus = async (faqData: any) => {
       }).then((res) => {
         tempCus = res.data;
       });
-    } catch (error:any) {
+    } catch (error: any) {
       // console.log("can not save cus");
       tempCus = error?.response?.data;
     } finally {
@@ -1468,23 +1471,22 @@ export const fetchServices = async () => {
   }
 };
 
-
 // create services ................
 
-export const createServices = async (addData:any) => {
+export const createServices = async (addData: any) => {
   let tempServices = [];
   const token = localStorage.getItem('token');
 
-  if(token){
+  if (token) {
     try {
       // console.log("template data", addData);
-  
+
       await axios({
-        method: "post",
+        method: 'post',
         url: `${API_URL}/api/service`,
         data: addData,
         headers: {
-          "Content-Type": "multipart/form-data",
+          'Content-Type': 'multipart/form-data',
           authorization: `Bearer ${token}`,
         },
       }).then((res) => {
@@ -1492,29 +1494,28 @@ export const createServices = async (addData:any) => {
       });
     } catch (error) {
       // console.log("can not create service");
-      tempServices=error?.response?.data;
+      tempServices = error?.response?.data;
     } finally {
       return tempServices;
     }
-
-  }else{
-    return {message:'jwt is not present'}
+  } else {
+    return { message: 'jwt is not present' };
   }
 };
 
 // update service...
 
-export const updateServices = async (updateData:any) => {
+export const updateServices = async (updateData: any) => {
   let serviceData = [];
   const token = localStorage.getItem('token');
-  if(token){
+  if (token) {
     try {
       await axios({
-        method: "put",
+        method: 'put',
         url: `${API_URL}/api/service`,
         data: updateData,
         headers: {
-          "Content-Type": "multipart/form-data",
+          'Content-Type': 'multipart/form-data',
           authorization: `Bearer ${token}`,
         },
       }).then((res) => {
@@ -1522,57 +1523,117 @@ export const updateServices = async (updateData:any) => {
       });
     } catch (error) {
       // console.log("can not update services");
-      serviceData=error?.response?.data;
+      serviceData = error?.response?.data;
     } finally {
       return serviceData;
+    }
+  } else {
+    return { message: 'jwt is not present' };
+  }
+};
+
+// delete service...
+
+export const deleteServices = async (deleteData: any) => {
+  let serviceData = [];
+  const token = localStorage.getItem('token');
+  if (token) {
+    try {
+      await axios({
+        method: 'delete',
+        url: `${API_URL}/api/service`,
+        data: deleteData,
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      }).then((res) => {
+        serviceData = res.data;
+      });
+    } catch (error) {
+      // console.log("can not delete services");
+      serviceData = error?.response?.data;
+    } finally {
+      return serviceData;
+    }
+  } else {
+    return { message: 'jwt is not present' };
+  }
+};
+
+// services management end....
+
+// email us start...
+
+// get all email...
+
+export const fetchEmailUs = async () => {
+  let tempEmailUsData = [];
+  const token = localStorage.getItem('token');
+  if (token) {
+    try {
+      const response = await axios({
+        method: 'get',
+        url: `${API_URL}/api/email-us`,
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+      tempEmailUsData = response.data.allEmailUsData;
+    } catch (error) {
+      tempEmailUsData = error?.response?.data;
+    } finally {
+      return tempEmailUsData;
+    }
+  } else {
+    return { message: 'jwt is not present' };
+  }
+};
+
+
+// create new email...
+
+export const createEmailUs = async (callUsData:any) => {
+  let tempEmailUsData = [];
+  const token = localStorage.getItem('token');
+  if(token){
+    try {      
+  
+      await axios({
+        method: "post",
+        url: `${API_URL}/api/email-us`,
+        data: callUsData,
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      }).then((res) => {
+        tempEmailUsData = res.data;
+      });
+    } catch (error) {
+      tempEmailUsData = error?.response?.data;
+    } finally {
+      return tempEmailUsData;
     }
   }else{
     return {message:'jwt is not present'}
   }
 };
 
-
-// delete service...
-
-export const deleteServices = async (deleteData:any) => {
-  let serviceData = [];
-  const token = localStorage.getItem('token');
-  try {
-    await axios({
-      method: "delete",
-      url: `${API_URL}/api/service`,
-      data: deleteData,
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
-    }).then((res) => {
-      serviceData = res.data;
-    });
-  } catch (error) {
-    // console.log("can not delete services");
-    serviceData=error?.response?.data;
-  } finally {
-    return serviceData;
-  }
-};
-
-// services management end....
-
-
+// email us end...
 
 export const createAboutUs = async (aboutUsData: any) => {
   let tempAboutUsData = [];
-  const token = localStorage.getItem('token')
+  const token = localStorage.getItem('token');
   if (token) {
     try {
       // console.log("userData", userData);
 
       await axios({
-        method: "post",
+        method: 'post',
         url: `${API_URL}/api/about-us`,
         data: aboutUsData,
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
           authorization: `Bearer ${token}`,
         },
       }).then((res) => {
@@ -1584,18 +1645,18 @@ export const createAboutUs = async (aboutUsData: any) => {
       return tempAboutUsData;
     }
   } else {
-    return { message: 'jwt is not present' }
+    return { message: 'jwt is not present' };
   }
 };
 
 export const fetchAboutUs = async () => {
   let tempAboutUsData = [];
-  const token = localStorage.getItem('token')
+  const token = localStorage.getItem('token');
 
   if (token) {
     try {
       const response = await axios({
-        method: "get",
+        method: 'get',
         url: `${API_URL}/api/about-us`,
         headers: {
           authorization: `Bearer ${token}`,
@@ -1608,23 +1669,23 @@ export const fetchAboutUs = async () => {
       return tempAboutUsData;
     }
   } else {
-    return { message: 'jwt is not present' }
+    return { message: 'jwt is not present' };
   }
 };
 
 export const updateAboutUs = async (aboutUsData: any) => {
   let tempAboutUsData = [];
-  const token = localStorage.getItem('token')
+  const token = localStorage.getItem('token');
   if (token) {
     try {
       // console.log("userData", userData);
 
       await axios({
-        method: "put",
+        method: 'put',
         url: `${API_URL}/api/about-us/`,
         data: aboutUsData,
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
           authorization: `Bearer ${token}`,
         },
       }).then((res) => {
@@ -1636,253 +1697,259 @@ export const updateAboutUs = async (aboutUsData: any) => {
       return tempAboutUsData;
     }
   } else {
-    return { message: 'jwt is not present' }
+    return { message: 'jwt is not present' };
   }
 };
 
-
-export const createOurMission = async (omData:any) => {
+export const createOurMission = async (omData: any) => {
   let tempOurMission = [];
 
-  const token=localStorage.getItem('token')
+  const token = localStorage.getItem('token');
 
-  if(token){
-  try {
-    // console.log("userData", userData);
+  if (token) {
+    try {
+      // console.log("userData", userData);
 
-    await axios({
-      method: "post",
-      url: `${API_URL}/api/our-mission`,
-      data: omData,
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `Bearer ${token}`,
-      },
-    }).then((res) => {
-      tempOurMission = res.data;
-    });
-  } catch (error:any) {
-    tempOurMission = error?.response?.data;
-  } finally {
-    return tempOurMission;
-  }}else {
-    return { message: 'jwt is not present' }
+      await axios({
+        method: 'post',
+        url: `${API_URL}/api/our-mission`,
+        data: omData,
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: `Bearer ${token}`,
+        },
+      }).then((res) => {
+        tempOurMission = res.data;
+      });
+    } catch (error: any) {
+      tempOurMission = error?.response?.data;
+    } finally {
+      return tempOurMission;
+    }
+  } else {
+    return { message: 'jwt is not present' };
   }
 };
 
-export const fetchOurMission  = async () => {
+export const fetchOurMission = async () => {
   let tempOurMission = [];
-  const token=localStorage.getItem('token')
+  const token = localStorage.getItem('token');
 
-  if(token){
-  try {
-    const response = await axios({
-      method: "get",
-      url: `${API_URL}/api/our-mission`,
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
-    });
-    tempOurMission = response.data.allOmData;
-  } catch (error:any) {
-    tempOurMission = error?.response?.data;
-  } finally {
-    return tempOurMission;
-  }}else {
-    return { message: 'jwt is not present' }
+  if (token) {
+    try {
+      const response = await axios({
+        method: 'get',
+        url: `${API_URL}/api/our-mission`,
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+      tempOurMission = response.data.allOmData;
+    } catch (error: any) {
+      tempOurMission = error?.response?.data;
+    } finally {
+      return tempOurMission;
+    }
+  } else {
+    return { message: 'jwt is not present' };
   }
 };
 
-export const updateOurMission = async (omData:any) => {
+export const updateOurMission = async (omData: any) => {
   let tempOurMission = [];
-  const token=localStorage.getItem('token')
+  const token = localStorage.getItem('token');
 
-  if(token){
-  try {
-    // console.log("userData", userData);
+  if (token) {
+    try {
+      // console.log("userData", userData);
 
-    await axios({
-      method: "put",
-      url: `${API_URL}/api/our-mission/`,
-      data: omData,
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `Bearer ${token}`,
-      },
-    }).then((res) => {
-      tempOurMission = res.data;
-    });
-  } catch (error:any) {
-    tempOurMission = error?.response?.data;
-  } finally {
-    return tempOurMission;
-  }}else {
-    return { message: 'jwt is not present' }
+      await axios({
+        method: 'put',
+        url: `${API_URL}/api/our-mission/`,
+        data: omData,
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: `Bearer ${token}`,
+        },
+      }).then((res) => {
+        tempOurMission = res.data;
+      });
+    } catch (error: any) {
+      tempOurMission = error?.response?.data;
+    } finally {
+      return tempOurMission;
+    }
+  } else {
+    return { message: 'jwt is not present' };
   }
 };
 
-export const createOurVision = async (ovData:any) => {
+export const createOurVision = async (ovData: any) => {
   let tempOurVision = [];
-  const token=localStorage.getItem('token')
+  const token = localStorage.getItem('token');
 
-  if(token){
-  try {
-    // console.log("userData", userData);
+  if (token) {
+    try {
+      // console.log("userData", userData);
 
-    await axios({
-      method: "post",
-      url: `${API_URL}/api/our-vision`,
-      data: ovData,
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `Bearer ${token}`,
-      },
-    }).then((res) => {
-      tempOurVision = res.data;
-    });
-  } catch (error:any) {
-    tempOurVision = error?.response?.data;
-  } finally {
-    return tempOurVision;
-  }}else {
-    return { message: 'jwt is not present' }
+      await axios({
+        method: 'post',
+        url: `${API_URL}/api/our-vision`,
+        data: ovData,
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: `Bearer ${token}`,
+        },
+      }).then((res) => {
+        tempOurVision = res.data;
+      });
+    } catch (error: any) {
+      tempOurVision = error?.response?.data;
+    } finally {
+      return tempOurVision;
+    }
+  } else {
+    return { message: 'jwt is not present' };
   }
 };
 
-export const fetchOurVision  = async () => {
+export const fetchOurVision = async () => {
   let tempOurVision = [];
 
-  const token=localStorage.getItem('token')
-  
-  if(token){
-  try {
-    const response = await axios({
-      method: "get",
-      url: `${API_URL}/api/our-vision`,
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
-    });
-    tempOurVision = response.data.allOvData;
-  } catch (error:any) {
-    tempOurVision = error?.response?.data;
-  } finally {
-    return tempOurVision;
-  }}else {
-    return { message: 'jwt is not present' }
+  const token = localStorage.getItem('token');
+
+  if (token) {
+    try {
+      const response = await axios({
+        method: 'get',
+        url: `${API_URL}/api/our-vision`,
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+      tempOurVision = response.data.allOvData;
+    } catch (error: any) {
+      tempOurVision = error?.response?.data;
+    } finally {
+      return tempOurVision;
+    }
+  } else {
+    return { message: 'jwt is not present' };
   }
 };
 
-export const updateOurVision = async (ovData:any) => {
+export const updateOurVision = async (ovData: any) => {
   let tempOurVision = [];
-  const token=localStorage.getItem('token')
+  const token = localStorage.getItem('token');
 
-  if(token){
-  try {
-    // console.log("userData", userData);
+  if (token) {
+    try {
+      // console.log("userData", userData);
 
-    await axios({
-      method: "put",
-      url: `${API_URL}/api/our-vision/`,
-      data: ovData,
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `Bearer ${token}`,
-      },
-    }).then((res) => {
-      tempOurVision = res.data;
-    });
-  } catch (error:any) {
-    tempOurVision = error?.response?.data;
-  } finally {
-    return tempOurVision;
-  }}else {
-    return { message: 'jwt is not present' }
+      await axios({
+        method: 'put',
+        url: `${API_URL}/api/our-vision/`,
+        data: ovData,
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: `Bearer ${token}`,
+        },
+      }).then((res) => {
+        tempOurVision = res.data;
+      });
+    } catch (error: any) {
+      tempOurVision = error?.response?.data;
+    } finally {
+      return tempOurVision;
+    }
+  } else {
+    return { message: 'jwt is not present' };
   }
 };
 
-export const createTestimonials = async (addData:any) => {
+export const createTestimonials = async (addData: any) => {
   let tempMons = [];
-  const token=localStorage.getItem('token')
+  const token = localStorage.getItem('token');
 
-  if(token){
-  try {
-    // console.log("template data", addData);
+  if (token) {
+    try {
+      // console.log("template data", addData);
 
-    await axios({
-      method: "post",
-      url: `${process.env.REACT_APP_BASE_URL}/api/testimonial`,
-      data: addData,
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `Bearer ${token}`,
-      },
-    }).then((res) => {
-      tempMons = res.data;
-    });
-  } catch (error:any) {
-    // console.log("can not create testimonials");
-    tempMons=error?.response?.data;
-  } finally {
-    return tempMons;
-  }}else {
-    return { message: 'jwt is not present' }
+      await axios({
+        method: 'post',
+        url: `${process.env.REACT_APP_BASE_URL}/api/testimonial`,
+        data: addData,
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: `Bearer ${token}`,
+        },
+      }).then((res) => {
+        tempMons = res.data;
+      });
+    } catch (error: any) {
+      // console.log("can not create testimonials");
+      tempMons = error?.response?.data;
+    } finally {
+      return tempMons;
+    }
+  } else {
+    return { message: 'jwt is not present' };
   }
 };
 
 export const fetchTestimonials = async () => {
   let testimonialData = [];
-const token=localStorage.getItem('token')
-  if(token){
-  try {
-    const response = await axios({
-      method: "get",
+  const token = localStorage.getItem('token');
+  if (token) {
+    try {
+      const response = await axios({
+        method: 'get',
 
-      url: `${API_URL}/api/testimonial`,
+        url: `${API_URL}/api/testimonial`,
 
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
-    });
-    testimonialData = response.data.fetchedData;
-  } catch (error:any) {
-    // console.log("err", error);
-    testimonialData=error?.response?.data;
-  } finally {
-    return testimonialData;
-  }}else {
-    return { message: 'jwt is not present' }
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+      testimonialData = response.data.fetchedData;
+    } catch (error: any) {
+      // console.log("err", error);
+      testimonialData = error?.response?.data;
+    } finally {
+      return testimonialData;
+    }
+  } else {
+    return { message: 'jwt is not present' };
   }
 };
 
-export const updateTestimonials = async (updateData:any) => {
+export const updateTestimonials = async (updateData: any) => {
   let tempMons = [];
-  const token=localStorage.getItem('token')
-  
-  if(token){
-  try {
-    await axios({
-      method: "put",
-      url: `${API_URL}/api/testimonial`,
-      data: updateData,
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `Bearer ${token}`,
-      },
-    }).then((res) => {
-      tempMons = res.data;
-    });
-  } catch (error:any) {
-    // console.log("can not update testimonials");
-    tempMons=error?.response?.data;
-  } finally {
-    return tempMons;
-  }}else {
-    return { message: 'jwt is not present' }
+  const token = localStorage.getItem('token');
+
+  if (token) {
+    try {
+      await axios({
+        method: 'put',
+        url: `${API_URL}/api/testimonial`,
+        data: updateData,
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: `Bearer ${token}`,
+        },
+      }).then((res) => {
+        tempMons = res.data;
+      });
+    } catch (error: any) {
+      // console.log("can not update testimonials");
+      tempMons = error?.response?.data;
+    } finally {
+      return tempMons;
+    }
+  } else {
+    return { message: 'jwt is not present' };
   }
 };
-
-
 
 export const logIn = async (userData: any) => {
   let tempUsers = [];
@@ -1930,6 +1997,3 @@ export const verifyToken = async () => {
     return { message: 'jwt is not present' };
   }
 };
-
-
-

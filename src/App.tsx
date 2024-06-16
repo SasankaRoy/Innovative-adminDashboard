@@ -38,6 +38,7 @@ import OurVisionManagement from './pages/OurVisionManagement';
 import OurMissionTable from './components/Tables/ourMssion/OurMissionTable';
 import OurMissionManagement from './pages/OurMssionManagement';
 import TestimonialManagement from './pages/TestimonialManagement';
+import Emailus from './pages/Emailus';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -263,6 +264,15 @@ function App() {
             <>
               <PageTitle title="Service Management | Innovative" />
               <ServiceManagement />
+            </>
+          }
+        />
+        <Route
+          path="/email-us"
+          element={
+            <>
+              <PageTitle title="Email Management | Innovative" />
+              <Emailus />
             </>
           }
         />
