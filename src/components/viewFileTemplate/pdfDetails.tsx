@@ -9,9 +9,11 @@ import generatePDF from 'react-to-pdf';
 import banner from '../../assets/banner.png';
 import 'react-pdf/dist/Page/TextLayer.css';
 import './viewFileTemplate.css';
+import html2pdf from 'html2pdf.js';
+import { saveAs } from 'file-saver';
 
 function PdfDetails() {
-  const [numPages, setNumPages] = useState(null);
+  const [numPages, setNumPages] = useState<any>(null);
   const [pdfUrl, setPdfUrl] = useState(undefined);
   const location = useLocation();
   const { template, clickedPdf } = location.state;
@@ -41,13 +43,47 @@ function PdfDetails() {
 
     const tempCanvas = document.querySelectorAll('.react-pdf__Page__canvas');
     tempCanvas.forEach((t: any) => {
-      t.style.border = '1px solid #999595';
+      // t.style.border = '1px solid #999595';
       t.style.width = '100%'
       t.style.margin = '0 auto';
     });
   }
 
+  const handleGeneratePDF = async () => {
+ 
+   
+    const input: any = document.getElementById('content');
+    
+    const pageInput:any=document.getElementById(`after-break-${0}`);
+
+    let afterBreak:any=[]
+    for(let i=0;i<numPages;i++){
+       afterBreak.push(`#after-break-${i}`)
+    }
+    
+html2pdf()
+  .set({
+    pagebreak: {
+      mode: ['css', 'legacy'],
+      after: [...afterBreak],
+    },
+    margin: [0, 0, 0, 0],
+    filename: `${clickedPdf?.file_name}`,
+    html2canvas: { scale: 4, useCORS: true, dpi: 192, letterRendering: true },
+    jsPDF: { unit: "cm", format: [pageInput.offsetHeight/37, pageInput.offsetWidth/37], orientation: "portrait" },
+  })
+  .from(input)
+  .save()
+
+
+                      
+
+
+  
+};
+
   useEffect(() => {
+    console.log("000",clickedPdf)
     pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
     const verifier = async () => {
       const verifiedTokenData = await verifyToken();
@@ -102,26 +138,29 @@ function PdfDetails() {
                   <button
                     className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                     onClick={() =>
-                      generatePDF(downloadRef, {
-                        filename: `${clickedPdf?.file_name}`,
-                      })
+                      handleGeneratePDF()
+
                     }
                   >
                     Download PDF
                   </button>
+                  
                 ) : (
                   ''
                 )}
               </div>
               <div className="pdf-container mt-5 mb-5 h-screen">
                 <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess}>
-                  <div ref={downloadRef}>
+                  <div id="content">
+                 
                     {Array.from({ length: numPages }, (_, index) => (
+                     <div  id={`after-break-${index}`} className='mt-3'>
                       <Page
-                      
+                     
                         pageNumber={index + 1}
                         onLoadSuccess={removeTextLayerOffset}
                       >
+                         
                         {clickedPdf?.top_left_logo ? (
                           <div className="flex justify-start">
                             <img
@@ -143,7 +182,9 @@ function PdfDetails() {
                         ) : (
                           ''
                         )}
+                        
                       </Page>
+                       </div>
                     ))}
                   </div>
                 </Document>

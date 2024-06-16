@@ -33,6 +33,12 @@ import ViewFileTemplate from './components/viewFileTemplate/viewFileTemplate';
 import PdfDetails from './components/viewFileTemplate/pdfDetails';
 import { InvoiceManagement } from './pages/InvoiceManagement';
 import PurchaseOrderManagement from './pages/PurchaseOrderManagement';
+import AboutUsManagement from './pages/AboutUsManagement';
+import OurVisionManagement from './pages/OurVisionManagement';
+import OurMissionTable from './components/Tables/ourMssion/OurMissionTable';
+import OurMissionManagement from './pages/OurMssionManagement';
+import TestimonialManagement from './pages/TestimonialManagement';
+
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
   const { pathname } = useLocation();
@@ -95,7 +101,7 @@ function App() {
             </>
           }
         />
-          <Route
+        <Route
           path="/purchase-order-management"
           element={
             <>
@@ -110,6 +116,45 @@ function App() {
             <>
               <PageTitle title="Pdf Details" />
               <PdfDetails />
+            </>
+          }
+        />
+        <Route
+          path="/about-us"
+          element={
+            <>
+              <PageTitle title="About Us Management" />
+              <AboutUsManagement />
+            </>
+          }
+        />
+
+        <Route
+          path="/our-mission"
+          element={
+            <>
+              <PageTitle title="Our Mission Management" />
+              <OurMissionManagement />
+            </>
+          }
+        />
+
+<Route
+          path="/testimonial"
+          element={
+            <>
+              <PageTitle title="Testimonial Management" />
+              <TestimonialManagement />
+            </>
+          }
+        />
+
+<Route
+          path="/our-vision"
+          element={
+            <>
+              <PageTitle title="Our Vision Management" />
+              <OurVisionManagement />
             </>
           }
         />
