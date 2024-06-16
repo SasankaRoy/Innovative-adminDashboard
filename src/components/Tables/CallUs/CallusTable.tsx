@@ -1,35 +1,28 @@
-import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
-
 import AddIcon from '@mui/icons-material/Add';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import CircularProgress from '@mui/material/CircularProgress';
-import { createEmailUs, fetchEmailUs, updateEmailUs } from '../../../api-calls/apicalls';
+import { useEffect, useState } from 'react';
+import { createCallUs, fetchCallUs } from '../../../api-calls/apicalls';
 import toast from 'react-hot-toast';
 
-export const EmailTable = ({ pageName, pagetitle }: any) => {
-  const [emailList, setEmailList] = useState([]);
+export const CallusTable = ({ pageName, pagetitle }: any) => {
+  const [allCallList, setAllCallList] = useState([]);
   const [createAndUpdateModel, setCreateAndUpdateModel] = useState({
     state: false,
     for: '',
     needToUpdate: '',
   });
-  const navigate = useNavigate();
 
-  const getAllEmailList = async () => {
-    const requestToGetAllEmailList = await fetchEmailUs();
+  const getAllCallList = async () => {
+    const requestToGetCallList = await fetchCallUs();
 
-    if (requestToGetAllEmailList?.message === 'jwt expired') {
-      return navigate('/');
-    } else {
-      setEmailList([...requestToGetAllEmailList]);
-    }
+    setAllCallList([...requestToGetCallList]);
   };
 
   useEffect(() => {
-    getAllEmailList();
+    getAllCallList();
   }, [createAndUpdateModel]);
 
   return (
@@ -90,7 +83,7 @@ export const EmailTable = ({ pageName, pagetitle }: any) => {
             </div>
           </div>
 
-          {emailList.map((cur: any, key: any) => (
+          {allCallList.map((cur: any, key: any) => (
             <>
               <div
                 className={`grid grid-cols-3 sm:grid-cols-3  border-b border-stroke dark:border-strokedark
@@ -137,7 +130,6 @@ export const EmailTable = ({ pageName, pagetitle }: any) => {
           ))}
         </div>
       </div>
-
       {createAndUpdateModel.state && (
         <CreateAndUpdateModel
           createAndUpdateModel={createAndUpdateModel}
@@ -153,35 +145,42 @@ const CreateAndUpdateModel = ({
   setCreateAndUpdateModel,
 }: any) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [emailDetails, setEmailDetails] = useState({
+  const [callDetails, setCallDetails] = useState({
     name: createAndUpdateModel.needToUpdate.name,
-    email:createAndUpdateModel.needToUpdate.email,
+    phone_no: createAndUpdateModel.needToUpdate.phone_no,
     description: createAndUpdateModel.needToUpdate.description,
   });
   const navigate = useNavigate();
 
-  const handleOnchange = (e: any) => {
+  const handleOnChange = (e: any) => {
     const { name, value } = e.target;
 
-    setEmailDetails({ ...emailDetails, [name]: value });
+    setCallDetails({ ...callDetails, [name]: value });
   };
 
   const handleClick = async (checkFor: any) => {
-    if (checkFor === 'Update') {
-      // code to update the email........
+    {
+      if (checkFor === 'Update') {
+        // code to update the existing call data...
+
+        return;
+      }
+
+      // code to create new call data...
+
       setIsLoading(true);
 
-      const requestToUpdateEmail = await updateEmailUs({...emailDetails,email_us_id:createAndUpdateModel.needToUpdate._id});
+      const requestToCreateCallData = await createCallUs(callDetails);
 
       if (
-        requestToUpdateEmail?.success == 'no' &&
-        requestToUpdateEmail?.message === 'jwt expired'
+        requestToCreateCallData?.success == 'no' &&
+        requestToCreateCallData?.message === 'jwt expired'
       ) {
-        toast.error('Oopps! Session expired');
+        toast.error('Oops! Session expired');
         setIsLoading(false);
         navigate('/');
         return;
-      } else if (requestToUpdateEmail?.success == 'no') {
+      } else if (requestToCreateCallData?.success == 'no') {
         toast.error('system error try again leter');
         setIsLoading(false);
         setCreateAndUpdateModel({
@@ -189,54 +188,22 @@ const CreateAndUpdateModel = ({
           for: '',
           needToUpdate: '',
         });
-      } else if (requestToUpdateEmail?.success == 'yes') {
-        toast.success('email us updated successfully');
+      } else if (requestToCreateCallData?.success == 'yes') {
+        toast.success('call us created successfully');
         setIsLoading(false);
+
         setCreateAndUpdateModel({
           state: false,
           for: '',
           needToUpdate: '',
         });
       }
-
-      return;
-    }
-
-    // code to create a new email....
-    setIsLoading(true);
-
-    const requestToCreateEmail = await createEmailUs(emailDetails);
-
-    if (
-      requestToCreateEmail?.success == 'no' &&
-      requestToCreateEmail?.message === 'jwt expired'
-    ) {
-      toast.error('Oopps! Session expired');
-      setIsLoading(false);
-      navigate('/');
-      return;
-    } else if (requestToCreateEmail?.success == 'no') {
-      toast.error('system error try again leter');
-      setIsLoading(false);
-      setCreateAndUpdateModel({
-        state: false,
-        for: '',
-        needToUpdate: '',
-      });
-    } else if (requestToCreateEmail?.success == 'yes') {
-      toast.success('email us created successfully');
-      setIsLoading(false);
-      setCreateAndUpdateModel({
-        state: false,
-        for: '',
-        needToUpdate: '',
-      });
     }
   };
 
   return (
     <>
-      <div className="fixed w-full h-full flex justify-center items-center left-0 top-0 backdrop-blur-md EditModelZindex">
+      <div className="fixed flex justify-center items-center w-full top-0 left-0 h-full backdrop-blur-md EditModelZindex">
         <div className="shadow-md p-4 w-[95%] xl:w-[50%] rounded-md dark:border-strokedark dark:bg-boxdark border-stroke bg-white overflow-y-auto max-h-full">
           <div className="flex justify-between items-center">
             <h2 className="text-[800] text-3xl ">
@@ -258,56 +225,55 @@ const CreateAndUpdateModel = ({
               <CloseRoundedIcon className="text-6xl" />
             </button>
           </div>
-          <div className="flex flex-col justify-start items-start w-full gap-3 my-4">
-            <div className="flex flex-col justify-start items-start w-full gap-2">
-              <label className="text-lg text-black dark:text-white">Name</label>
 
+          <div className="flex flex-col justify-start items-start gap-3 my-4 w-full">
+            <div className="flex flex-col justify-start items-start gap-2 w-full">
+              <label className="text-lg text-black dark:text-white">Name</label>
               <div className="w-full">
                 <input
-                  className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   type="text"
+                  className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   placeholder="Enter Name..."
                   name="name"
-                  value={emailDetails.name}
-                  onChange={handleOnchange}
+                  value={callDetails.name}
+                  onChange={handleOnChange}
                 />
               </div>
             </div>
-            <div className="flex flex-col justify-start items-start w-full gap-2">
-              <label className="text-lg text-black dark:text-white">
-                Email
-              </label>
 
+            <div className="flex flex-col justify-start items-start gap-2 w-full">
+              <label className="text-lg text-black dark:text-white">
+                Phone Number
+              </label>
               <div className="w-full">
                 <input
+                  type="tel"
                   className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                  type="text"
-                  placeholder="Enter Email..."
-                  name="email"
-                  value={emailDetails.email}
-                  onChange={handleOnchange}
+                  placeholder="Enter Phone Number..."
+                  name="phone_no"
+                  value={callDetails.phone_no}
+                  onChange={handleOnChange}
                 />
               </div>
             </div>
 
-            <div className="flex flex-col justify-start items-start w-full gap-2">
+            <div className="flex flex-col gap-2 justify-start items-start w-full">
               <label className="text-lg text-black dark:text-white">
                 Description
               </label>
-
               <div className="w-full">
                 <textarea
-                  className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                  rows={5}
-                  placeholder="Enter Description..."
                   name="description"
-                  value={emailDetails.description}
-                  onChange={handleOnchange}
+                  value={callDetails.description}
+                  onChange={handleOnChange}
+                  rows={5}
+                  id=""
+                  placeholder="Enter Description..."
+                  className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                 ></textarea>
               </div>
             </div>
           </div>
-
           <div className="flex justify-end items-center gap-5">
             <button
               onClick={() => {

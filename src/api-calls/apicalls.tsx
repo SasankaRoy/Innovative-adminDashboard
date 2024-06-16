@@ -1589,67 +1589,123 @@ export const fetchEmailUs = async () => {
   }
 };
 
-
 // create new email...
 
-export const createEmailUs = async (callUsData:any) => {
+export const createEmailUs = async (callUsData: any) => {
   let tempEmailUsData = [];
   const token = localStorage.getItem('token');
-  if(token){
-    try {      
-  
+  if (token) {
+    try {
+      await axios({
+        method: 'post',
+        url: `${API_URL}/api/email-us`,
+        data: callUsData,
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: `Bearer ${token}`,
+        },
+      }).then((res) => {
+        tempEmailUsData = res.data;
+      });
+    } catch (error) {
+      tempEmailUsData = error?.response?.data;
+    } finally {
+      return tempEmailUsData;
+    }
+  } else {
+    return { message: 'jwt is not present' };
+  }
+};
+
+// update email...
+export const updateEmailUs = async (emailUsData: any) => {
+  let tempEmailUsData = [];
+  const token = localStorage.getItem('token');
+  if (token) {
+    try {
+      // console.log("userData", userData);
+
+      await axios({
+        method: 'put',
+        url: `${API_URL}/api/email-us/`,
+        data: emailUsData,
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: `Bearer ${token}`,
+        },
+      }).then((res) => {
+        tempEmailUsData = res.data;
+      });
+    } catch (error) {
+      tempEmailUsData = error?.response?.data;
+    } finally {
+      return tempEmailUsData;
+    }
+  } else {
+    return { message: 'jtw is not present' };
+  }
+};
+
+// email us end...
+
+// call us management start...
+
+// get all call list...
+
+export const fetchCallUs = async () => {
+  let tempCallUsData = [];
+  const token = localStorage.getItem('token');
+
+  if (token) {
+    try {
+      const response = await axios({
+        method: 'get',
+        url: `${API_URL}/api/call-us`,
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+      tempCallUsData = response.data.allCallUsData;
+    } catch (error) {
+      tempCallUsData = error?.response?.data;
+    } finally {
+      return tempCallUsData;
+    }
+  } else {
+    return { message: 'jwt is not present' };
+  }
+};
+
+// create call us ...
+
+export const createCallUs = async (callUsData:any) => {
+  let tempCallUsData = [];
+  const token = localStorage.getItem('token');
+
+  if(token) {
+    try {   
       await axios({
         method: "post",
-        url: `${API_URL}/api/email-us`,
+        url: `${API_URL}/api/call-us`,
         data: callUsData,
         headers: {
           "Content-Type": "application/json",
           authorization: `Bearer ${token}`,
         },
       }).then((res) => {
-        tempEmailUsData = res.data;
+        tempCallUsData = res.data;
       });
     } catch (error) {
-      tempEmailUsData = error?.response?.data;
+      tempCallUsData = error?.response?.data;
     } finally {
-      return tempEmailUsData;
+      return tempCallUsData;
     }
   }else{
-    return {message:'jwt is not present'}
+    return { message: 'jwt is not present' };
   }
 };
 
-// update email...
-export const updateEmailUs = async (emailUsData:any) => {
-  let tempEmailUsData = [];
-  const token = localStorage.getItem('token');
-  if(token){
-    try {
-      // console.log("userData", userData);
-  
-      await axios({
-        method: "put",
-        url: `${API_URL}/api/email-us/`,
-        data: emailUsData,
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${token}`,
-        },
-      }).then((res) => {
-        tempEmailUsData = res.data;
-      });
-    } catch (error) {
-      tempEmailUsData = error?.response?.data;
-    } finally {
-      return tempEmailUsData;
-    }
-  }else{
-    return {message:'jtw is not present'}
-  }
-};
-
-// email us end...
-
+// call us management end...
 export const createAboutUs = async (aboutUsData: any) => {
   let tempAboutUsData = [];
   const token = localStorage.getItem('token');
