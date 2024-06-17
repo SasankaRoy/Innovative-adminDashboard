@@ -697,7 +697,7 @@ const McqTable = ({ mcqAllData }: any) => {
                 </label>
                 <input
                   type="text"
-                  placeholder="Enter Paper Name...."
+                  
                   className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   value={paperName}
                   onChange={(e) => {
@@ -770,7 +770,7 @@ const McqTable = ({ mcqAllData }: any) => {
                               <input
                                 type="text"
                                 className="w-[80%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                                placeholder="Enter question ...."
+                               
                                 id={`db-question-${ind}`}
                                 onChange={(e) => {
                                   handleDbQuestions(e, ind);
@@ -926,7 +926,7 @@ const McqTable = ({ mcqAllData }: any) => {
                             <div className="flex justify-between items-center gap-2 w-full">
                               <input
                                 className="w-[80%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                                placeholder="Enter Option A..."
+                                
                               />
 
                               <button className="w-[20%] rounded-md bg-primary text-white font-semibold text-sm py-3">
@@ -942,7 +942,7 @@ const McqTable = ({ mcqAllData }: any) => {
                             <div className="flex justify-between items-center gap-2 w-full">
                               <input
                                 className="w-[80%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                                placeholder="Enter Option B..."
+                               
                               />
 
                               <button className="w-[20%] rounded-md bg-primary text-white font-semibold text-sm py-3">
@@ -958,7 +958,7 @@ const McqTable = ({ mcqAllData }: any) => {
                             <div className="flex justify-between items-center gap-2 w-full">
                               <input
                                 className="w-[80%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                                placeholder="Enter Option C..."
+                                
                               />
 
                               <button className="w-[20%] rounded-md bg-primary text-white font-semibold text-sm py-3">
@@ -974,7 +974,7 @@ const McqTable = ({ mcqAllData }: any) => {
                             <div className="flex justify-between items-center gap-2 w-full">
                               <input
                                 className="w-[80%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                                placeholder="Enter Option D..."
+                                
                               />
 
                               <button className="w-[20%] rounded-md bg-primary text-white font-semibold text-sm py-3">
@@ -993,7 +993,7 @@ const McqTable = ({ mcqAllData }: any) => {
                             <div className="flex justify-betweeni items-center gap-2 w-full">
                               <input
                                 className="w-[80%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                                placeholder="Enter Answer ...."
+                                
                                 type="text"
                                 id={`db-text-answer-${ind}`}
                                 onChange={(e) => {
@@ -1024,7 +1024,7 @@ const McqTable = ({ mcqAllData }: any) => {
 
                             <input
                               className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                              placeholder="Enter Answer ...."
+                             
                               type="file"
                               id={`db-attached-img-answer-${ind}`}
                               onChange={(e) => {
@@ -1055,7 +1055,7 @@ const McqTable = ({ mcqAllData }: any) => {
                             <textarea
                               rows={4}
                               className="w-[80%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                              placeholder="Explain ...."
+                              
                               id={`db-explaination-${ind}`}
                               onChange={(e: any) => {
                                 handleExplainations(e, 'update', ind);
@@ -1082,7 +1082,7 @@ const McqTable = ({ mcqAllData }: any) => {
                   }}
                   className="flex w-[20%] justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90"
                 >
-                  Add MCQ <AddRoundedIcon className="font-bold" />
+                   MCQ <AddRoundedIcon className="font-bold" />
                 </button>
               </div>
             </div>
@@ -1099,7 +1099,7 @@ const McqTable = ({ mcqAllData }: any) => {
                         <input
                           type="text"
                           className="w-[80%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                          placeholder="Enter question ...."
+                          
                           id={`add-question-${ind}`}
                         />
                         <input
@@ -1256,7 +1256,7 @@ const McqTable = ({ mcqAllData }: any) => {
                         <input
                           type="text"
                           className="w-[80%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                          placeholder="Enter Option A...."
+                          
                         />
 
                         <input
@@ -1287,7 +1287,7 @@ const McqTable = ({ mcqAllData }: any) => {
                         <input
                           type="text"
                           className="w-[80%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                          placeholder="Enter Option B...."
+                          
                         />
 
                         <input
@@ -1318,7 +1318,7 @@ const McqTable = ({ mcqAllData }: any) => {
                         <input
                           type="text"
                           className="w-[80%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                          placeholder="Enter Option C...."
+                          
                         />
 
                         <input
@@ -1350,7 +1350,7 @@ const McqTable = ({ mcqAllData }: any) => {
                       <textarea
                         rows={4}
                         className="w-[80%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                        placeholder="Explain ...."
+                        
                         onChange={(e) => {
                           handleExplainations(e, 'add', ind);
                         }}
