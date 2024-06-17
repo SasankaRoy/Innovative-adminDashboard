@@ -625,6 +625,8 @@ import {
 } from '@material-tailwind/react';
 import TestImg from '../../images/test-img.gif';
 import './viewMcqTemplate.css';
+import { useState } from 'react';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 
 const data = [
   {
@@ -673,87 +675,154 @@ const data = [
 ];
 
 const ViewMcqTemplate = () => {
+  const [showOverView, setShowOverView] = useState(false);
   return (
-    <div className=" h-screen flex justify-center items-center">
-      <div className="w-[50%] mx-auto py-5 h-full flex flex-col justify-start items-center ">
-        <Tabs value="html" className="h-full overflow-y-auto hideScrollBar">
-          <TabsHeader>
-            {data.map(({ label, value }) => (
-              <Tab className='border border-gray-400' key={value} value={value}>
-                {label}
-              </Tab>
-            ))}
-          </TabsHeader>
-          <TabsBody>
-            <div className="h-full w-full mt-7 border border-gray-400  rounded-md ">
-              {data.map(({ value, desc }) => (
-                <TabPanel key={value} value={value}>
-                  {/* for question start */}
-                  <div className="flex flex-col gap-3 justify-start items-start">
-                    <img src={TestImg} className="h-[20%]" alt="test-image" />
-                    <p className="text-black">{desc}</p>
-                  </div>
-                  {/* for question end */}
+    <>
+      <div className="h-screen relative flex justify-center items-center">
+        <div className="w-[50%] mx-auto py-5 h-full flex flex-col justify-start items-center ">
+          <Tabs value="html" className="h-full overflow-y-auto hideScrollBar">
+            <TabsHeader>
+              {data.map(({ label, value }) => (
+                <Tab
+                  className="border border-gray-400"
+                  key={value}
+                  value={value}
+                >
+                  {label}
+                </Tab>
+              ))}
+            </TabsHeader>
+            <TabsBody>
+              <div className="h-full w-full mt-7 rounded-md ">
+                {data.map(({ value, desc }) => (
+                  <TabPanel key={value} value={value}>
+                    {/* for question start */}
+                    <div className="flex flex-col gap-3 justify-start items-start border-4 border-[#00ffff] p-4 rounded-md">
+                      <img src={TestImg} className="h-[20%]" alt="test-image" />
+                      <p className="text-black">{desc}</p>
+                    </div>
+                    {/* for question end */}
 
-                  {/* for option start */}
-                  <div className="my-4 grid grid-cols-2 gap-4 ">
-                    <button className=" border border-[#00ffff] flex justify-center items-center p-3 rounded-md hover:bg-[#ccc]/50 transition-all duration-200 ease-in-out">
-                      <span className="text-black text-lg">A</span>{' '}
-                      <h2 className="mx-auto text-black font-semibold">
-                        Option{' '}
-                      </h2>
-                    </button>
-                    <button className=" border border-[#00ffff] flex justify-center items-center p-3 rounded-md hover:bg-[#ccc]/50 transition-all duration-200 ease-in-out">
-                      <span className="text-lg text-black">B</span>{' '}
-                      <img src={TestImg} className="h-24 mx-auto" />
-                    </button>
-                    <button className=" border border-[#00ffff] flex justify-center items-center p-3 rounded-md hover:bg-[#ccc]/50 transition-all duration-200 ease-in-out">
-                      <span className="text-lg text-black">C</span>
-                      <h2 className="mx-auto text-black font-semibold">
-                        Option
-                      </h2>
-                      <img src={TestImg} className="h-24 mx-auto" />
-                    </button>
-                    <button className=" border border-[#00ffff] flex justify-center items-center p-3 rounded-md hover:bg-[#ccc]/50 transition-all duration-200 ease-in-out">
-                      <span className="text-lg text-black">D</span>{' '}
-                      <h2 className="mx-auto text-black font-semibold">
-                        Option
-                      </h2>
-                    </button>
-                  </div>
-                  <div className="w-full flex justify-end items-start ">
+                    {/* for option start */}
+                    <div className="my-4 grid grid-cols-2 gap-4 ">
+                      <button className=" border-2 border-[#00ffff] flex justify-center items-center p-3 rounded-md hover:bg-[#ccc]/50 transition-all duration-200 ease-in-out">
+                        <span className="text-black text-lg">A</span>{' '}
+                        <h2 className="mx-auto text-black font-semibold">
+                          Option{' '}
+                        </h2>
+                      </button>
+                      <button className=" border-2 border-[#00ffff] flex justify-center items-center p-3 rounded-md hover:bg-[#ccc]/50 transition-all duration-200 ease-in-out">
+                        <span className="text-lg text-black">B</span>{' '}
+                        <img src={TestImg} className="h-24 mx-auto" />
+                      </button>
+                      <button className=" border-2 border-[#00ffff] flex justify-center items-center p-3 rounded-md hover:bg-[#ccc]/50 transition-all duration-200 ease-in-out">
+                        <span className="text-lg text-black">C</span>
+                        <h2 className="mx-auto text-black font-semibold">
+                          Option
+                        </h2>
+                        <img src={TestImg} className="h-24 mx-auto" />
+                      </button>
+                      <button className=" border-2 border-[#00ffff] flex justify-center items-center p-3 rounded-md hover:bg-[#ccc]/50 transition-all duration-200 ease-in-out">
+                        <span className="text-lg text-black">D</span>{' '}
+                        <h2 className="mx-auto text-black font-semibold">
+                          Option
+                        </h2>
+                      </button>
+                    </div>
+                    {/* <div className="w-full flex justify-end items-start ">
                     <button className="border-green-400 border-2 w-[15%] py-2 text-black rounded-md">
                       Next
                     </button>
-                  </div>
-                  {/* for option end */}
+                  </div> */}
+                    {/* for option end */}
 
-                  {/* for explaination start */}
-                  <div className="my-5  px-3 w-full border border-gray-400 py-5 rounded-md">
+                    {/* for explaination start */}
                     <p className="text-black text-center text-lg font-semibold my-3">
                       B is right, not A (you have answered this before).
                     </p>
-                    <div className="flex flex-col justify-start items-start gap-4">
-                      <p className="text-lg text-black font-medium">
-                        They are all perpendicular except EFGH which is
-                        parallel:
-                      </p>
-                      <img src={TestImg} className="h-40" />
-                      <p className="text-lg text-black font-medium">
-                        For example, this diagram shows that CDHG is
-                        perpendicular to ABCD:
-                      </p>
-                      <img src={TestImg} className="h-40" />
+                    <div className="my-5  px-3 w-full border-4 border-[#00ffff] py-5 rounded-md">
+                      <div className="flex flex-col justify-start items-start gap-4">
+                        <p className="text-lg text-black font-medium">
+                          They are all perpendicular except EFGH which is
+                          parallel:
+                        </p>
+                        <img src={TestImg} className="h-40" />
+                        <p className="text-lg text-black font-medium">
+                          For example, this diagram shows that CDHG is
+                          perpendicular to ABCD:
+                        </p>
+                        <img src={TestImg} className="h-40" />
+                      </div>
                     </div>
-                  </div>
-                  {/* for explaination end */}
-                </TabPanel>
-              ))}
-            </div>
-          </TabsBody>
-        </Tabs>
+                    {/* for explaination end */}
+                  </TabPanel>
+                ))}
+              </div>
+            </TabsBody>
+          </Tabs>
+        </div>
+        <div className="fixed bottom-2 left-0 w-full z-50">
+          <div className="flex justify-between items-center w-[80%] mx-auto">
+            <button
+              onClick={() => setShowOverView(true)}
+              className="w-[15%] rounded-md text-white font-semibold py-2 bg-blue-700"
+            >
+              OverView
+            </button>
+            <button className="w-[15%] rounded-md bg-green-700 py-2 text-white font-semibold">
+              Next
+            </button>
+          </div>
+        </div>
       </div>
-    </div>
+      {showOverView && <OverView setShowOverView={setShowOverView} />}
+    </>
   );
 };
 export default ViewMcqTemplate;
+
+const OverView = ({ setShowOverView }: any) => {
+  return (
+    <>
+      <div className="fixed z-50 backdrop-blur-md bg-black/20 flex justify-center items-center w-full h-full top-0 left-0">
+        <div className="bg-[#dbebff] w-[30%] p-3 rounded-md shadow-lg">
+          <div className="flex justify-between items-center">
+            <h2 className="text-lg text-black font-semibold">Overview</h2>
+            <button
+              onClick={() => setShowOverView(false)}
+              className="text-black text-3xl"
+            >
+              <CloseRoundedIcon />
+            </button>
+          </div>
+          <div className="flex flex-col justify-center items-center gap-3">
+            <div className="flex justify-center items-center gap-2">
+              <CloseRoundedIcon className="text-red-500 font-[700]" />{' '}
+              <h2 className="text-xl text-black font-semibold">Question A</h2>
+            </div>
+            <div className="flex justify-center items-center gap-2">
+              <CloseRoundedIcon className="text-red-500 font-[700]" />{' '}
+              <h2 className="text-xl text-black font-semibold">Question A</h2>
+            </div>
+            <div className="flex justify-center items-center gap-2">
+              <CloseRoundedIcon className="text-red-500 font-[700]" />{' '}
+              <h2 className="text-xl text-black font-semibold">Question A</h2>
+            </div>
+            <div className="flex justify-center items-center gap-2">
+              <CloseRoundedIcon className="text-red-500 font-[700]" />{' '}
+              <h2 className="text-xl text-black font-semibold">Question A</h2>
+            </div>
+            <div className="flex justify-center items-center gap-2">
+              <CloseRoundedIcon className="text-red-500 font-[700]" />{' '}
+              <h2 className="text-xl text-black font-semibold">Question A</h2>
+            </div>
+          </div>
+
+          <p className="text-red-500 font-medium text-lg text-center my-4">
+            You have 5 questions left to answer
+          </p>
+        </div>
+      </div>
+    </>
+  );
+};
