@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
@@ -43,6 +43,17 @@ const McqTable = ({ mcqAllData }: any) => {
   const [checked, setChecked] = useState<string>('');
 
   const navigate = useNavigate();
+
+  const imageRef = useRef<HTMLInputElement>(null);
+  const optionImageRefA = useRef<HTMLInputElement>(null);
+  const optionImageRefB = useRef<HTMLInputElement>(null)
+  const optionImageRefC = useRef<HTMLInputElement>(null)
+  const optionImageRefD = useRef<HTMLInputElement>(null)
+  const [questionImg, setQuestionImg] = useState();
+  const [optionAImg,setOptionAImg] = useState();
+  const [optionBImg,setOptionBImg] = useState();
+  const [optionCImg,setOptionCImg] = useState();
+  const [optionDImg,setOptionDImg] = useState();
 
   const handleClose = () => {
     setUpdate(false);
@@ -104,68 +115,68 @@ const McqTable = ({ mcqAllData }: any) => {
     }
   };
 
-  const imageFilesHandler = (
-    e: any,
-    operation: any,
-    cntInd: any,
-    optInd: any,
-  ) => {
-    let selectedImage = e.target.files[0];
-    let tempTemplateImages =
-      operation === 'add' ? templateOptImages : dbTemplateOptImages;
-    if (selectedImage.type !== 'image/png') {
-      alert('please select images');
-      document.getElementById(
-        `${operation}-opt-image-${cntInd}-${optInd}`,
-      ).value = '';
-      tempTemplateImages[cntInd].splice(1, optInd);
-      return;
-    } else if (
-      Array.isArray(tempTemplateImages[cntInd]) &&
-      tempTemplateImages[cntInd]?.length !== 0
-    ) {
-      tempTemplateImages[cntInd][optInd] = selectedImage;
+  // const imageFilesHandler = (
+  //   e: any,
+  //   operation: any,
+  //   cntInd: any,
+  //   optInd: any,
+  // ) => {
+  //   let selectedImage = e.target.files[0];
+  //   let tempTemplateImages =
+  //     operation === 'add' ? templateOptImages : dbTemplateOptImages;
+  //   if (selectedImage.type !== 'image/png') {
+  //     alert('please select images');
+  //     document.getElementById(
+  //       `${operation}-opt-image-${cntInd}-${optInd}`,
+  //     ).value = '';
+  //     tempTemplateImages[cntInd].splice(1, optInd);
+  //     return;
+  //   } else if (
+  //     Array.isArray(tempTemplateImages[cntInd]) &&
+  //     tempTemplateImages[cntInd]?.length !== 0
+  //   ) {
+  //     tempTemplateImages[cntInd][optInd] = selectedImage;
 
-      operation === 'add'
-        ? setTemplateOptImages([...tempTemplateImages])
-        : setDbTemplateOptImages([...tempTemplateImages]);
-    } else {
-      tempTemplateImages[cntInd] = [];
-      tempTemplateImages[cntInd][optInd] = selectedImage;
-      operation === 'add'
-        ? setTemplateOptImages([...tempTemplateImages])
-        : setDbTemplateOptImages([...tempTemplateImages]);
-    }
-  };
+  //     operation === 'add'
+  //       ? setTemplateOptImages([...tempTemplateImages])
+  //       : setDbTemplateOptImages([...tempTemplateImages]);
+  //   } else {
+  //     tempTemplateImages[cntInd] = [];
+  //     tempTemplateImages[cntInd][optInd] = selectedImage;
+  //     operation === 'add'
+  //       ? setTemplateOptImages([...tempTemplateImages])
+  //       : setDbTemplateOptImages([...tempTemplateImages]);
+  //   }
+  // };
 
-  const textOptHandler = (e: any, operation: any, cntInd: any, optInd: any) => {
-    let selectedText = e.target.value;
-    let tempTemplateTexts = templateOptTexts;
+  // const textOptHandler = (e: any, operation: any, cntInd: any, optInd: any) => {
+  //   let selectedText = e.target.value;
+  //   let tempTemplateTexts = templateOptTexts;
 
-    if (
-      Array.isArray(tempTemplateTexts[cntInd]) &&
-      tempTemplateTexts[cntInd]?.length !== 0
-    ) {
-      tempTemplateTexts[cntInd][optInd] = selectedText;
-      if (update) {
-        document.getElementById(`db-opt-text-${cntInd}-${optInd}`).value =
-          selectedText;
-      }
-      operation === 'add'
-        ? setTemplateOptTexts([...tempTemplateTexts])
-        : setDbTemplateOptTexts([...tempTemplateTexts]);
-    } else {
-      tempTemplateTexts[cntInd] = [];
-      tempTemplateTexts[cntInd][optInd] = selectedText;
-      if (update) {
-        document.getElementById(`db-opt-text-${cntInd}-${optInd}`).value =
-          selectedText;
-      }
-      operation === 'add'
-        ? setTemplateOptTexts([...tempTemplateTexts])
-        : setDbTemplateOptTexts([...tempTemplateTexts]);
-    }
-  };
+  //   if (
+  //     Array.isArray(tempTemplateTexts[cntInd]) &&
+  //     tempTemplateTexts[cntInd]?.length !== 0
+  //   ) {
+  //     tempTemplateTexts[cntInd][optInd] = selectedText;
+  //     if (update) {
+  //       document.getElementById(`db-opt-text-${cntInd}-${optInd}`).value =
+  //         selectedText;
+  //     }
+  //     operation === 'add'
+  //       ? setTemplateOptTexts([...tempTemplateTexts])
+  //       : setDbTemplateOptTexts([...tempTemplateTexts]);
+  //   } else {
+  //     tempTemplateTexts[cntInd] = [];
+  //     tempTemplateTexts[cntInd][optInd] = selectedText;
+  //     if (update) {
+  //       document.getElementById(`db-opt-text-${cntInd}-${optInd}`).value =
+  //         selectedText;
+  //     }
+  //     operation === 'add'
+  //       ? setTemplateOptTexts([...tempTemplateTexts])
+  //       : setDbTemplateOptTexts([...tempTemplateTexts]);
+  //   }
+  // };
 
   const answerImageFilesHandler = (e: any, operation: any, ind: any) => {
     // console.log(";;;",ind)
@@ -511,13 +522,13 @@ const McqTable = ({ mcqAllData }: any) => {
     }
   };
 
-  useEffect(() => {
-    if (mcqsCnt.length !== 0) {
-      const index = mcqsCnt.length - 1;
-      document.getElementById(`add-option-type-text-${index}`).value = 'off';
-      document.getElementById(`add-option-type-image-${index}`).value = 'off';
-    }
-  }, [mcqsCnt]);
+  // useEffect(() => {
+  //   if (mcqsCnt.length !== 0) {
+  //     const index = mcqsCnt.length - 1;
+  //     document.getElementById(`add-option-type-text-${index}`).value = 'off';
+  //     document.getElementById(`add-option-type-image-${index}`).value = 'off';
+  //   }
+  // }, [mcqsCnt]);
 
   useEffect(() => {
     if (dbMcqs && dbMcqs.length !== 0) {
@@ -976,7 +987,7 @@ const McqTable = ({ mcqAllData }: any) => {
                   }}
                   className="flex w-[20%] justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90"
                 >
-                  <AddRoundedIcon className="font-bold" /> Add Mcqs
+                  Add MCQ <AddRoundedIcon className="font-bold" />
                 </button>
               </div>
             </div>
@@ -989,14 +1000,32 @@ const McqTable = ({ mcqAllData }: any) => {
                       <label className="text-lg text-black dark:text-white">
                         {`Q${ind + 1}.`}
                       </label>
-                      <input
-                        type="text"
-                        className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                        placeholder="Enter question ...."
-                        id={`add-question-${ind}`}
-                      />
+                      <div className="w-full flex justify-between items-center gap-2">
+                        <input
+                          type="text"
+                          className="w-[80%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                          placeholder="Enter question ...."
+                          id={`add-question-${ind}`}
+                        />
+                        <input
+                          ref={imageRef}
+                          onChange={(e: any) =>
+                            setQuestionImg(e.target.files[0])
+                          }
+                          type="file"
+                          hidden
+                        />
+                        <button
+                          onClick={() =>
+                            imageRef.current && imageRef.current.click()
+                          }
+                          className="w-[20%] rounded-md bg-primary text-white font-semibold text-sm py-3"
+                        >
+                          Choose Image
+                        </button>
+                      </div>
                     </div>
-                    <div className="flex justify-between items-center my-4">
+                    {/* <div className="flex justify-between items-center my-4">
                       <h3 className="text-lg text-black dark:text-white">
                         Options Type
                       </h3>
@@ -1043,10 +1072,10 @@ const McqTable = ({ mcqAllData }: any) => {
                           />
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
 
-                  {optionsType[ind] === 'text' && (
+                  {/* {optionsType[ind] === 'text' && (
                     <div className="flex flex-col gap-3">
                       {[...Array(4)].map((_, index) => (
                         <div className="flex justify-between items-center w-full">
@@ -1059,17 +1088,17 @@ const McqTable = ({ mcqAllData }: any) => {
                               className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                               placeholder={`Enter Option ${alphabates[index]} ...`}
                               id={`add-opt-text-${ind}-${index}`}
-                              onChange={(e) => {
-                                textOptHandler(e, 'add', ind, index);
-                              }}
+                              // onChange={(e) => {
+                              //   textOptHandler(e, 'add', ind, index);
+                              // }}
                             />
                           </div>
                         </div>
                       ))}
                     </div>
-                  )}
+                  )} */}
 
-                  {optionsType[ind] === 'image' && (
+                  {/* {optionsType[ind] === 'image' && (
                     <div className="flex flex-col gap-3">
                       {[...Array(4)].map((_, index) => (
                         <div className="flex justify-between items-center w-full">
@@ -1082,17 +1111,17 @@ const McqTable = ({ mcqAllData }: any) => {
                               className="w-full h-full object-cover"
                               placeholder="Enter Option A ..."
                               id={`add-opt-image-${ind}-${index}`}
-                              onChange={(e) => {
-                                imageFilesHandler(e, 'add', ind, index);
-                              }}
+                              // onChange={(e) => {
+                              //   imageFilesHandler(e, 'add', ind, index);
+                              // }}
                             />
                           </div>
                         </div>
                       ))}
                     </div>
-                  )}
+                  )} */}
 
-                  {optionsType[ind] == 'text' && (
+                  {/* {optionsType[ind] == 'text' && (
                     <div className="flex flex-col justify-start items-start gap-2 w-[49%]">
                       <label className="text-lg text-black dark:text-white">
                         Answer
@@ -1104,9 +1133,9 @@ const McqTable = ({ mcqAllData }: any) => {
                         id={`add-text-answer-${ind}`}
                       />
                     </div>
-                  )}
+                  )} */}
 
-                  {optionsType[ind] == 'image' && (
+                  {/* {optionsType[ind] == 'image' && (
                     <div className="flex flex-col justify-start items-start gap-2 w-[49%]">
                       <label className="text-lg text-black dark:text-white">
                         Answer
@@ -1121,7 +1150,87 @@ const McqTable = ({ mcqAllData }: any) => {
                         }}
                       />
                     </div>
-                  )}
+                  )} */}
+
+                  <div className="flex flex-col justify-start items-start gap-3 my-4">
+                    <div className='flex flex-col justify-start items-start gap-2 w-full'>
+                      <label className="text-lg text-black dark:text-white">
+                        A.
+                      </label>
+                      <div className='flex justify-between items-center w-full gap-2'>
+                        <input type='text' className="w-[80%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" placeholder='Enter Option A....' />
+
+                         <input
+                          ref={optionImageRefA}
+                          onChange={(e: any) =>
+                            setOptionAImg(e.target.files[0])
+                          }
+                          type="file"
+                          hidden
+                        />
+                        <button
+                          onClick={() =>
+                            optionImageRefA.current && optionImageRefA.current.click()
+                          }
+                          className="w-[20%] rounded-md bg-primary text-white font-semibold text-sm py-3"
+                        >
+                          Choose Image
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className='flex flex-col justify-start items-start gap-2 w-full'>
+                      <label className="text-lg text-black dark:text-white">
+                        B.
+                      </label>
+                      <div className='flex justify-between items-center w-full gap-2'>
+                        <input type='text' className="w-[80%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" placeholder='Enter Option B....' />
+
+                         <input
+                          ref={optionImageRefB}
+                          onChange={(e: any) =>
+                            setOptionBImg(e.target.files[0])
+                          }
+                          type="file"
+                          hidden
+                        />
+                        <button
+                          onClick={() =>
+                            optionImageRefB.current && optionImageRefB.current.click()
+                          }
+                          className="w-[20%] rounded-md bg-primary text-white font-semibold text-sm py-3"
+                        >
+                          Choose Image
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className='flex flex-col justify-start items-start gap-2 w-full'>
+                      <label className="text-lg text-black dark:text-white">
+                        C.
+                      </label>
+                      <div className='flex justify-between items-center w-full gap-2'>
+                        <input type='text' className="w-[80%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" placeholder='Enter Option C....' />
+
+                         <input
+                          ref={optionImageRefC}
+                          onChange={(e: any) =>
+                            setOptionCImg(e.target.files[0])
+                          }
+                          type="file"
+                          hidden
+                        />
+                        <button
+                          onClick={() =>
+                            optionImageRefC.current && optionImageRefC.current.click()
+                          }
+                          className="w-[20%] rounded-md bg-primary text-white font-semibold text-sm py-3"
+                        >
+                          Choose Image
+                        </button>
+                      </div>
+                    </div>
+                  </div>
 
                   <div className="flex flex-col justify-start items-start gap-2">
                     <label className="text-lg text-black dark:text-white">
