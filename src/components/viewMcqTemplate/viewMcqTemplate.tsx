@@ -3,7 +3,7 @@
 // import "bootstrap/dist/css/bootstrap.min.css";
 // import Nav from "../navbar/navbar";
 // import Sidebar from "../sidebar/sidebar";
-// import './viewMcqTemplate.css';
+
 // import dotted from '../../assets/Dotted.png';
 // import line from '../../assets/Line.png';
 // import rightPng from '../../assets/Right.png';
@@ -624,10 +624,11 @@ import {
   TabPanel,
 } from '@material-tailwind/react';
 import TestImg from '../../images/test-img.gif';
+import './viewMcqTemplate.css';
 
 const data = [
   {
-    label: 'HTML',
+    label: '1',
     value: 'html',
     desc: `It really matters and then like it really doesn't matter.
     What matters is the people who are sparked by it. And the people 
@@ -637,33 +638,33 @@ const data = [
     What matters is the people who are sparked by it. `,
   },
   {
-    label: 'React',
+    label: '2',
     value: 'react',
     desc: `Because it's about motivating the doers. Because I'm here
     to follow my dreams and inspire other people to follow their dreams, too.`,
   },
   {
-    label: 'Vue',
+    label: '3',
     value: 'vue',
     desc: `We're not always in the position that we want to be at.
     We're constantly growing. We're constantly making mistakes. We're
     constantly trying to express ourselves and actualize our dreams.`,
   },
   {
-    label: 'Angular',
+    label: '4',
     value: 'angular',
     desc: `Because it's about motivating the doers. Because I'm here
     to follow my dreams and inspire other people to follow their dreams, too.`,
   },
   {
-    label: 'Svelte',
+    label: '5',
     value: 'svelte',
     desc: `We're not always in the position that we want to be at.
     We're constantly growing. We're constantly making mistakes. We're
     constantly trying to express ourselves and actualize our dreams.`,
   },
   {
-    label: 'Svelte 2',
+    label: '6',
     value: 'svelte 2',
     desc: `We're not always in the position that we want to be at.
     We're constantly growing. We're constantly making mistakes. We're
@@ -674,11 +675,11 @@ const data = [
 const ViewMcqTemplate = () => {
   return (
     <div className=" h-screen flex justify-center items-center">
-      <div className="w-[80%] mx-auto py-5 h-full flex flex-col justify-start items-center ">
-        <Tabs value="html" className="h-full overflow-y-auto">
+      <div className="w-[50%] mx-auto py-5 h-full flex flex-col justify-start items-center ">
+        <Tabs value="html" className="h-full overflow-y-auto hideScrollBar">
           <TabsHeader>
             {data.map(({ label, value }) => (
-              <Tab key={value} value={value}>
+              <Tab className='border border-gray-400' key={value} value={value}>
                 {label}
               </Tab>
             ))}

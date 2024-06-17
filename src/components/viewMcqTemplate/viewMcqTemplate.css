@@ -28,6 +28,9 @@
       #649173
     );  */
   }
+  .hideScrollBar::-webkit-scrollbar{
+    display: none;
+  }
 
 .View_mcq_template_pagination_mainWrapper{
     background: #f1f1f1;
