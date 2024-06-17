@@ -674,8 +674,8 @@ const data = [
 const ViewMcqTemplate = () => {
   return (
     <div className=" h-screen flex justify-center items-center">
-      <div className="w-[80%] mx-auto py-5 h-full flex flex-col justify-start items-center">
-        <Tabs value="html" className="h-full">
+      <div className="w-[80%] mx-auto py-5 h-full flex flex-col justify-start items-center ">
+        <Tabs value="html" className="h-full overflow-y-auto">
           <TabsHeader>
             {data.map(({ label, value }) => (
               <Tab key={value} value={value}>
@@ -684,7 +684,7 @@ const ViewMcqTemplate = () => {
             ))}
           </TabsHeader>
           <TabsBody>
-            <div className="h-full w-full mt-7 border border-gray-400  rounded-md">
+            <div className="h-full w-full mt-7 border border-gray-400  rounded-md ">
               {data.map(({ value, desc }) => (
                 <TabPanel key={value} value={value}>
                   {/* for question start */}
@@ -696,29 +696,56 @@ const ViewMcqTemplate = () => {
 
                   {/* for option start */}
                   <div className="my-4 grid grid-cols-2 gap-4 ">
-                    <button className=" border border-[#00ffff] flex justify-center items-center p-3 rounded-md">
-                      <span className='text-black text-lg'>A</span> <h2 className="mx-auto text-black font-semibold">Option </h2>
+                    <button className=" border border-[#00ffff] flex justify-center items-center p-3 rounded-md hover:bg-[#ccc]/50 transition-all duration-200 ease-in-out">
+                      <span className="text-black text-lg">A</span>{' '}
+                      <h2 className="mx-auto text-black font-semibold">
+                        Option{' '}
+                      </h2>
                     </button>
-                    <button className=" border border-[#00ffff] flex justify-center items-center p-3 rounded-md">
+                    <button className=" border border-[#00ffff] flex justify-center items-center p-3 rounded-md hover:bg-[#ccc]/50 transition-all duration-200 ease-in-out">
                       <span className="text-lg text-black">B</span>{' '}
                       <img src={TestImg} className="h-24 mx-auto" />
                     </button>
-                    <button className=" border border-[#00ffff] flex justify-center items-center p-3 rounded-md">
+                    <button className=" border border-[#00ffff] flex justify-center items-center p-3 rounded-md hover:bg-[#ccc]/50 transition-all duration-200 ease-in-out">
                       <span className="text-lg text-black">C</span>
-                      <h2 className="mx-auto text-black font-semibold">Option</h2>
+                      <h2 className="mx-auto text-black font-semibold">
+                        Option
+                      </h2>
                       <img src={TestImg} className="h-24 mx-auto" />
                     </button>
-                    <button className=" border border-[#00ffff] flex justify-center items-center p-3 rounded-md">
+                    <button className=" border border-[#00ffff] flex justify-center items-center p-3 rounded-md hover:bg-[#ccc]/50 transition-all duration-200 ease-in-out">
                       <span className="text-lg text-black">D</span>{' '}
-                      <h2 className="mx-auto text-black font-semibold">Option</h2>
+                      <h2 className="mx-auto text-black font-semibold">
+                        Option
+                      </h2>
                     </button>
                   </div>
-                  <div className='w-full flex justify-end items-start '>
+                  <div className="w-full flex justify-end items-start ">
                     <button className="border-green-400 border-2 w-[15%] py-2 text-black rounded-md">
                       Next
                     </button>
                   </div>
                   {/* for option end */}
+
+                  {/* for explaination start */}
+                  <div className="my-5  px-3 w-full border border-gray-400 py-5 rounded-md">
+                    <p className="text-black text-center text-lg font-semibold my-3">
+                      B is right, not A (you have answered this before).
+                    </p>
+                    <div className="flex flex-col justify-start items-start gap-4">
+                      <p className="text-lg text-black font-medium">
+                        They are all perpendicular except EFGH which is
+                        parallel:
+                      </p>
+                      <img src={TestImg} className="h-40" />
+                      <p className="text-lg text-black font-medium">
+                        For example, this diagram shows that CDHG is
+                        perpendicular to ABCD:
+                      </p>
+                      <img src={TestImg} className="h-40" />
+                    </div>
+                  </div>
+                  {/* for explaination end */}
                 </TabPanel>
               ))}
             </div>
