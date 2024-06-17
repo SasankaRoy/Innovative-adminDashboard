@@ -46,14 +46,14 @@ const McqTable = ({ mcqAllData }: any) => {
 
   const imageRef = useRef<HTMLInputElement>(null);
   const optionImageRefA = useRef<HTMLInputElement>(null);
-  const optionImageRefB = useRef<HTMLInputElement>(null)
-  const optionImageRefC = useRef<HTMLInputElement>(null)
-  const optionImageRefD = useRef<HTMLInputElement>(null)
+  const optionImageRefB = useRef<HTMLInputElement>(null);
+  const optionImageRefC = useRef<HTMLInputElement>(null);
+  const optionImageRefD = useRef<HTMLInputElement>(null);
   const [questionImg, setQuestionImg] = useState();
-  const [optionAImg,setOptionAImg] = useState();
-  const [optionBImg,setOptionBImg] = useState();
-  const [optionCImg,setOptionCImg] = useState();
-  const [optionDImg,setOptionDImg] = useState();
+  const [optionAImg, setOptionAImg] = useState();
+  const [optionBImg, setOptionBImg] = useState();
+  const [optionCImg, setOptionCImg] = useState();
+  const [optionDImg, setOptionDImg] = useState();
 
   const handleClose = () => {
     setUpdate(false);
@@ -149,34 +149,34 @@ const McqTable = ({ mcqAllData }: any) => {
   //   }
   // };
 
-  // const textOptHandler = (e: any, operation: any, cntInd: any, optInd: any) => {
-  //   let selectedText = e.target.value;
-  //   let tempTemplateTexts = templateOptTexts;
+  const textOptHandler = (e: any, operation: any, cntInd: any, optInd: any) => {
+    let selectedText = e.target.value;
+    let tempTemplateTexts = templateOptTexts;
 
-  //   if (
-  //     Array.isArray(tempTemplateTexts[cntInd]) &&
-  //     tempTemplateTexts[cntInd]?.length !== 0
-  //   ) {
-  //     tempTemplateTexts[cntInd][optInd] = selectedText;
-  //     if (update) {
-  //       document.getElementById(`db-opt-text-${cntInd}-${optInd}`).value =
-  //         selectedText;
-  //     }
-  //     operation === 'add'
-  //       ? setTemplateOptTexts([...tempTemplateTexts])
-  //       : setDbTemplateOptTexts([...tempTemplateTexts]);
-  //   } else {
-  //     tempTemplateTexts[cntInd] = [];
-  //     tempTemplateTexts[cntInd][optInd] = selectedText;
-  //     if (update) {
-  //       document.getElementById(`db-opt-text-${cntInd}-${optInd}`).value =
-  //         selectedText;
-  //     }
-  //     operation === 'add'
-  //       ? setTemplateOptTexts([...tempTemplateTexts])
-  //       : setDbTemplateOptTexts([...tempTemplateTexts]);
-  //   }
-  // };
+    if (
+      Array.isArray(tempTemplateTexts[cntInd]) &&
+      tempTemplateTexts[cntInd]?.length !== 0
+    ) {
+      tempTemplateTexts[cntInd][optInd] = selectedText;
+      if (update) {
+        document.getElementById(`db-opt-text-${cntInd}-${optInd}`).value =
+          selectedText;
+      }
+      operation === 'add'
+        ? setTemplateOptTexts([...tempTemplateTexts])
+        : setDbTemplateOptTexts([...tempTemplateTexts]);
+    } else {
+      tempTemplateTexts[cntInd] = [];
+      tempTemplateTexts[cntInd][optInd] = selectedText;
+      if (update) {
+        document.getElementById(`db-opt-text-${cntInd}-${optInd}`).value =
+          selectedText;
+      }
+      operation === 'add'
+        ? setTemplateOptTexts([...tempTemplateTexts])
+        : setDbTemplateOptTexts([...tempTemplateTexts]);
+    }
+  };
 
   const answerImageFilesHandler = (e: any, operation: any, ind: any) => {
     // console.log(";;;",ind)
@@ -530,39 +530,39 @@ const McqTable = ({ mcqAllData }: any) => {
   //   }
   // }, [mcqsCnt]);
 
-  useEffect(() => {
-    if (dbMcqs && dbMcqs.length !== 0) {
-      let tempDbOptionsType: any[] = dbOptionsType;
-      dbMcqs.forEach((dm: any, ind: any) => {
-        if (dm?.options_type == 'image') {
-          // console.log(document.getElementById(`db-option-type-image-${ind}`))
-          document.getElementById(`db-option-type-image-${ind}`).checked = true;
-          tempDbOptionsType[ind] = 'image';
-        } else if (dm?.options_type == 'text') {
-          // console.log(document.getElementById(`db-option-type-text-${ind}`))
-          document.getElementById(`db-option-type-text-${ind}`).checked = true;
-          tempDbOptionsType[ind] = 'text';
-        }
-      });
-      setDbOptionsType([...tempDbOptionsType]);
-      dbMcqs.forEach((dm: any, ind: any) => {
-        if (dm?.options_type == 'text') {
-          dm.options.forEach((op: any, mInd: any) => {
-            document.getElementById(`db-opt-text-${ind}-${mInd}`).value = op;
-          });
-          document.getElementById(`db-text-answer-${ind}`).value = dm?.answer;
-        } else if (dm?.options_type == 'image') {
-          document.getElementById(`db-attached-img-answer-${ind}`).src =
-            dm?.answer;
-        }
+  // useEffect(() => {
+  //   if (dbMcqs && dbMcqs.length !== 0) {
+  //     let tempDbOptionsType: any[] = dbOptionsType;
+  //     dbMcqs.forEach((dm: any, ind: any) => {
+  //       if (dm?.options_type == 'image') {
+  //         // console.log(document.getElementById(`db-option-type-image-${ind}`))
+  //         document.getElementById(`db-option-type-image-${ind}`).checked = true;
+  //         tempDbOptionsType[ind] = 'image';
+  //       } else if (dm?.options_type == 'text') {
+  //         // console.log(document.getElementById(`db-option-type-text-${ind}`))
+  //         document.getElementById(`db-option-type-text-${ind}`).checked = true;
+  //         tempDbOptionsType[ind] = 'text';
+  //       }
+  //     });
+  //     setDbOptionsType([...tempDbOptionsType]);
+  //     dbMcqs.forEach((dm: any, ind: any) => {
+  //       if (dm?.options_type == 'text') {
+  //         dm.options.forEach((op: any, mInd: any) => {
+  //           document.getElementById(`db-opt-text-${ind}-${mInd}`).value = op;
+  //         });
+  //         document.getElementById(`db-text-answer-${ind}`).value = dm?.answer;
+  //       } else if (dm?.options_type == 'image') {
+  //         document.getElementById(`db-attached-img-answer-${ind}`).src =
+  //           dm?.answer;
+  //       }
 
-        // document.getElementById(`db-marks-${ind}`).value = dm?.mark
-        document.getElementById(`db-explaination-${ind}`).value =
-          dm?.explaination;
-        document.getElementById(`db-question-${ind}`).value = dm?.question;
-      });
-    }
-  }, [dbMcqs]);
+  //       // document.getElementById(`db-marks-${ind}`).value = dm?.mark
+  //       document.getElementById(`db-explaination-${ind}`).value =
+  //         dm?.explaination;
+  //       document.getElementById(`db-question-${ind}`).value = dm?.question;
+  //     });
+  //   }
+  // }, [dbMcqs]);
 
   return (
     <>
@@ -749,11 +749,11 @@ const McqTable = ({ mcqAllData }: any) => {
                     {dbMcqs.map((dm: any, ind: any) => (
                       <>
                         <div>
-                          <div className="my-3 flex flex-col justify-start items-start gap-3">
+                          <div className="my-3 flex flex-col justify-start items-start gap-3 w-full">
                             <label className="text-lg text-black dark:text-white">
                               {`Q${ind + 1}.`}
                             </label>
-                            <div className="w-full flex justify-center gap-2 shadow-xl items-center flex-col h-36 rounded-md relative overflow-hidden">
+                            {/* <div className="w-full flex justify-center gap-2 shadow-xl items-center flex-col h-36 rounded-md relative overflow-hidden">
                               <img
                                 src={AddImg}
                                 alt="Add"
@@ -765,22 +765,37 @@ const McqTable = ({ mcqAllData }: any) => {
                               <h4 className="text-md z-10 text-white">
                                 Add Image for Question
                               </h4>
+                            </div> */}
+                            <div className="flex justify-between items-center gap-2 w-full">
+                              <input
+                                type="text"
+                                className="w-[80%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                                placeholder="Enter question ...."
+                                id={`db-question-${ind}`}
+                                onChange={(e) => {
+                                  handleDbQuestions(e, ind);
+                                }}
+                              />
+
+                              <button className="w-[20%] rounded-md bg-primary text-white font-semibold text-sm py-3">
+                                Choose Image
+                              </button>
                             </div>
                           </div>
-                          <div className="my-5">
+                          {/* <div className="my-5">
                             <input
                               type="text"
                               className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                               placeholder="Enter Image Description ...."
                               id={`add-question-${ind}`}
                             />
-                          </div>
+                          </div> */}
 
-                          <div className="flex flex-col justify-start items-start gap-3">
-                            {/* <label className="text-lg text-black dark:text-white">
+                          {/* <div className="flex flex-col justify-start items-start gap-3"> */}
+                          {/* <label className="text-lg text-black dark:text-white">
                               {`${ind + 1}.`}
                             </label> */}
-                            <input
+                          {/* <input
                               type="text"
                               className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                               placeholder="Enter question ...."
@@ -789,13 +804,16 @@ const McqTable = ({ mcqAllData }: any) => {
                                 handleDbQuestions(e, ind);
                               }}
                             />
-                          </div>
+
+                            <button>Choose Image</button> */}
+                          {/* </div> */}
+
                           <div className="flex justify-between items-center my-4">
                             <h3 className="text-lg text-black dark:text-white">
                               Options Type
                             </h3>
                             <div className="flex justify-end items-center gap-3">
-                              {dm?.options_type == 'text' && (
+                              {/* {dm?.options_type == 'text' && (
                                 <div className="flex justify-center items-center gap-2">
                                   <label
                                     htmlFor={`db-option-type-text-${ind}`}
@@ -836,18 +854,18 @@ const McqTable = ({ mcqAllData }: any) => {
                                     }}
                                   />
                                 </div>
-                              )}
+                              )} */}
                             </div>
                           </div>
                         </div>
 
-                        {dm?.options_type === 'text' && (
+                        {/* {dm?.options_type === 'text' && (
                           <div className="flex flex-col gap-3">
                             {dm?.options.map((_: any, index: any) => (
                               <div className="flex justify-between items-center w-full">
                                 <div className="flex justify-start items-start flex-col gap-2 w-[100%]">
                                   <label className="text-md text-black dark:text-white">
-                                    {`${alphabates[index]}`}
+                                    {`${alphabates[index]}`} 
                                   </label>
                                   <input
                                     type="text"
@@ -898,23 +916,95 @@ const McqTable = ({ mcqAllData }: any) => {
                               </div>
                             ))}
                           </div>
-                        )}
+                        )} */}
+
+                        <div className="flex flex-col justify-start items-start gap-3 my-4 w-full">
+                          <div className="flex flex-col justify-start items-start gap-1 w-full">
+                            <label className="text-lg text-black dark:text-white">
+                              A.
+                            </label>
+                            <div className="flex justify-between items-center gap-2 w-full">
+                              <input
+                                className="w-[80%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                                placeholder="Enter Option A..."
+                              />
+
+                              <button className="w-[20%] rounded-md bg-primary text-white font-semibold text-sm py-3">
+                                Choose Image
+                              </button>
+                            </div>
+                          </div>
+
+                          <div className="flex flex-col justify-start items-start gap-1 w-full">
+                            <label className="text-lg text-black dark:text-white">
+                              B.
+                            </label>
+                            <div className="flex justify-between items-center gap-2 w-full">
+                              <input
+                                className="w-[80%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                                placeholder="Enter Option B..."
+                              />
+
+                              <button className="w-[20%] rounded-md bg-primary text-white font-semibold text-sm py-3">
+                                Choose Image
+                              </button>
+                            </div>
+                          </div>
+
+                          <div className="flex flex-col justify-start items-start gap-1 w-full">
+                            <label className="text-lg text-black dark:text-white">
+                              C.
+                            </label>
+                            <div className="flex justify-between items-center gap-2 w-full">
+                              <input
+                                className="w-[80%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                                placeholder="Enter Option C..."
+                              />
+
+                              <button className="w-[20%] rounded-md bg-primary text-white font-semibold text-sm py-3">
+                                Choose Image
+                              </button>
+                            </div>
+                          </div>
+
+                          <div className="flex flex-col justify-start items-start gap-1 w-full">
+                            <label className="text-lg text-black dark:text-white">
+                              D.
+                            </label>
+                            <div className="flex justify-between items-center gap-2 w-full">
+                              <input
+                                className="w-[80%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                                placeholder="Enter Option D..."
+                              />
+
+                              <button className="w-[20%] rounded-md bg-primary text-white font-semibold text-sm py-3">
+                                Choose Image
+                              </button>
+                            </div>
+                          </div>
+                        </div>
 
                         {dm?.options_type == 'text' && (
-                          <div className="flex flex-col justify-start items-start gap-2 w-[49%]">
+                          <div className="flex flex-col justify-start items-start gap-2 w-full">
                             <label className="text-lg text-black dark:text-white">
                               Answer
                             </label>
 
-                            <input
-                              className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                              placeholder="Enter Answer ...."
-                              type="text"
-                              id={`db-text-answer-${ind}`}
-                              onChange={(e) => {
-                                handleDbTextAnswers(e, ind);
-                              }}
-                            />
+                            <div className="flex justify-betweeni items-center gap-2 w-full">
+                              <input
+                                className="w-[80%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                                placeholder="Enter Answer ...."
+                                type="text"
+                                id={`db-text-answer-${ind}`}
+                                onChange={(e) => {
+                                  handleDbTextAnswers(e, ind);
+                                }}
+                              />
+
+                              <button className="w-[20%] rounded-md bg-primary text-white font-semibold text-sm py-3">
+                                Choose Image
+                              </button>
+                            </div>
                           </div>
                         )}
 
@@ -948,7 +1038,7 @@ const McqTable = ({ mcqAllData }: any) => {
                           <label className="text-lg text-black dark:text-white">
                             Explaination
                           </label>
-                          <div className="w-full flex justify-center gap-2 shadow-xl items-center flex-col h-36 rounded-md relative overflow-hidden">
+                          {/* <div className="w-full flex justify-center gap-2 shadow-xl items-center flex-col h-36 rounded-md relative overflow-hidden">
                             <img
                               src={AddImg}
                               alt="Add"
@@ -960,16 +1050,21 @@ const McqTable = ({ mcqAllData }: any) => {
                             <h4 className="text-md z-10 text-white">
                               Add Explaination Image
                             </h4>
+                          </div> */}
+                          <div className="flex  justify-between items-center gap-2 w-full">
+                            <textarea
+                              rows={4}
+                              className="w-[80%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                              placeholder="Explain ...."
+                              id={`db-explaination-${ind}`}
+                              onChange={(e: any) => {
+                                handleExplainations(e, 'update', ind);
+                              }}
+                            ></textarea>
+                            <button className="w-[20%] rounded-md bg-primary text-white font-semibold text-sm py-3">
+                              Choose Image
+                            </button>
                           </div>
-                          <textarea
-                            rows={4}
-                            className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                            placeholder="Explain ...."
-                            id={`db-explaination-${ind}`}
-                            onChange={(e: any) => {
-                              handleExplainations(e, 'update', ind);
-                            }}
-                          ></textarea>
                         </div>
                       </>
                     ))}
@@ -1153,14 +1248,18 @@ const McqTable = ({ mcqAllData }: any) => {
                   )} */}
 
                   <div className="flex flex-col justify-start items-start gap-3 my-4">
-                    <div className='flex flex-col justify-start items-start gap-2 w-full'>
+                    <div className="flex flex-col justify-start items-start gap-2 w-full">
                       <label className="text-lg text-black dark:text-white">
                         A.
                       </label>
-                      <div className='flex justify-between items-center w-full gap-2'>
-                        <input type='text' className="w-[80%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" placeholder='Enter Option A....' />
+                      <div className="flex justify-between items-center w-full gap-2">
+                        <input
+                          type="text"
+                          className="w-[80%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                          placeholder="Enter Option A...."
+                        />
 
-                         <input
+                        <input
                           ref={optionImageRefA}
                           onChange={(e: any) =>
                             setOptionAImg(e.target.files[0])
@@ -1170,7 +1269,8 @@ const McqTable = ({ mcqAllData }: any) => {
                         />
                         <button
                           onClick={() =>
-                            optionImageRefA.current && optionImageRefA.current.click()
+                            optionImageRefA.current &&
+                            optionImageRefA.current.click()
                           }
                           className="w-[20%] rounded-md bg-primary text-white font-semibold text-sm py-3"
                         >
@@ -1179,14 +1279,18 @@ const McqTable = ({ mcqAllData }: any) => {
                       </div>
                     </div>
 
-                    <div className='flex flex-col justify-start items-start gap-2 w-full'>
+                    <div className="flex flex-col justify-start items-start gap-2 w-full">
                       <label className="text-lg text-black dark:text-white">
                         B.
                       </label>
-                      <div className='flex justify-between items-center w-full gap-2'>
-                        <input type='text' className="w-[80%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" placeholder='Enter Option B....' />
+                      <div className="flex justify-between items-center w-full gap-2">
+                        <input
+                          type="text"
+                          className="w-[80%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                          placeholder="Enter Option B...."
+                        />
 
-                         <input
+                        <input
                           ref={optionImageRefB}
                           onChange={(e: any) =>
                             setOptionBImg(e.target.files[0])
@@ -1196,7 +1300,8 @@ const McqTable = ({ mcqAllData }: any) => {
                         />
                         <button
                           onClick={() =>
-                            optionImageRefB.current && optionImageRefB.current.click()
+                            optionImageRefB.current &&
+                            optionImageRefB.current.click()
                           }
                           className="w-[20%] rounded-md bg-primary text-white font-semibold text-sm py-3"
                         >
@@ -1205,14 +1310,18 @@ const McqTable = ({ mcqAllData }: any) => {
                       </div>
                     </div>
 
-                    <div className='flex flex-col justify-start items-start gap-2 w-full'>
+                    <div className="flex flex-col justify-start items-start gap-2 w-full">
                       <label className="text-lg text-black dark:text-white">
                         C.
                       </label>
-                      <div className='flex justify-between items-center w-full gap-2'>
-                        <input type='text' className="w-[80%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" placeholder='Enter Option C....' />
+                      <div className="flex justify-between items-center w-full gap-2">
+                        <input
+                          type="text"
+                          className="w-[80%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                          placeholder="Enter Option C...."
+                        />
 
-                         <input
+                        <input
                           ref={optionImageRefC}
                           onChange={(e: any) =>
                             setOptionCImg(e.target.files[0])
@@ -1222,7 +1331,8 @@ const McqTable = ({ mcqAllData }: any) => {
                         />
                         <button
                           onClick={() =>
-                            optionImageRefC.current && optionImageRefC.current.click()
+                            optionImageRefC.current &&
+                            optionImageRefC.current.click()
                           }
                           className="w-[20%] rounded-md bg-primary text-white font-semibold text-sm py-3"
                         >
@@ -1236,14 +1346,19 @@ const McqTable = ({ mcqAllData }: any) => {
                     <label className="text-lg text-black dark:text-white">
                       Explaination
                     </label>
-                    <textarea
-                      rows={4}
-                      className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                      placeholder="Explain ...."
-                      onChange={(e) => {
-                        handleExplainations(e, 'add', ind);
-                      }}
-                    ></textarea>
+                    <div className='flex justify-between items-center gap-2 w-full'>
+                      <textarea
+                        rows={4}
+                        className="w-[80%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                        placeholder="Explain ...."
+                        onChange={(e) => {
+                          handleExplainations(e, 'add', ind);
+                        }}
+                      ></textarea>
+                      <button className="w-[20%] rounded-md bg-primary text-white font-semibold text-sm py-3">
+                        Choose Image
+                      </button>
+                    </div>
                   </div>
                 </>
               ))}
