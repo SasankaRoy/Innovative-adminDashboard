@@ -697,7 +697,6 @@ const McqTable = ({ mcqAllData }: any) => {
                 </label>
                 <input
                   type="text"
-                  
                   className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   value={paperName}
                   onChange={(e) => {
@@ -770,7 +769,6 @@ const McqTable = ({ mcqAllData }: any) => {
                               <input
                                 type="text"
                                 className="w-[80%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                               
                                 id={`db-question-${ind}`}
                                 onChange={(e) => {
                                   handleDbQuestions(e, ind);
@@ -924,10 +922,7 @@ const McqTable = ({ mcqAllData }: any) => {
                               A.
                             </label>
                             <div className="flex justify-between items-center gap-2 w-full">
-                              <input
-                                className="w-[80%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                                
-                              />
+                              <input className="w-[80%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" />
 
                               <button className="w-[20%] rounded-md bg-primary text-white font-semibold text-sm py-3">
                                 Choose Image
@@ -940,10 +935,7 @@ const McqTable = ({ mcqAllData }: any) => {
                               B.
                             </label>
                             <div className="flex justify-between items-center gap-2 w-full">
-                              <input
-                                className="w-[80%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                               
-                              />
+                              <input className="w-[80%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" />
 
                               <button className="w-[20%] rounded-md bg-primary text-white font-semibold text-sm py-3">
                                 Choose Image
@@ -956,10 +948,7 @@ const McqTable = ({ mcqAllData }: any) => {
                               C.
                             </label>
                             <div className="flex justify-between items-center gap-2 w-full">
-                              <input
-                                className="w-[80%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                                
-                              />
+                              <input className="w-[80%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" />
 
                               <button className="w-[20%] rounded-md bg-primary text-white font-semibold text-sm py-3">
                                 Choose Image
@@ -972,10 +961,7 @@ const McqTable = ({ mcqAllData }: any) => {
                               D.
                             </label>
                             <div className="flex justify-between items-center gap-2 w-full">
-                              <input
-                                className="w-[80%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                                
-                              />
+                              <input className="w-[80%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" />
 
                               <button className="w-[20%] rounded-md bg-primary text-white font-semibold text-sm py-3">
                                 Choose Image
@@ -991,19 +977,30 @@ const McqTable = ({ mcqAllData }: any) => {
                             </label>
 
                             <div className="flex justify-betweeni items-center gap-2 w-full">
-                              <input
-                                className="w-[80%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                              {/* <input
+                                className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                                 
                                 type="text"
                                 id={`db-text-answer-${ind}`}
                                 onChange={(e) => {
                                   handleDbTextAnswers(e, ind);
                                 }}
-                              />
-
+                              /> */}
+                              <select
+                                className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                                name="answer"
+                                id=""
+                              >
+                                <option value="Select Answer" default>Select Answer</option>
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="C">C</option>
+                                <option value="D">D</option>
+                              </select>
+                              {/* 
                               <button className="w-[20%] rounded-md bg-primary text-white font-semibold text-sm py-3">
                                 Choose Image
-                              </button>
+                              </button> */}
                             </div>
                           </div>
                         )}
@@ -1024,7 +1021,6 @@ const McqTable = ({ mcqAllData }: any) => {
 
                             <input
                               className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                             
                               type="file"
                               id={`db-attached-img-answer-${ind}`}
                               onChange={(e) => {
@@ -1055,7 +1051,6 @@ const McqTable = ({ mcqAllData }: any) => {
                             <textarea
                               rows={4}
                               className="w-[80%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                              
                               id={`db-explaination-${ind}`}
                               onChange={(e: any) => {
                                 handleExplainations(e, 'update', ind);
@@ -1082,7 +1077,7 @@ const McqTable = ({ mcqAllData }: any) => {
                   }}
                   className="flex w-[20%] justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90"
                 >
-                   MCQ <AddRoundedIcon className="font-bold" />
+                  MCQ <AddRoundedIcon className="font-bold" />
                 </button>
               </div>
             </div>
@@ -1099,7 +1094,6 @@ const McqTable = ({ mcqAllData }: any) => {
                         <input
                           type="text"
                           className="w-[80%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                          
                           id={`add-question-${ind}`}
                         />
                         <input
@@ -1256,7 +1250,6 @@ const McqTable = ({ mcqAllData }: any) => {
                         <input
                           type="text"
                           className="w-[80%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                          
                         />
 
                         <input
@@ -1287,7 +1280,6 @@ const McqTable = ({ mcqAllData }: any) => {
                         <input
                           type="text"
                           className="w-[80%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                          
                         />
 
                         <input
@@ -1318,7 +1310,6 @@ const McqTable = ({ mcqAllData }: any) => {
                         <input
                           type="text"
                           className="w-[80%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                          
                         />
 
                         <input
@@ -1340,17 +1331,80 @@ const McqTable = ({ mcqAllData }: any) => {
                         </button>
                       </div>
                     </div>
+                    <div className="flex flex-col justify-start items-start gap-2 w-full">
+                      <label className="text-lg text-black dark:text-white">
+                        D.
+                      </label>
+                      <div className="flex justify-between items-center w-full gap-2">
+                        <input
+                          type="text"
+                          className="w-[80%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                        />
+
+                        <input
+                          ref={optionImageRefD}
+                          onChange={(e: any) =>
+                            setOptionDImg(e.target.files[0])
+                          }
+                          type="file"
+                          hidden
+                        />
+                        <button
+                          onClick={() =>
+                            optionImageRefC.current &&
+                            optionImageRefC.current.click()
+                          }
+                          className="w-[20%] rounded-md bg-primary text-white font-semibold text-sm py-3"
+                        >
+                          Choose Image
+                        </button>
+                      </div>
+                    </div>
+
+
+
+                    <div className="flex flex-col justify-start items-start gap-2 w-full">
+                            <label className="text-lg text-black dark:text-white">
+                              Answer
+                            </label>
+
+                            <div className="flex justify-betweeni items-center gap-2 w-full">
+                              {/* <input
+                                className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                                
+                                type="text"
+                                id={`db-text-answer-${ind}`}
+                                onChange={(e) => {
+                                  handleDbTextAnswers(e, ind);
+                                }}
+                              /> */}
+                              <select
+                                className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                                name="answer"
+                                id=""
+                              >
+                                <option value="Select Answer" default>Select Answer</option>
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="C">C</option>
+                                <option value="D">D</option>
+                              </select>
+                              {/* 
+                              <button className="w-[20%] rounded-md bg-primary text-white font-semibold text-sm py-3">
+                                Choose Image
+                              </button> */}
+                            </div>
+                          </div>
                   </div>
 
                   <div className="flex flex-col justify-start items-start gap-2">
                     <label className="text-lg text-black dark:text-white">
                       Explaination
                     </label>
-                    <div className='flex justify-between items-center gap-2 w-full'>
+                    <div className="flex justify-between items-center gap-2 w-full">
                       <textarea
                         rows={4}
                         className="w-[80%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                        
                         onChange={(e) => {
                           handleExplainations(e, 'add', ind);
                         }}
