@@ -652,7 +652,7 @@ function FileTable({ fileAllData }: any) {
                           />
                           <label
                             htmlFor={`flexSwitch-db-pdf-wm-${ind}`}
-                            className=" block text-black dark:text-white"
+                            className="block text-black text-sm dark:text-white"
                           >
                             Watermark
                           </label>
@@ -668,9 +668,9 @@ function FileTable({ fileAllData }: any) {
                           />
                           <label
                             htmlFor={`flexSwitch-db-pdf-lb-${ind}`}
-                            className=" block text-black dark:text-white"
+                            className=" block text-sm text-black dark:text-white"
                           >
-                            Top Left Logo
+                            Logo
                           </label>
                         </div>
                         <div className="flex justify-center items-center gap-2">
@@ -684,9 +684,9 @@ function FileTable({ fileAllData }: any) {
                           />
                           <label
                             htmlFor={`flexSwitch-db-pdf-pn-${ind}`}
-                            className=" block text-black dark:text-white"
+                            className=" block text-sm text-black dark:text-white"
                           >
-                            Bottom Right Page No
+                            Page No
                           </label>
                         </div>
                         <div className="flex justify-center items-center gap-2">
@@ -700,9 +700,9 @@ function FileTable({ fileAllData }: any) {
                           />
                           <label
                             htmlFor={`flexSwitch-db-pdf-do-${ind}`}
-                            className=" block text-black dark:text-white"
+                            className=" block text-sm text-black dark:text-white"
                           >
-                            Download Option
+                            Download
                           </label>
                         </div>
                       </div>
