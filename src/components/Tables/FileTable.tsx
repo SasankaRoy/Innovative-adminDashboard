@@ -599,7 +599,7 @@ function FileTable({ fileAllData }: any) {
                   Template Name
                 </label>
                 <input
-                  type="text"                  
+                  type="text"
                   className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                   placeholder="Template Name"
                   value={templateName}
@@ -712,16 +712,22 @@ function FileTable({ fileAllData }: any) {
               )}
               <div>
                 <div className="flex justify-between items-center">
-                  <label className=" block text-black dark:text-white">
-                    Template Pdfs
-                  </label>
+                  <div className="flex flex-col justify-start items-start gap-2 w-[75%]">
+                    <label className=" block text-black dark:text-white">
+                      PDFs Main Title
+                    </label>
+                    <input
+                      type="text"
+                      className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    />
+                  </div>
                   <button
                     className="btn flex w-[20%]  text-sm capitalize justify-center items-center gap-2 rounded-lg bg-primary p-3 font-medium text-gray hover:bg-opacity-90"
                     onClick={() => {
                       handlePdfsInputCnt();
                     }}
                   >
-                    Add Pdfs <AddIcon />
+                    PDF <AddIcon />
                   </button>
                 </div>
                 {pdfsCnt.length !== 0 &&
@@ -732,7 +738,7 @@ function FileTable({ fileAllData }: any) {
                           type="text"
                           id={`pdf-title-${ind}`}
                           className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                          placeholder="Pdf Title"
+                          placeholder="PDF Title"
                         />
                         <input
                           type="file"
@@ -769,7 +775,10 @@ function FileTable({ fileAllData }: any) {
                                 handleSubBtns(`flexSwitch-pdf-lb-${ind}`);
                               }}
                             />
-                            <label htmlFor={`flexSwitch-pdf-lb-${ind}`} className=" block text-black dark:text-white">
+                            <label
+                              htmlFor={`flexSwitch-pdf-lb-${ind}`}
+                              className=" block text-black dark:text-white"
+                            >
                               Top Left Logo
                             </label>
                           </div>
@@ -782,7 +791,10 @@ function FileTable({ fileAllData }: any) {
                                 handleSubBtns(`flexSwitch-pdf-pn-${ind}`);
                               }}
                             />
-                            <label htmlFor={`flexSwitch-pdf-pn-${ind}`} className=" block text-black dark:text-white">
+                            <label
+                              htmlFor={`flexSwitch-pdf-pn-${ind}`}
+                              className=" block text-black dark:text-white"
+                            >
                               Bottom Right Page No
                             </label>
                           </div>
@@ -795,7 +807,10 @@ function FileTable({ fileAllData }: any) {
                                 handleSubBtns(`flexSwitch-pdf-do-${ind}`);
                               }}
                             />
-                            <label htmlFor={`flexSwitch-pdf-do-${ind}`} className=" block text-black dark:text-white">
+                            <label
+                              htmlFor={`flexSwitch-pdf-do-${ind}`}
+                              className=" block text-black dark:text-white"
+                            >
                               Download Option
                             </label>
                           </div>
@@ -821,7 +836,10 @@ function FileTable({ fileAllData }: any) {
                             handleSubBtns(`flexSwitch-db-zip-do-${ind}`);
                           }}
                         />
-                        <label className=" block text-black dark:text-white" htmlFor={`flexSwitch-db-zip-do-${ind}`}>
+                        <label
+                          className=" block text-black dark:text-white"
+                          htmlFor={`flexSwitch-db-zip-do-${ind}`}
+                        >
                           Download Option
                         </label>
                       </div>
@@ -831,16 +849,19 @@ function FileTable({ fileAllData }: any) {
               )}
               <div>
                 <div className="flex justify-between items-center">
-                  <label className=" block text-black dark:text-white">
-                    Template Zips
-                  </label>
+                  <div className='flex flex-col justify-start items-start gap-2 w-[75%]'>
+                    <label className=" block text-black dark:text-white">
+                      Zips Main Title
+                    </label>
+                    <input type="text" className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"/>
+                  </div>
                   <button
                     className="btn flex w-[20%]  text-sm capitalize justify-center items-center gap-2 rounded-lg bg-primary p-3 font-medium text-gray hover:bg-opacity-90"
                     onClick={() => {
                       handleZipsInputCnt();
                     }}
                   >
-                    add zips <AddIcon />
+                    zips <AddIcon />
                   </button>
                 </div>
                 {zipsCnt.length !== 0 &&
@@ -874,7 +895,10 @@ function FileTable({ fileAllData }: any) {
                                 handleSubBtns(`flexSwitch-zip-do-${ind}`);
                               }}
                             />
-                            <label htmlFor={`flexSwitch-zip-do-${ind}`} className=" block text-black dark:text-white">
+                            <label
+                              htmlFor={`flexSwitch-zip-do-${ind}`}
+                              className=" block text-black dark:text-white"
+                            >
                               Download Option
                             </label>
                           </div>
@@ -884,7 +908,7 @@ function FileTable({ fileAllData }: any) {
                   ))}
               </div>
               {dbLinks.length !== 0 && (
-                <div className='my-2'>
+                <div className="my-2">
                   <label className=" block text-black dark:text-white">
                     Already Attached Links
                   </label>
@@ -906,9 +930,12 @@ function FileTable({ fileAllData }: any) {
               )}
               <div>
                 <div className="flex justify-between items-center">
+                  <div className='flex flex-col justify-start items-start gap-2 w-[75%]'>
                   <label className=" block text-black dark:text-white">
-                    Template Links
+                    Links Main Title
                   </label>
+                  <input type="text" className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"/>
+                  </div>
                   <button
                     className="btn flex w-[20%]  text-sm capitalize justify-center items-center gap-2 rounded-lg bg-primary p-3 font-medium text-gray hover:bg-opacity-90"
                     onClick={() => {
@@ -925,13 +952,13 @@ function FileTable({ fileAllData }: any) {
                         type="text"
                         id={`link-name-${ind}`}
                         className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                        placeholder="Template Links Name"
+                        placeholder="Links Name"
                       />
                       <input
                         type="text"
                         id={`link-url-${ind}`}
                         className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                        placeholder="Template Links Url"
+                        placeholder="Links Url"
                       />
                     </div>
                   ))}
