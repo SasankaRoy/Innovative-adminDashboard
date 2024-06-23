@@ -22,7 +22,11 @@ function FileTable({ fileAllData }: any) {
   const [templateZips, setTemplateZips] = useState<any[]>([]);
   const [links, setLinks] = useState<any[]>([]);
   const [pdfsCnt, setPdfsCnt] = useState<any[]>([]);
+  const [PDFCount2, setPDFCount2] = useState([]);
+  const [PDFCount3, setPDFCount3] = useState([]);
   const [zipsCnt, setZipsCnt] = useState<any[]>([]);
+  const [zipCount2, setZipCount2] = useState<any[]>([]);
+  const [zipCount3, setZipCount3] = useState<any[]>([]);
   const [update, setUpdate] = useState<boolean>(false);
   const [dbPdfs, setDbPdfs] = useState<any[]>([]);
   const [dbZips, setDbZips] = useState<any[]>([]);
@@ -710,6 +714,7 @@ function FileTable({ fileAllData }: any) {
                   ))}
                 </div>
               )}
+
               <div>
                 <div className="flex justify-between items-center">
                   <div className="flex flex-col justify-start items-start gap-2 w-[75%]">
@@ -819,6 +824,227 @@ function FileTable({ fileAllData }: any) {
                     </>
                   ))}
               </div>
+
+              <div>
+                <div className="flex justify-between items-center">
+                  <div className="flex flex-col justify-start items-start gap-2 w-[75%]">
+                    <label className=" block text-black dark:text-white">
+                      PDFs Main Title 2
+                    </label>
+                    <input
+                      type="text"
+                      className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    />
+                  </div>
+                  <button
+                    className="btn flex w-[20%]  text-sm capitalize justify-center items-center gap-2 rounded-lg bg-primary p-3 font-medium text-gray hover:bg-opacity-90"
+                    onClick={() => {
+                      setPDFCount2([...PDFCount2, PDFCount2.length++]);
+                    }}
+                  >
+                    PDF <AddIcon />
+                  </button>
+                </div>
+                {PDFCount2.length !== 0 &&
+                  PDFCount2.map((data, ind) => (
+                    <>
+                      <div className="flex mt-2 space-x-2">
+                        <input
+                          type="text"
+                          id={`pdf-title-${ind}`}
+                          className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                          placeholder="PDF Title"
+                        />
+                        <input
+                          type="file"
+                          id={`add-pdfs-${ind}`}
+                          className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                          placeholder="Template Pdfs"
+                          onChange={(e) => {
+                            pdfFilesHandler(e, ind);
+                          }}
+                        />
+                      </div>
+                      {templatePdfs[ind] && (
+                        <div className="flex items-center space-x-2">
+                          <span>{templatePdfs[ind]?.name}</span>
+                          <div>
+                            <input
+                              type="checkbox"
+                              role="switch"
+                              id={`flexSwitch-pdf-wm-${ind}`}
+                              onChange={() => {
+                                handleSubBtns(`flexSwitch-pdf-wm-${ind}`);
+                              }}
+                            />
+                            <label htmlFor={`flexSwitch-pdf-wm-${ind}`}>
+                              Watermark
+                            </label>
+                          </div>
+                          <div>
+                            <input
+                              type="checkbox"
+                              role="switch"
+                              id={`flexSwitch-pdf-lb-${ind}`}
+                              onChange={() => {
+                                handleSubBtns(`flexSwitch-pdf-lb-${ind}`);
+                              }}
+                            />
+                            <label
+                              htmlFor={`flexSwitch-pdf-lb-${ind}`}
+                              className=" block text-black dark:text-white"
+                            >
+                              Top Left Logo
+                            </label>
+                          </div>
+                          <div>
+                            <input
+                              type="checkbox"
+                              role="switch"
+                              id={`flexSwitch-pdf-pn-${ind}`}
+                              onChange={() => {
+                                handleSubBtns(`flexSwitch-pdf-pn-${ind}`);
+                              }}
+                            />
+                            <label
+                              htmlFor={`flexSwitch-pdf-pn-${ind}`}
+                              className=" block text-black dark:text-white"
+                            >
+                              Bottom Right Page No
+                            </label>
+                          </div>
+                          <div>
+                            <input
+                              type="checkbox"
+                              role="switch"
+                              id={`flexSwitch-pdf-do-${ind}`}
+                              onChange={() => {
+                                handleSubBtns(`flexSwitch-pdf-do-${ind}`);
+                              }}
+                            />
+                            <label
+                              htmlFor={`flexSwitch-pdf-do-${ind}`}
+                              className=" block text-black dark:text-white"
+                            >
+                              Download Option
+                            </label>
+                          </div>
+                        </div>
+                      )}
+                    </>
+                  ))}
+              </div>
+
+              <div>
+                <div className="flex justify-between items-center">
+                  <div className="flex flex-col justify-start items-start gap-2 w-[75%]">
+                    <label className=" block text-black dark:text-white">
+                      PDFs Main Title 3
+                    </label>
+                    <input
+                      type="text"
+                      className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    />
+                  </div>
+                  <button
+                    className="btn flex w-[20%]  text-sm capitalize justify-center items-center gap-2 rounded-lg bg-primary p-3 font-medium text-gray hover:bg-opacity-90"
+                    onClick={() => {
+                      setPDFCount3([...PDFCount3, PDFCount3.length++]);
+                    }}
+                  >
+                    PDF <AddIcon />
+                  </button>
+                </div>
+                {PDFCount3.length !== 0 &&
+                  PDFCount3.map((data, ind) => (
+                    <>
+                      <div className="flex mt-2 space-x-2">
+                        <input
+                          type="text"
+                          id={`pdf-title-${ind}`}
+                          className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                          placeholder="PDF Title"
+                        />
+                        <input
+                          type="file"
+                          id={`add-pdfs-${ind}`}
+                          className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                          placeholder="Template Pdfs"
+                          onChange={(e) => {
+                            pdfFilesHandler(e, ind);
+                          }}
+                        />
+                      </div>
+                      {templatePdfs[ind] && (
+                        <div className="flex items-center space-x-2">
+                          <span>{templatePdfs[ind]?.name}</span>
+                          <div>
+                            <input
+                              type="checkbox"
+                              role="switch"
+                              id={`flexSwitch-pdf-wm-${ind}`}
+                              onChange={() => {
+                                handleSubBtns(`flexSwitch-pdf-wm-${ind}`);
+                              }}
+                            />
+                            <label htmlFor={`flexSwitch-pdf-wm-${ind}`}>
+                              Watermark
+                            </label>
+                          </div>
+                          <div>
+                            <input
+                              type="checkbox"
+                              role="switch"
+                              id={`flexSwitch-pdf-lb-${ind}`}
+                              onChange={() => {
+                                handleSubBtns(`flexSwitch-pdf-lb-${ind}`);
+                              }}
+                            />
+                            <label
+                              htmlFor={`flexSwitch-pdf-lb-${ind}`}
+                              className=" block text-black dark:text-white"
+                            >
+                              Top Left Logo
+                            </label>
+                          </div>
+                          <div>
+                            <input
+                              type="checkbox"
+                              role="switch"
+                              id={`flexSwitch-pdf-pn-${ind}`}
+                              onChange={() => {
+                                handleSubBtns(`flexSwitch-pdf-pn-${ind}`);
+                              }}
+                            />
+                            <label
+                              htmlFor={`flexSwitch-pdf-pn-${ind}`}
+                              className=" block text-black dark:text-white"
+                            >
+                              Bottom Right Page No
+                            </label>
+                          </div>
+                          <div>
+                            <input
+                              type="checkbox"
+                              role="switch"
+                              id={`flexSwitch-pdf-do-${ind}`}
+                              onChange={() => {
+                                handleSubBtns(`flexSwitch-pdf-do-${ind}`);
+                              }}
+                            />
+                            <label
+                              htmlFor={`flexSwitch-pdf-do-${ind}`}
+                              className=" block text-black dark:text-white"
+                            >
+                              Download Option
+                            </label>
+                          </div>
+                        </div>
+                      )}
+                    </>
+                  ))}
+              </div>
+
               {dbZips.length !== 0 && (
                 <div>
                   <label className=" block text-black dark:text-white">
@@ -847,13 +1073,17 @@ function FileTable({ fileAllData }: any) {
                   ))}
                 </div>
               )}
+
               <div>
                 <div className="flex justify-between items-center">
-                  <div className='flex flex-col justify-start items-start gap-2 w-[75%]'>
+                  <div className="flex flex-col justify-start items-start gap-2 w-[75%]">
                     <label className=" block text-black dark:text-white">
                       Zips Main Title
                     </label>
-                    <input type="text" className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"/>
+                    <input
+                      type="text"
+                      className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    />
                   </div>
                   <button
                     className="btn flex w-[20%]  text-sm capitalize justify-center items-center gap-2 rounded-lg bg-primary p-3 font-medium text-gray hover:bg-opacity-90"
@@ -871,35 +1101,52 @@ function FileTable({ fileAllData }: any) {
                         <input
                           type="text"
                           id={`zip-title-${ind}`}
-                          className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                          className="w-[60%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                           placeholder="Zip Title"
                         />
                         <input
                           type="file"
                           id={`add-zips-${ind}`}
-                          className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                          className="w-[40%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                           onChange={(e) => {
                             zipFilesHandler(e, ind);
                           }}
                         />
                       </div>
                       {templateZips[ind] && (
-                        <div className="flex items-center space-x-2">
-                          <span>{templateZips[ind]?.name}</span>
+                        <div className="flex justify-between items-center my-3">
+                          <div className="flex justify-center items-center gap-2">
+                            <span>{templateZips[ind]?.name}</span>
+                            <div className='flex justify-center items-center gap-2'>
+                              <input
+                                type="checkbox"
+                                role="switch"
+                                id={`flexSwitch-zip-do-${ind}`}
+                                onChange={() => {
+                                  handleSubBtns(`flexSwitch-zip-do-${ind}`);
+                                }}
+                              />
+                              <label
+                                htmlFor={`flexSwitch-zip-do-${ind}`}
+                                className=" block text-black dark:text-white"
+                              >
+                                Download Option
+                              </label>
+                            </div>
+                          </div>
                           <div>
-                            <input
-                              type="checkbox"
-                              role="switch"
-                              id={`flexSwitch-zip-do-${ind}`}
-                              onChange={() => {
-                                handleSubBtns(`flexSwitch-zip-do-${ind}`);
-                              }}
-                            />
-                            <label
-                              htmlFor={`flexSwitch-zip-do-${ind}`}
-                              className=" block text-black dark:text-white"
-                            >
-                              Download Option
+                            <label className="inline-flex items-center  cursor-pointer">
+                              <input
+                                type="checkbox"                                
+                                className="sr-only peer"
+                                onChange={(e:any)=>{
+                                  console.log(e.target.checked)
+                                }}
+                              />
+                              <div className="relative w-9 h-5 bg-gray-200 border border-gray-400 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                              <span className="ms-3 text-base font-medium text-gray-900 dark:text-gray-300">
+                                Show
+                              </span>
                             </label>
                           </div>
                         </div>
@@ -907,6 +1154,171 @@ function FileTable({ fileAllData }: any) {
                     </>
                   ))}
               </div>
+
+              <div>
+                <div className="flex justify-between items-center">
+                  <div className="flex flex-col justify-start items-start gap-2 w-[75%]">
+                    <label className=" block text-black dark:text-white">
+                      Zips Main Title 2
+                    </label>
+                    <input
+                      type="text"
+                      className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    />
+                  </div>
+                  <button
+                    className="btn flex w-[20%]  text-sm capitalize justify-center items-center gap-2 rounded-lg bg-primary p-3 font-medium text-gray hover:bg-opacity-90"
+                    onClick={() => {
+                      setZipCount2([...zipCount2, zipCount2.length++]);
+                    }}
+                  >
+                    zips <AddIcon />
+                  </button>
+                </div>
+                {zipCount2.length !== 0 &&
+                  zipCount2.map((data, ind) => (
+                    <>
+                      <div className="flex mt-2 gap-2">
+                        <input
+                          type="text"
+                          id={`zip-title-${ind}`}
+                          className="w-[60%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                          placeholder="Zip Title"
+                        />
+                        <input
+                          type="file"
+                          id={`add-zips-${ind}`}
+                          className="w-[40%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                          onChange={(e) => {
+                            zipFilesHandler(e, ind);
+                          }}
+                        />
+                      </div>
+                      {templateZips[ind] && (
+                        <div className="flex justify-between items-center my-3">
+                          <div className="flex justify-center items-center gap-3">
+                            <span>{templateZips[ind]?.name}</span>
+                            <div className="flex justify-center items-center gap-2">
+                              <input
+                                type="checkbox"
+                                role="switch"
+                                id={`flexSwitch-zip-do-${ind}`}
+                                onChange={() => {
+                                  handleSubBtns(`flexSwitch-zip-do-${ind}`);
+                                }}
+                              />
+                              <label
+                                htmlFor={`flexSwitch-zip-do-${ind}`}
+                                className=" block text-black dark:text-white"
+                              >
+                                Download Option
+                              </label>
+                            </div>
+                          </div>
+                          <div>
+                            <label className="inline-flex items-center  cursor-pointer">
+                              <input
+                                type="checkbox"
+                                className="sr-only peer"
+                                onChange={(e: any) => {
+                                  console.log(e.target.checked);
+                                }}
+                              />
+                              <div className="relative w-9 h-5 bg-gray-200 border border-gray-400 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                              <span className="ms-3 text-base font-medium text-gray-900 dark:text-gray-300">
+                                Show
+                              </span>
+                            </label>
+                          </div>
+                        </div>
+                      )}
+                    </>
+                  ))}
+              </div>
+
+              <div>
+                <div className="flex justify-between items-center">
+                  <div className="flex flex-col justify-start items-start gap-2 w-[75%]">
+                    <label className=" block text-black dark:text-white">
+                      Zips Main Title 3
+                    </label>
+                    <input
+                      type="text"
+                      className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    />
+                  </div>
+                  <button
+                    className="btn flex w-[20%]  text-sm capitalize justify-center items-center gap-2 rounded-lg bg-primary p-3 font-medium text-gray hover:bg-opacity-90"
+                    onClick={() => {
+                      setZipCount3([...zipCount3, zipCount3.length++]);
+                    }}
+                  >
+                    zips <AddIcon />
+                  </button>
+                </div>
+                {zipCount3.length !== 0 &&
+                  zipCount3.map((data, ind) => (
+                    <>
+                      <div className="flex mt-2 gap-2">
+                        <input
+                          type="text"
+                          id={`zip-title-${ind}`}
+                          className="w-[60%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                          placeholder="Zip Title"
+                        />
+                        <input
+                          type="file"
+                          id={`add-zips-${ind}`}
+                          className="w-[40%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                          onChange={(e) => {
+                            zipFilesHandler(e, ind);
+                          }}
+                        />
+                      </div>
+                      {templateZips[ind] && (
+                        <div className="flex  justify-between items-center my-3">
+                          <div className="flex justify-center items-center gap-3">
+                            <span className="text-sm">
+                              {templateZips[ind]?.name} -{' '}
+                            </span>
+                            <div className="flex justify-center items-center gap-2">
+                              <input
+                                type="checkbox"
+                                role="switch"
+                                id={`flexSwitch-zip-do-${ind}`}
+                                onChange={() => {
+                                  handleSubBtns(`flexSwitch-zip-do-${ind}`);
+                                }}
+                              />
+                              <label
+                                htmlFor={`flexSwitch-zip-do-${ind}`}
+                                className=" block text-black dark:text-white"
+                              >
+                                Download
+                              </label>
+                            </div>
+                          </div>
+                          <div>
+                            <label className="inline-flex items-center  cursor-pointer">
+                              <input
+                                type="checkbox"
+                                className="sr-only peer"
+                                onChange={(e: any) => {
+                                  console.log(e.target.checked);
+                                }}
+                              />
+                              <div className="relative w-9 h-5 bg-gray-200 border border-gray-400 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                              <span className="ms-3 text-base font-medium text-gray-900 dark:text-gray-300">
+                                Show
+                              </span>
+                            </label>
+                          </div>
+                        </div>
+                      )}
+                    </>
+                  ))}
+              </div>
+
               {dbLinks.length !== 0 && (
                 <div className="my-2">
                   <label className=" block text-black dark:text-white">
@@ -930,11 +1342,14 @@ function FileTable({ fileAllData }: any) {
               )}
               <div>
                 <div className="flex justify-between items-center">
-                  <div className='flex flex-col justify-start items-start gap-2 w-[75%]'>
-                  <label className=" block text-black dark:text-white">
-                    Links Main Title
-                  </label>
-                  <input type="text" className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"/>
+                  <div className="flex flex-col justify-start items-start gap-2 w-[75%]">
+                    <label className=" block text-black dark:text-white">
+                      Links Main Title
+                    </label>
+                    <input
+                      type="text"
+                      className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                    />
                   </div>
                   <button
                     className="btn flex w-[20%]  text-sm capitalize justify-center items-center gap-2 rounded-lg bg-primary p-3 font-medium text-gray hover:bg-opacity-90"
@@ -942,7 +1357,7 @@ function FileTable({ fileAllData }: any) {
                       handleLinks();
                     }}
                   >
-                    add links <AddIcon />
+                    links <AddIcon />
                   </button>
                 </div>
                 {links.length !== 0 &&
