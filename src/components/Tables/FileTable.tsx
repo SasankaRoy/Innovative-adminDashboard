@@ -1154,8 +1154,8 @@ function FileTable({ fileAllData }: any) {
                     </>
                   ))}
               </div>
-
-              {/* <div>
+{/* 
+              <div>
                 <div className="flex justify-between items-center">
                   <div className="flex flex-col justify-start items-start gap-2 w-[75%]">
                     <label className=" block text-black dark:text-white">
@@ -1234,13 +1234,13 @@ function FileTable({ fileAllData }: any) {
                       )}
                     </>
                   ))}
-              </div>
+              </div> */}
 
               <div>
                 <div className="flex justify-between items-center">
                   <div className="flex flex-col justify-start items-start gap-2 w-[75%]">
                     <label className=" block text-black dark:text-white">
-                      Zips Main Title 3
+                      Notes Main Title
                     </label>
                     <input
                       type="text"
@@ -1259,21 +1259,22 @@ function FileTable({ fileAllData }: any) {
                 {zipCount3.length !== 0 &&
                   zipCount3.map((data, ind) => (
                     <>
-                      <div className="flex mt-2 gap-2">
+                      <div className="flex flex-col justify-start items-start mt-2 gap-2">
                         <input
                           type="text"
                           id={`zip-title-${ind}`}
-                          className="w-[60%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                          className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                           placeholder="Zip Title"
                         />
-                        <input
+                        {/* <input
                           type="file"
                           id={`add-zips-${ind}`}
-                          className="w-[40%] rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                          className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                           onChange={(e) => {
                             zipFilesHandler(e, ind);
                           }}
-                        />
+                        /> */}
+                        <textarea rows={9} className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" placeholder="Notes..."></textarea>
                       </div>
                       {templateZips[ind] && (
                         <div className="flex  justify-between items-center my-3">
@@ -1317,7 +1318,7 @@ function FileTable({ fileAllData }: any) {
                       )}
                     </>
                   ))}
-              </div> */}
+              </div>
 
               {dbLinks.length !== 0 && (
                 <div className="my-2">
