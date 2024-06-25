@@ -1155,7 +1155,7 @@ function FileTable({ fileAllData }: any) {
                   ))}
               </div>
 
-              <div>
+              {/* <div>
                 <div className="flex justify-between items-center">
                   <div className="flex flex-col justify-start items-start gap-2 w-[75%]">
                     <label className=" block text-black dark:text-white">
@@ -1317,7 +1317,7 @@ function FileTable({ fileAllData }: any) {
                       )}
                     </>
                   ))}
-              </div>
+              </div> */}
 
               {dbLinks.length !== 0 && (
                 <div className="my-2">
