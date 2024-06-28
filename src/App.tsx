@@ -40,6 +40,7 @@ import OurMissionManagement from './pages/OurMssionManagement';
 import TestimonialManagement from './pages/TestimonialManagement';
 import Emailus from './pages/Emailus';
 import { Callus } from './pages/Callus';
+import { Inviocetemplate } from './pages/Inviocetemplate';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -265,6 +266,15 @@ function App() {
             <>
               <PageTitle title="Service Management | Innovative" />
               <ServiceManagement />
+            </>
+          }
+        />
+        <Route
+          path="/invoice-template"
+          element={
+            <>
+              <PageTitle title="Invoice | Innovative" />
+              <Inviocetemplate />
             </>
           }
         />
